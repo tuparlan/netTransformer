@@ -99,21 +99,19 @@ public class ConnectionDetailsController implements ServletContextAware {
 
     @RequestMapping(value = "/{connectionDetailsName}/params", method=RequestMethod.POST)
     @ResponseBody
-    void createConnectionParam(@PathVariable String connectionDetailsName, @RequestBody String paramName, @RequestBody String paramValue){
-       Map<String,String> params = getConnectionDetailsManager().getConnection(connectionDetailsName).getParams();
-       params.put(paramName, paramValue);
+    void createConnectionParam(@PathVariable String connectionDetailsName, @RequestParam String paramName, @RequestParam String paramValue){
+       getConnectionDetailsManager().createConnectionParam(connectionDetailsName, paramName, paramValue);
     }
     @RequestMapping(value = "/{connectionDetailsName}/params/{paramName}", method=RequestMethod.PUT)
     @ResponseBody
     void updateConnectionParam(@PathVariable String connectionDetailsName, @PathVariable String paramName, @RequestBody String paramValue){
-        Map<String,String> params = getConnectionDetailsManager().getConnection(connectionDetailsName).getParams();
-        params.put(paramName,paramValue);
+        getConnectionDetailsManager().updateConnectionParam(connectionDetailsName, paramName, paramValue);
 
     }
     @RequestMapping(value = "/{connectionDetailsName}/params/{paramName}", method=RequestMethod.DELETE)
     @ResponseBody
     void deleteConnectionParam(@PathVariable String connectionDetailsName, @PathVariable String paramName){
-       getConnectionDetailsManager().getConnection(connectionDetailsName).getParams().remove(paramName);
+       getConnectionDetailsManager().deleteConnectionParam(connectionDetailsName, paramName);
     }
     @RequestMapping(value = "/{connectionDetailsName}/params/{paramName}", method=RequestMethod.GET)
     @ResponseBody
