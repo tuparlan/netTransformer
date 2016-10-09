@@ -3,6 +3,7 @@ package net.itransformers.ws.connectionDetails;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
+import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,7 @@ public class ConnectionDetailsController implements ServletContextAware {
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @ResponseBody
     public void createConnection(@RequestBody String name){
-        getConnectionDetailsManager().createConnection(name, null);
+        getConnectionDetailsManager().createConnection(name, new ConnectionDetails());
     }
     @RequestMapping(value = "/{connectionDetailsName}", method=RequestMethod.GET)
     @ResponseBody
@@ -80,15 +81,8 @@ public class ConnectionDetailsController implements ServletContextAware {
 
     @RequestMapping(value = "/{connectionDetailsName}/type", method=RequestMethod.GET)
     @ResponseBody
-    String createConnectionType(@PathVariable String connectionDetailsName){
+    String getConnectionType(@PathVariable String connectionDetailsName){
         return getConnectionDetailsManager().getConnection(connectionDetailsName).getConnectionType();
-    }
-
-
-    @RequestMapping(value = "/{connectionDetailsName}/type", method=RequestMethod.POST)
-    @ResponseBody
-    void createConnectionType(@PathVariable String connectionDetailsName ,@RequestBody String connectionDetailsType){
-        getConnectionDetailsManager().getConnection(connectionDetailsName).setConnectionType(connectionDetailsType);
     }
 
     @RequestMapping(value = "/{connectionDetailsName}/type", method=RequestMethod.PUT)

@@ -11,7 +11,6 @@ public interface ConnectionDetailsManager {
     void updateConnection(String name, String newConnectionDetailName);
     void deleteConnection(String name);
     ConnectionDetails getConnection(String name);
-    void createConnectionType(String name, String type);
     void updateConnectionType(String name, String type);
     String getConnectionType(String name);
 

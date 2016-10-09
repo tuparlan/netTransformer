@@ -46,11 +46,9 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
     public CsvConnectionDetailsFileManager(String file) {
         this.file = file;
         this.connectionDetailsMap = new LinkedHashMap<String,ConnectionDetails>();
-
     }
 
     public void save() throws FileNotFoundException {
-
         PrintWriter writer = new PrintWriter(file);
         for (String name : connectionDetailsMap.keySet()){
             ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
@@ -66,8 +64,6 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
     }
 
     public void load() throws IOException {
-
-
         List<String> lines = FileUtils.readLines(new File(file));
         for (String line : lines) {
             if (line.trim().equals("")) continue;
@@ -115,7 +111,6 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
 
     }
 
-
     @Override
     public void updateConnection(String name, String newConnectionDetailName) {
 
@@ -128,9 +123,7 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
 
     @Override
     public void deleteConnection(String name) {
-
         connectionDetailsMap.remove(name);
-
     }
 
     @Override
@@ -139,59 +132,33 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
     }
 
     @Override
-    public void createConnectionType(String name, String type) {
-
-        ConnectionDetails connectionDetails =  connectionDetailsMap.get(name);
-
-        connectionDetails.setConnectionType(type);
-
-    }
-
-    @Override
     public void updateConnectionType(String name, String type) {
         ConnectionDetails connectionDetails =  connectionDetailsMap.get(name);
-
         connectionDetails.setConnectionType(type);
-
     }
-
-
-
 
     @Override
     public String getConnectionType(String name) {
         ConnectionDetails connectionDetails =  connectionDetailsMap.get(name);
-
         return connectionDetails.getConnectionType();
     }
 
     @Override
     public void createConnectionParam(String name, String paramName, String paramValue) {
-
         ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
-        if (connectionDetails!=null)
-            connectionDetails.put(paramName,paramValue);
-
-
+        connectionDetails.put(paramName, paramValue);
     }
 
     @Override
     public void updateConnectionParam(String name, String paramName, String paramValue) {
         ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
-        if (connectionDetails.getParam(paramName) != null){
-            connectionDetails.put(paramName, paramValue);
-        }else {
-        //  throw new NotFoundException;
-        }
+        connectionDetails.put(paramName, paramValue);
     }
 
     @Override
     public void deleteConnectionParam(String name,  String paramName) {
         ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
-
-        if (connectionDetails!=null)
-             connectionDetails.getParams().remove(paramName);
-
+        connectionDetails.removeParam(paramName);
     }
 
     @Override

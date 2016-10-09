@@ -73,6 +73,11 @@ public class ConnectionDetails implements Cloneable, Serializable{
     public String getParam(String key) {
         return params.get(key);
     }
+
+    public void removeParam(String key){
+        params.remove(key);
+    }
+
     public Map<String,String> getParams() {
         return Collections.unmodifiableMap(new LinkedHashMap<String, String>(params));
     }
