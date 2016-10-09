@@ -447,6 +447,27 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
+    public void deleteConnection(String resourceName, String connType) {
+        ResourceType resourceType = getResource(resourceName);
+        if (resourceType == null) {
+            throw new ResourceManagerException("Resource with name does not exist");
+        }
+        List<ConnectionParamsType> params = resourceType.getConnectionParams();
+        int i = 0;
+        for (ConnectionParamsType param : params) {
+            if (param.getConnectionType() != null && param.getConnectionType().equals(connType)){
+                break;
+            }
+            i++;
+        }
+        if (params.size() == i) {
+            throw new ResourceManagerException("Connection type does not exist");
+        }
+        params.remove(i);
+        save();
+    }
+
+    @Override
     public List<ParamType> getConnectionParams(String resourceName, String connectionType) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType == null) {

@@ -93,15 +93,21 @@ public class ResourceManagerController implements ServletContextAware {
         getResourceManager().createConnection(resourceName, connType);
     }
 
+    @RequestMapping(value = "/{resourceName}/connection/{connType}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteConnections(@PathVariable String resourceName, @PathVariable String connType) {
+        getResourceManager().deleteConnection(resourceName, connType);
+    }
+
     @RequestMapping(value = "/{resourceName}/connection/{connType}/param", method = RequestMethod.GET)
     @ResponseBody
     public List<ParamType> getConnectionParams(@PathVariable String resourceName, @PathVariable String connType) {
         return getResourceManager().getConnectionParams(resourceName, connType);
     }
 
-    @RequestMapping(value="/{resourceName}/connection/{connType}/param/{paramName}", method=RequestMethod.POST)
+    @RequestMapping(value="/{resourceName}/connection/{connType}/param", method=RequestMethod.POST)
     @ResponseBody
-    public void createConnectionParam(@PathVariable String resourceName, @PathVariable String connType, @PathVariable String paramName, @RequestBody String paramValue) {
+    public void createConnectionParam(@PathVariable String resourceName, @PathVariable String connType, @RequestParam String paramName, @RequestParam String paramValue) {
         getResourceManager().createConnectionParam(resourceName, connType, paramName, paramValue);
     }
 

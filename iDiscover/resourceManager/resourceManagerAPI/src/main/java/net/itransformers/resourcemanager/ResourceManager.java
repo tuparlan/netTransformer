@@ -47,6 +47,7 @@ public interface ResourceManager {
 
     List<String> getConnections(String resourceName);
     void createConnection(String resourceName, String connType);
+    void deleteConnection(String resourceName, String connType);
     void createConnectionParam(String resourceName, String connectionType, String paramName, String paramValue);
     void updateConnectionParams(String resourceName, String connectionType, String paramName, String paramValue);
     void deleteConnectionParams(String resourceName, String connectionType, String paramName);
