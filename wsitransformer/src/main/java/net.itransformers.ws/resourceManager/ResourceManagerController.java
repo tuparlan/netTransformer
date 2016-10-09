@@ -129,9 +129,9 @@ public class ResourceManagerController implements ServletContextAware {
         return getResourceManager().getSelectionParams(resourceName);
     }
 
-    @RequestMapping(value="/{resourceName}/selection/param/{paramName}", method=RequestMethod.POST)
+    @RequestMapping(value="/{resourceName}/selection/param", method=RequestMethod.POST)
     @ResponseBody
-    public void createSelectionParam(@PathVariable String resourceName, @PathVariable String paramName, @RequestBody String paramValue) {
+    public void createSelectionParam(@PathVariable String resourceName, @RequestParam String paramName, @RequestParam String paramValue) {
         getResourceManager().createSelectionParam(resourceName, paramName, paramValue);
     }
 
