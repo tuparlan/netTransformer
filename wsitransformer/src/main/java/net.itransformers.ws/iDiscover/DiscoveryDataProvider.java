@@ -22,13 +22,6 @@ public class DiscoveryDataProvider {
     @Resource(name="xmlNodeDataProvider")
     private XmlNodeDataProvider xmlNodeDataProvider;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ResponseBody
-    List<String> getDiscoveredVersions(){
-
-       return xmlNodeDataProvider.getDiscoveredVersions();
-
-    }
     @RequestMapping(value = "/{version}", method=RequestMethod.GET)
     @ResponseBody
     String getCreationDate(@PathVariable String version){

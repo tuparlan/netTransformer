@@ -6,4 +6,5 @@ package net.itransformers.idiscover.api;
 public interface VersionManager {
     String createVersion();
     void deleteVersion(String version);
+    String[] getVersions();
 }

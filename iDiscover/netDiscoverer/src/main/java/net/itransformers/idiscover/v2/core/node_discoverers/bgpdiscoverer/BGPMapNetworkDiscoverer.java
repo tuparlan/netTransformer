@@ -22,6 +22,7 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscoveryResult;
 import net.itransformers.idiscover.api.NodeDiscoveryResult;
@@ -144,5 +145,10 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
     @Override
     public void resumeDiscovery() {
 
+    }
+
+    @Override
+    public Status getDiscoveryStatus() {
+        throw new UnsupportedOperationException("Not implemented");
     }
 }

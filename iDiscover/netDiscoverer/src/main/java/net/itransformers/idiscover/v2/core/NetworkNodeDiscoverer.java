@@ -41,6 +41,7 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
     // TODO rename nodes -> nodesByIds
     protected final Map<String, Node> nodes = new HashMap<String, Node>();
     protected final Map<String, Node> nodesByAliases = new HashMap<String, Node>();
+    public Status status;
 
     public void setNodeDiscoverFilter(NodeDiscoverFilter filter) {
         this.nodeDiscoverFilter = filter;
@@ -112,5 +113,15 @@ public abstract class NetworkNodeDiscoverer implements NetworkDiscoverer {
 
     public void setNetworkDiscoveryListeners(List<NetworkDiscoveryListener> networkDiscoveryListeners) {
         this.networkDiscoveryListeners = networkDiscoveryListeners;
+    }
+
+
+    @Override
+    public Status getDiscoveryStatus() {
+        return this.status;
+    }
+
+    protected void setDiscoveryStatus(Status status){
+        this.status = status;
     }
 }
