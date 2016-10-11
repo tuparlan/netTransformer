@@ -2,7 +2,6 @@ package net.itransformers.connectiondetails.csvconnectiondetails;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
-import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -20,6 +19,7 @@ public class CsvConnectionDetailsManagerFactory implements ConnectionDetailsMana
         if (projectPath == null) {
             throw new IllegalArgumentException("projectPath is not specified");
         }
+        //TODO remove that hardcode!
         String file = projectPath+"/iDiscover/conf/txt/connection-details.txt";
         CsvConnectionDetailsFileManager csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file);
         try {

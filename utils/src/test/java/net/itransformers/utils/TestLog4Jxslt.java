@@ -61,10 +61,10 @@ public class TestLog4Jxslt {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Map<String, String> settings = new HashMap<String, String>();
-        File xsltFileName = new File(getClass().getResource("/testLog4jxslt/test.xslt").toURI());
-        InputStream inputStream = new FileInputStream(new File(getClass().getResource("/testLog4jxslt/test.xml").toURI()));
+//        File xsltFileName = new File(getClass().getResource("/testLog4jxslt/test.xslt").toURI());
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("testLog4jxslt/test.xslt");
 
-        transformer.transformXML(inputStream, xsltFileName, outputStream, settings);
+        transformer.transformXML(inputStream, "testLog4jxslt/test.xslt", outputStream, settings);
         logger.info("Transformation finished");
 
         String output = new String(outputStream.toByteArray());

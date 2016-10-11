@@ -48,7 +48,7 @@
 
             <!-- Now, select which projects to include in this module-set. -->
             <includes>
-                <include>net.itransformers.netTransformer:resourceManager</include>
+                <include>net.itransformers:xmlResourceManager</include>
             </includes>
             <sources>
                 <includeModuleDirectory>false</includeModuleDirectory>

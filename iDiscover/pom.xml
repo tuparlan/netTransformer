@@ -41,6 +41,9 @@
         <module>resourceManager</module>
         <module>xmlNodeDataProvider</module>
         <module>cliDiscoveryLauncher</module>
+        <module>discoveryAssembly</module>
+
+
     </modules>
 
     <!--Change for new version-->

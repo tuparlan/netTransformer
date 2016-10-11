@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ netTransformer.xml
+  ~
+  ~ This work is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published
+  ~ by the Free Software Foundation; either version 2 of the License,
+  ~ or (at your option) any later version.
+  ~
+  ~ This work is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+  ~ USA
+  ~
+  ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+  -->
+
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html#class_moduleSet -->
+    <id>bin</id>
+    <formats>
+        <format>jar</format> <!-- the result is a jar file -->
+    </formats>
+
+    <!--<moduleSets>-->
+
+        <!--<moduleSet>-->
+            <!--&lt;!&ndash; Enable access to all projects in the current multimodule build! &ndash;&gt;-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
+            <!--<includes>-->
+                <!--<include>net.itransformers:resourceManager</include>-->
+            <!--</includes>-->
+            <!--<sources>-->
+                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
+                <!--<fileSets>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xml</directory>-->
+                        <!--<outputDirectory>iDiscover/resourceManager/conf/xml</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xsd</directory>-->
+                        <!--<outputDirectory>iDiscover/resourceManager/conf/xsd</outputDirectory>-->
+                    <!--</fileSet>-->
+                <!--</fileSets>-->
+            <!--</sources>-->
+        <!--</moduleSet>-->
+
+
+
+        <!--<moduleSet>-->
+            <!--&lt;!&ndash; Enable access to all projects in the current multimodule build! &ndash;&gt;-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
+            <!--<includes>-->
+                <!--<include>net.itransformers.netTransformer:iDiscover</include>-->
+            <!--</includes>-->
+            <!--<sources>-->
+                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
+                <!--<fileSets>-->
+                    <!--<fileSet>-->
+                        <!--<directory>../snmptoolkit</directory>-->
+                        <!--<includes>-->
+                            <!--<include>mibs/*</include>-->
+                        <!--</includes>-->
+                        <!--<outputDirectory>snmptoolkit</outputDirectory>-->
+
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xml</directory>-->
+                        <!--<outputDirectory>iDiscover/conf/xml</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xsd</directory>-->
+                        <!--<outputDirectory>iDiscover/conf/xsd</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xslt</directory>-->
+                        <!--<outputDirectory>iDiscover/conf/xslt</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/groovy</directory>-->
+                        <!--<outputDirectory>iDiscover/conf/groovy</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/bat</directory>-->
+                        <!--<outputDirectory>bin</outputDirectory>-->
+                        <!--<filtered>true</filtered>-->
+                        <!--<fileMode>0755</fileMode>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/txt</directory>-->
+                        <!--<outputDirectory>iDiscover/conf/txt</outputDirectory>-->
+
+                    <!--</fileSet>-->
+                <!--</fileSets>-->
+            <!--</sources>-->
+        <!--</moduleSet>-->
+
+        <!--<moduleSet>-->
+            <!--&lt;!&ndash; Enable access to all projects in the current multimodule build! &ndash;&gt;-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
+            <!--<includes>-->
+                <!--<include>net.itransformers.netTransformer:utils</include>-->
+            <!--</includes>-->
+            <!--<sources>-->
+                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
+                <!--<fileSets>-->
+
+                    <!--<fileSet>-->
+                        <!--<directory>conf/bat</directory>-->
+                        <!--<outputDirectory>bin</outputDirectory>-->
+                        <!--<fileMode>0755</fileMode>-->
+                        <!--<filtered>true</filtered>-->
+                    <!--</fileSet>-->
+                <!--</fileSets>-->
+            <!--</sources>-->
+        <!--</moduleSet>-->
+
+        <!--&lt;!&ndash;moduleSet>-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--<includes>-->
+                <!--<include>iTransformers.iTransformer:snmptoolkit</include>-->
+            <!--</includes>-->
+            <!--<sources>-->
+                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
+                <!--<fileSets>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/bat</directory>-->
+                        <!--<outputDirectory>bin</outputDirectory>-->
+                        <!--<fileMode>0755</fileMode>-->
+                        <!--<filtered>true</filtered>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>mibs</directory>-->
+                        <!--<outputDirectory>snmptoolkit/mibs</outputDirectory>-->
+                    <!--</fileSet>-->
+                <!--</fileSets>-->
+            <!--</sources>-->
+        <!--</moduleSet&ndash;&gt;-->
+        <!--<moduleSet>-->
+            <!--&lt;!&ndash; Enable access to all projects in the current multimodule build! &ndash;&gt;-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
+            <!--<includes>-->
+                <!--<include>net.itransformers.netTransformer:postDiscoverer</include>-->
+            <!--</includes>-->
+            <!--<sources>-->
+                <!--<includeModuleDirectory>false</includeModuleDirectory>-->
+                <!--<fileSets>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xml</directory>-->
+                        <!--<outputDirectory>postDiscoverer/conf/xml</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/groovy</directory>-->
+                        <!--<outputDirectory>postDiscoverer/conf/groovy</outputDirectory>-->
+                    <!--</fileSet>-->
+                    <!--<fileSet>-->
+                        <!--<directory>conf/xsd</directory>-->
+                        <!--<outputDirectory>postDiscoverer/conf/xsd</outputDirectory>-->
+                    <!--</fileSet>-->
+                <!--</fileSets>-->
+            <!--</sources>-->
+        <!--</moduleSet>-->
+        <!--<moduleSet>-->
+            <!--&lt;!&ndash; Enable access to all projects in the current multimodule build! &ndash;&gt;-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--&lt;!&ndash; Now, select which projects to include in this module-set. &ndash;&gt;-->
+            <!--<includes>-->
+                <!--<include>net.itransformers.netTransformer:utils</include>-->
+                <!--&lt;!&ndash;include>iTransformers.iTransformer:snmptoolkit</include&ndash;&gt;-->
+                <!--<include>net.itransformers.netTransformer:resourceManager</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:launcher</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:topologyViewer</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:topologyManagerConfig</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:rightClick</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:rightClickAPI</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:parameterFactory</include>-->
+                <!--<include>net.itransformers.netTransformer.iTopologyManager:fulfilmentFactory</include>-->
+                <!--<include>net.itransformers.netTransformer:iDiscover</include>-->
+                <!--<include>net.itransformers.netTransformer:postDiscoverer</include>-->
+                <!--<include>net.itransformers.netTransformer:bgpPeeringMap</include>-->
+
+
+                <!--&lt;!&ndash;include>iTransformers:iMap</include&ndash;&gt;-->
+            <!--</includes>-->
+            <!--<binaries>-->
+                <!--<outputDirectory>lib/</outputDirectory>-->
+                <!--<unpack>false</unpack>-->
+            <!--</binaries>-->
+        <!--</moduleSet>-->
+
+        <!--&lt;!&ndash;moduleSet>-->
+            <!--<useAllReactorProjects>true</useAllReactorProjects>-->
+
+            <!--<includes>-->
+                <!--<include>iTransformers.iTransformer:utils</include>-->
+                <!--<include>iTransformers.iTransformer:snmptoolkit</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:launcher</include>-->
+                <!--<include>iTransformers.iTransformer:resourceManager</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:rightClick</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>-->
+                <!--<include>iTransformers.iTransformer.iTopologyManager:fulfilmentFactory</include>-->
+                <!--<include>iTransformers.iTransformer:iDiscover</include>-->
+            <!--</includes>-->
+            <!--<binaries>-->
+                <!--<outputDirectory>lib/</outputDirectory>-->
+                <!--<unpack>false</unpack>-->
+            <!--</binaries>-->
+        <!--</moduleSet&ndash;&gt;-->
+    <!--</moduleSets>-->
+    <!--<files>-->
+        <!--<file>-->
+            <!--<source>../log4j.properties</source>-->
+            <!--<outputDirectory>bin</outputDirectory>-->
+        <!--</file>-->
+        <!--<file>-->
+            <!--<source>../netTransformer.pfl</source>-->
+            <!--<outputDirectory>bin</outputDirectory>-->
+        <!--</file>-->
+        <!--<file>-->
+            <!--<source>../bgpPeeringMap.pfl</source>-->
+            <!--<outputDirectory>bin</outputDirectory>-->
+        <!--</file>-->
+
+
+    <!--</files>-->
+    <!--<filests>-->
+        <!--<fileset>-->
+            <!--<directory>../iDiscover</directory>-->
+            <!--<includes>-->
+                <!--<include>conf</include>-->
+                <!--<outputDirectory>conf</outputDirectory>-->
+            <!--</includes>-->
+        <!--</fileset>-->
+    <!--</filests>-->
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib/</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+
+</assembly>

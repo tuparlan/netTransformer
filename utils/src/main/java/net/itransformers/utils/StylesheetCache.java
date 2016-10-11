@@ -27,7 +27,7 @@ import net.sf.saxon.TransformerFactoryImpl;
 
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,32 +70,23 @@ public class StylesheetCache {
      * @return a transformation context
      *         for the given stylesheet.
      */
-    public static synchronized Transformer newTransformer(File xsltFile)
+    public static synchronized Transformer newTransformer(String xsltFile)
             throws TransformerConfigurationException {
+        MapEntry entry = (MapEntry) cache.get(xsltFile);
 
-        // determine when the file was last modified on disk
-        long xslLastModified = xsltFile.lastModified();
-        String xsltFileName = xsltFile.getName();
-        MapEntry entry = (MapEntry) cache.get(xsltFileName);
+        InputStream inputStream = StylesheetCache.class.getClassLoader().getResourceAsStream(xsltFile);
 
-        if (entry != null) {
-            // if the file has been modified more recently than the
-            // cached stylesheet, remove the entry reference
-            if (xslLastModified > entry.lastModified) {
-                entry = null;
-            }
-        }
 
         // create a new entry in the cache if necessary
         if (entry == null) {
-            Source xslSource = new StreamSource(xsltFile);
+            Source xslSource = new StreamSource(inputStream);
 
             TransformerFactory transFact = TransformerFactory.newInstance();
             ((TransformerFactoryImpl) transFact).getConfiguration().setMessageEmitterClass(Log4jEmitter.class.getName());
             Templates templates = transFact.newTemplates(xslSource);
 
-            entry = new MapEntry(xslLastModified, templates);
-            cache.put(xsltFileName, entry);
+            entry = new MapEntry(xsltFile, templates);
+            cache.put(xsltFile, entry);
         }
 
         return entry.templates.newTransformer();
@@ -109,11 +100,11 @@ public class StylesheetCache {
      * This class represents a value in the cache Map.
      */
     static class MapEntry {
-        long lastModified; // when the file was modified
+        String name; // when the file was modified
         Templates templates;
 
-        MapEntry(long lastModified, Templates templates) {
-            this.lastModified = lastModified;
+        MapEntry(String name, Templates templates) {
+            this.name = name;
             this.templates = templates;
         }
     }

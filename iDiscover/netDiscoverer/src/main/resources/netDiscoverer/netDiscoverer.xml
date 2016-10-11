@@ -94,8 +94,9 @@
     </bean>
     <bean id="mibLoaderHolder"
           class="net.itransformers.snmp2xml4j.snmptoolkit.MibLoaderHolder">
-        <constructor-arg value="#{systemProperties['base.dir']+'/snmptoolkit/mibs'}"/>
-        <constructor-arg value="true"/>
+        <constructor-arg value="mibfiles/mibs"/>
+        <constructor-arg value="mibfiles/list/_list"/>
+        <constructor-arg value="false"/>
     </bean>
 
 
@@ -137,8 +138,7 @@
     <bean id="discoveryHelperFactory" class="net.itransformers.idiscover.discoveryhelpers.xml.XmlDiscoveryHelperFactory">
         <constructor-arg>
             <map>
-                <entry key="projectPath" value-ref="projectPath"/>
-                <entry key="fileName" value="iDiscover/conf/xml/discoveryParameters.xml"/>
+                <entry key="fileName" value="netDiscoverer/conf/xml/discoveryParameters.xml"/>
             </map>
         </constructor-arg>
     </bean>
