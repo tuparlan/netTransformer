@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>iDiscover</artifactId>
+        <groupId>net.itransformers</groupId>
+        <version>0.8</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>discoveryAssembly</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>netDiscoverer</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>cliDiscoveryLauncher</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>iDiscoverAPI</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlResourceManager</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>connectiondetailsapi</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>csvConnectionDetails</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlNodeDataProvider</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>2.4.3</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <id>iDiscover</id>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>net.itransformer.cli_discovery_launcher.CliDiscoveryLauncher</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <!--<plugin>-->
+            <!--<artifactId>maven-assembly-plugin</artifactId>-->
+            <!--<version>2.3</version>-->
+            <!--<executions>-->
+                <!--<execution>-->
+                    <!--<id>iDiscover-assembly</id>-->
+                    <!--<phase>package</phase>-->
+                    <!--<goals>-->
+                        <!--<goal>single</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                        <!--<finalName>iDiscover</finalName>-->
+                        <!--<descriptors>-->
+                            <!--<descriptor>discovery.xml</descriptor>-->
+                        <!--</descriptors>-->
+                    <!--</configuration>-->
+                <!--</execution>-->
+
+            <!--</executions>-->
+        <!--</plugin>-->
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.2</version>
+        </plugin>
+
+    </plugins>
+    </build>
+
+</project>
