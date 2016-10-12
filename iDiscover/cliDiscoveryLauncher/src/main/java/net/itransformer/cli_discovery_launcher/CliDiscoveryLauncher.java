@@ -68,7 +68,7 @@ public class CliDiscoveryLauncher {
                 ConnectionDetailsManagerFactory .class);
 
         ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
-        Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnectionDetails();
+        Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnections();
         networkDiscoverer.startDiscovery(new HashSet<>(connectionDetails.values()));
     }
 }

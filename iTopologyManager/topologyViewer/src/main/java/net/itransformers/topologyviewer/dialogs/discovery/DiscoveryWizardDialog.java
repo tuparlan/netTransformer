@@ -21,6 +21,12 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
+import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsManagerFactory;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
+import net.itransformers.resourcemanager.xmlResourceManager.XmlResourceManagerFactory;
 import net.itransformers.utils.ProjectConstants;
 
 import javax.swing.*;
@@ -31,6 +37,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DiscoveryWizardDialog extends JDialog {
 
@@ -41,7 +49,8 @@ public class DiscoveryWizardDialog extends JDialog {
     private Frame frame;
     private String projectPath;
     private String discoveryBeanName;
-
+    private ResourceManager resourceManager;
+    private ConnectionDetailsManager connectionDetailsManager;
 
     /**
      * Launch the application.
@@ -49,8 +58,19 @@ public class DiscoveryWizardDialog extends JDialog {
     public static void main(String[] args) {
         try {
             UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
+            ResourceManagerFactory resourceManagerFactory =  new XmlResourceManagerFactory();
+            Map<String, String> params = new HashMap<>();
+            params.put("projectPath", new File(".").getAbsolutePath());
+            ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml", params);
 
-            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null, ".", ProjectConstants.snmpProjectType);
+            ConnectionDetailsManagerFactory connectionDetailsManagerFactory = new CsvConnectionDetailsManagerFactory();
+            ConnectionDetailsManager connectionDetailsManager = connectionDetailsManagerFactory.createConnectionDetailsManager("csv",params);
+
+            DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null,
+                    ".",
+                    ProjectConstants.snmpProjectType,
+                    resourceManager,
+                    connectionDetailsManager);
             int option = dialog.showDialog();
 
         } catch (Exception e) {
@@ -59,13 +79,19 @@ public class DiscoveryWizardDialog extends JDialog {
     }
 
 
-    public DiscoveryWizardDialog(Frame parentFrame, String projectPath, String projectType) {
+    public DiscoveryWizardDialog(Frame parentFrame,
+                                 String projectPath,
+                                 String projectType,
+                                 ResourceManager resourceManager,
+                                 ConnectionDetailsManager connectionDetailsManager) {
 
         super(parentFrame, "Discovery Wizard", true);
         this.frame = parentFrame;
         this.projectPath = projectPath;
         //Discoverer Beans are equal to the ProjectTYpes
         this.discoveryBeanName = projectType;
+        this.resourceManager = resourceManager;
+        this.connectionDetailsManager = connectionDetailsManager;
 
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1000, 600);
@@ -109,10 +135,9 @@ public class DiscoveryWizardDialog extends JDialog {
     }
 
     private void init() {
-        File file = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
-        ConnectionDetailsPanel connectionDetailsPanel = new ConnectionDetailsPanel();
+        ConnectionDetailsPanel connectionDetailsPanel = new ConnectionDetailsPanel(connectionDetailsManager);
         try {
-            connectionDetailsPanel.load(file);
+            connectionDetailsPanel.load();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error loading connection details file");
@@ -125,17 +150,15 @@ public class DiscoveryWizardDialog extends JDialog {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
         if (contentPanel instanceof DiscoveryResourcePanel) {
-            File resourceFile = new File(projectPath, "iDiscover/resourceManager/conf/xml/resource.xml");
             try {
-                ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
+                ((DiscoveryResourcePanel) contentPanel).save();
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");
             }
-            File file = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
-            ConnectionDetailsPanel panel = new ConnectionDetailsPanel();
+            ConnectionDetailsPanel panel = new ConnectionDetailsPanel(connectionDetailsManager);
             try {
-                panel.load(file);
+                panel.load();
             } catch (IOException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error loading connection file");
@@ -155,7 +178,6 @@ public class DiscoveryWizardDialog extends JDialog {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
         if (contentPanel instanceof ConnectionDetailsPanel) {
-            File connectionFile = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
             try {
                 ((ConnectionDetailsPanel) contentPanel).save();
             } catch (FileNotFoundException e1) {
@@ -165,10 +187,9 @@ public class DiscoveryWizardDialog extends JDialog {
 
         }
 
-        final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
-        File resourceFile = new File(projectPath, "iDiscover/resourceManager/conf/xml/resource.xml");
+        final DiscoveryResourcePanel panel = new DiscoveryResourcePanel(resourceManager);
         try {
-            panel.load(resourceFile);
+            panel.load(projectPath);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error loading resources details file");
@@ -191,9 +212,8 @@ public class DiscoveryWizardDialog extends JDialog {
 
 
     private void go() {
-        File resourceFile = new File(projectPath, "iDiscover/resourceManager/conf/xml/resource.xml");
         try {
-            ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
+            ((DiscoveryResourcePanel) contentPanel).save();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");

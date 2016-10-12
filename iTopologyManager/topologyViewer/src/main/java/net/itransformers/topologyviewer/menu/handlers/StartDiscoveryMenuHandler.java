@@ -21,6 +21,8 @@
 
 package net.itransformers.topologyviewer.menu.handlers;
 
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryManagerDialogV2;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
@@ -28,6 +30,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -40,14 +44,14 @@ public class StartDiscoveryMenuHandler implements ActionListener {
     private TopologyManagerFrame frame;
 
     public StartDiscoveryMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
-
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(frame, frame.getPath(), frame.getProjectType());
+        DiscoveryManagerDialogV2 dialog = new DiscoveryManagerDialogV2(frame,
+                frame.getPath(),
+                frame.getProjectType());
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setVisible(true);
 

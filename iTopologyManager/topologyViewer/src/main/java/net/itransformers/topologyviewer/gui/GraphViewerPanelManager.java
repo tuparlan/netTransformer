@@ -44,13 +44,13 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private Factory<G> factory;
     private JTabbedPane tabbedPane;
     private TopologyViewerConfType viewerConfig;
-    private JFrame frame;
+    private TopologyManagerFrame frame;
     private final File versionDir;
     private String layout;
     private final File deviceXmlPath;
     protected  GraphViewerPanelFactory graphViewerPanelFactory;
 
-    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile,
+    public GraphViewerPanelManager(TopologyManagerFrame frame, String projectType, File projectPath, File viewerConfigFile,
                                    File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane,
                                    GraphType graphType, GraphViewerPanelFactory graphViewerPanelFactory) throws Exception {
         this.frame = frame;
@@ -78,7 +78,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     }
 
     private GraphViewerPanel createViewerPanel() {
-        return graphViewerPanelFactory.createGraphViewerPanel(viewerConfig,graphmlLoader,iconMapLoader,edgeStrokeMapLoader,
+        return graphViewerPanelFactory.createGraphViewerPanel(this.frame,viewerConfig,graphmlLoader,iconMapLoader,edgeStrokeMapLoader,
                 edgeColorMapLoader,entireGraph,projectPath,deviceXmlPath,versionDir, graphmlFileName, initialNode, layout);
     }
 

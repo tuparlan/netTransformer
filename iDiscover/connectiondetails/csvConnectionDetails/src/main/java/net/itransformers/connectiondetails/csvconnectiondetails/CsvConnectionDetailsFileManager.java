@@ -48,8 +48,13 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
         this.connectionDetailsMap = new LinkedHashMap<String,ConnectionDetails>();
     }
 
-    public void save() throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(file);
+    private void save() {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e.getMessage(),e);
+        }
         for (String name : connectionDetailsMap.keySet()){
             ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
             StringBuilder sb = new StringBuilder();
@@ -61,6 +66,7 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
             writer.println(sb);
         }
         writer.flush();
+        writer.close();
     }
 
     public void load() throws IOException {
@@ -101,29 +107,36 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
     }
 
     @Override
-    public Map<String, ConnectionDetails> getConnectionDetails() {
+    public void createConnections(Map<String,ConnectionDetails> connectionDetailsMap) {
+        this.connectionDetailsMap = connectionDetailsMap;
+        this.save();
+    }
+
+    @Override
+    public Map<String, ConnectionDetails> getConnections() {
         return connectionDetailsMap;
     }
 
     @Override
     public void createConnection(String name, ConnectionDetails connectionDetails) {
         connectionDetailsMap.put(name, connectionDetails);
-
+        this.save();
     }
 
     @Override
     public void updateConnection(String name, String newConnectionDetailName) {
-
        ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
        if (connectionDetails!=null) {
            connectionDetailsMap.put(newConnectionDetailName, connectionDetails);
            connectionDetailsMap.remove(name);
        }
+        this.save();
     }
 
     @Override
     public void deleteConnection(String name) {
         connectionDetailsMap.remove(name);
+        this.save();
     }
 
     @Override
@@ -135,6 +148,7 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
     public void updateConnectionType(String name, String type) {
         ConnectionDetails connectionDetails =  connectionDetailsMap.get(name);
         connectionDetails.setConnectionType(type);
+        this.save();
     }
 
     @Override
@@ -147,18 +161,21 @@ public class CsvConnectionDetailsFileManager implements ConnectionDetailsManager
     public void createConnectionParam(String name, String paramName, String paramValue) {
         ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
         connectionDetails.put(paramName, paramValue);
+        this.save();
     }
 
     @Override
     public void updateConnectionParam(String name, String paramName, String paramValue) {
         ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
         connectionDetails.put(paramName, paramValue);
+        this.save();
     }
 
     @Override
     public void deleteConnectionParam(String name,  String paramName) {
         ConnectionDetails connectionDetails = connectionDetailsMap.get(name);
         connectionDetails.removeParam(paramName);
+        this.save();
     }
 
     @Override

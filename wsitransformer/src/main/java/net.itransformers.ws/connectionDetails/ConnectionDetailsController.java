@@ -52,7 +52,7 @@ public class ConnectionDetailsController implements ServletContextAware {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public LinkedHashMap getConnectionDetails() {
-        return (LinkedHashMap) getConnectionDetailsManager().getConnectionDetails();
+        return (LinkedHashMap) getConnectionDetailsManager().getConnections();
     }
 
     @RequestMapping(value = "/", method=RequestMethod.POST)
@@ -88,7 +88,7 @@ public class ConnectionDetailsController implements ServletContextAware {
     @RequestMapping(value = "/{connectionDetailsName}/type", method=RequestMethod.PUT)
     @ResponseBody
     void updateConnectionType(@PathVariable String connectionDetailsName ,@RequestBody String connectionDetailsType){
-        getConnectionDetailsManager().getConnection(connectionDetailsName).setConnectionType(connectionDetailsType);
+        getConnectionDetailsManager().updateConnectionType(connectionDetailsName, connectionDetailsType);
     }
 
     @RequestMapping(value = "/{connectionDetailsName}/params", method=RequestMethod.POST)

@@ -27,14 +27,21 @@
         <constructor-arg value="."/>
     </bean>
     <bean id="topologyManagerFrame" class="net.itransformers.topologyviewer.gui.TopologyManagerFrame">
-        <property name="graphViewerPanelManagerFactory" ref="graphViewerPanelManagerFactory"/>
+        <constructor-arg name="name" value="NetTransformer"/>
+        <constructor-arg name="graphViewerPanelManagerFactory" ref="graphViewerPanelManagerFactory"/>
+        <constructor-arg name="menuBuilder" ref="menuBuilder"/>
+    </bean>
+    <bean id="menuBuilder" class="net.itransformers.topologyviewer.menu.MenuBuilder">
+        <constructor-arg name="startDiscoveryWizardMenuHandler" ref="startDiscoveryWizardMenuHandler"/>
+    </bean>
+    <bean id="startDiscoveryWizardMenuHandler" class="net.itransformers.topologyviewer.menu.handlers.snmpDiscovery.StartDiscoveryWizardMenuHandler">
+        <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
+        <constructor-arg name="connectionDetailsManagerFactory" ref="connectionManagerFactory"/>
     </bean>
     <bean id="graphViewerPanelManagerFactory" class="net.itransformers.topologyviewer.gui.GraphViewerPanelManagerFactory">
-        <constructor-arg name="topologyManagerFrame" ref="topologyManagerFrame"/>
         <constructor-arg name="graphViewerPanelFactory" ref="graphViewerPanelFactory"/>
     </bean>
     <bean id="graphViewerPanelFactory" class="net.itransformers.topologyviewer.gui.GraphViewerPanelFactory">
-        <constructor-arg name="topologyManagerFrame" ref="topologyManagerFrame"/>
         <constructor-arg name="rightClickInvoker" ref="rightClickInvoker"/>
     </bean>
 

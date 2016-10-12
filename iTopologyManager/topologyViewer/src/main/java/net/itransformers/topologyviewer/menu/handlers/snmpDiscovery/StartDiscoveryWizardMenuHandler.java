@@ -21,6 +21,10 @@
 
 package net.itransformers.topologyviewer.menu.handlers.snmpDiscovery;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.topologyviewer.dialogs.discovery.DiscoveryWizardDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 
@@ -29,20 +33,41 @@ import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by niau on 5/26/15.
  */
 public class StartDiscoveryWizardMenuHandler implements ActionListener {
     TopologyManagerFrame frame;
-    public StartDiscoveryWizardMenuHandler(TopologyManagerFrame frame) {
+    private ResourceManagerFactory resourceManagerFactory;
+    private ConnectionDetailsManagerFactory connectionDetailsManagerFactory;
+
+    public StartDiscoveryWizardMenuHandler(ResourceManagerFactory resourceManagerFactory,
+                                           ConnectionDetailsManagerFactory connectionDetailsManagerFactory) {
+        this.resourceManagerFactory = resourceManagerFactory;
+        this.connectionDetailsManagerFactory = connectionDetailsManagerFactory;
+    }
+
+    public void setFrame(TopologyManagerFrame frame) {
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Map<String, String> params = new HashMap<>();
+        params.put("projectPath", frame.getPath().getAbsolutePath());
+        ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml", params);
+
+        ConnectionDetailsManager connectionDetailsManager =
+                connectionDetailsManagerFactory.createConnectionDetailsManager("csv", params);
         UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
-        DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(frame, frame.getPath().getAbsolutePath(), frame.getProjectType());
+        DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(frame,
+                frame.getPath().getAbsolutePath(),
+                frame.getProjectType(),
+                resourceManager,
+                connectionDetailsManager);
         int option = dialog.showDialog();
 
     }

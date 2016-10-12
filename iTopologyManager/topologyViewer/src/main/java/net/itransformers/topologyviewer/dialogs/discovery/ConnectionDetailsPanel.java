@@ -23,8 +23,8 @@ package net.itransformers.topologyviewer.dialogs.discovery;
 
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
-import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -36,7 +36,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
@@ -47,14 +46,15 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
     private final JList<String> list;
     private DefaultTableModel tableModel;
     private final JTable table;
-    private CsvConnectionDetailsFileManager csvConnectionDetailsFileManager;
-  //  private Map<String,ConnectionDetails> connDetails = new HashMap<String, ConnectionDetails>();
+    private ConnectionDetailsManager connectionDetailsManager;
     private String selectedConnection;
 
     private JTextField connTypeTextField;
+    private Map<String, ConnectionDetails> connDetails;
 
 
-    public ConnectionDetailsPanel() {
+    public ConnectionDetailsPanel(ConnectionDetailsManager connectionDetailsManager) {
+        this.connectionDetailsManager = connectionDetailsManager;
 
         this.setLayout(new BorderLayout());
 
@@ -120,8 +120,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
                 } else {
                     listModel.insertElementAt(connectionName, selectedIndex+1);
                 }
-                csvConnectionDetailsFileManager.createConnection(connectionName, new IPNetConnectionDetails());
-                //connDetails.put(connectionName,new IPNetConnectionDetails());
+                ConnectionDetailsPanel.this.connDetails.put(connectionName, new IPNetConnectionDetails());
             }
         });
         listButtonsPanel.add(addListButton);
@@ -132,7 +131,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
                 int selectedIndex = list.getSelectedIndex();
                 if (selectedIndex != -1) {
                     String removedRow = listModel.remove(selectedIndex);
-                    csvConnectionDetailsFileManager.deleteConnection(removedRow);
+                    ConnectionDetailsPanel.this.connDetails.remove(removedRow);
                 }
             }
         });
@@ -159,7 +158,8 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = e.getActionCommand();
-                ConnectionDetails connectionDetail = csvConnectionDetailsFileManager.getConnection(selectedConnection);
+                ConnectionDetails connectionDetail =
+                        ConnectionDetailsPanel.this.connDetails.get(selectedConnection);
                 connectionDetail.setConnectionType(text);
             }
         });
@@ -191,22 +191,18 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
 
     }
 
-    public void load(File file) throws IOException {
-        csvConnectionDetailsFileManager = new CsvConnectionDetailsFileManager(file.getAbsolutePath());
-        csvConnectionDetailsFileManager.load();
-        Map<String,ConnectionDetails> connDetails = csvConnectionDetailsFileManager.getConnectionDetails();
-       // this.connDetails = connDetails;
+    public void load() throws IOException {
+        this.connDetails = connectionDetailsManager.getConnections();
         initListModel();
         if (listModel.getSize() >0 ) {
             list.setSelectedIndex(0);
             selectedConnection = listModel.get(0);
-            updateConnDetails(csvConnectionDetailsFileManager.getConnection(selectedConnection));
+            updateConnDetails(connDetails.get(selectedConnection));
         }
     }
 
     public void save() throws FileNotFoundException {
-
-        csvConnectionDetailsFileManager.save();
+        connectionDetailsManager.createConnections(this.connDetails);
 
     }
 
@@ -229,7 +225,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
 
     private void initListModel() {
         listModel = new DefaultListModel<String>();
-        for (String name : csvConnectionDetailsFileManager.getConnectionDetails().keySet()) {
+        for (String name : this.connDetails.keySet()) {
             listModel.addElement(name);
         }
         list.setModel(listModel);
@@ -237,10 +233,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
 
     @Override
     public void tableChanged(TableModelEvent e) {
-//        int col = e.getColumn();
-//        int row = e.getFirstRow();
-//        tableModel.getValueAt(row,col);
-        ConnectionDetails connectionDetail = csvConnectionDetailsFileManager.getConnection(selectedConnection);
+        ConnectionDetails connectionDetail = this.connDetails.get(selectedConnection);
         connectionDetail.clear();
         int rowCount = tableModel.getRowCount();
         for (int i=0;i<rowCount;i++) {
@@ -255,7 +248,7 @@ public class ConnectionDetailsPanel extends JPanel implements ListSelectionListe
         boolean adjust = e.getValueIsAdjusting();
         if (!adjust) {
             selectedConnection = list.getSelectedValue();
-            updateConnDetails(csvConnectionDetailsFileManager.getConnection(selectedConnection));
+            updateConnDetails(this.connDetails.get(selectedConnection));
         }
     }
 

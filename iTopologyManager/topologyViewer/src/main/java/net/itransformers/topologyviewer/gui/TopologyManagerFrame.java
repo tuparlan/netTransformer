@@ -44,10 +44,16 @@ public class TopologyManagerFrame extends JFrame{
     private JTabbedPane tabbedPane;
     private Properties preferences = new Properties();
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
-    protected GraphViewerPanelManagerFactory graphViewerPanelManagerFactory;
+    private GraphViewerPanelManagerFactory graphViewerPanelManagerFactory;
+    private MenuBuilder menuBuilder;
 
-    public TopologyManagerFrame() {
-        super("netTransformer");
+    public TopologyManagerFrame(String name,
+                                GraphViewerPanelManagerFactory graphViewerPanelManagerFactory,
+                                MenuBuilder menuBuilder) {
+        super(name);
+        this.graphViewerPanelManagerFactory = graphViewerPanelManagerFactory;
+        this.menuBuilder = menuBuilder;
+        this.menuBuilder.setFrame(this);
     }
 
     public void init() throws IOException {
@@ -85,14 +91,6 @@ public class TopologyManagerFrame extends JFrame{
         }
     }
 
-    public GraphViewerPanelManagerFactory getGraphViewerPanelManagerFactory() {
-        return graphViewerPanelManagerFactory;
-    }
-
-    public void setGraphViewerPanelManagerFactory(GraphViewerPanelManagerFactory graphViewerPanelManagerFactory) {
-        this.graphViewerPanelManagerFactory = graphViewerPanelManagerFactory;
-    }
-
     public File getPath() {
         return path;
     }
@@ -125,7 +123,7 @@ public class TopologyManagerFrame extends JFrame{
         }
         final Container content = this.getContentPane();
 
-        JMenuBar menuBar = new MenuBuilder().createMenuBar(this);
+        JMenuBar menuBar = menuBuilder.createMenuBar(this);
 
         content.add(tabbedPane);
 
@@ -160,6 +158,7 @@ public class TopologyManagerFrame extends JFrame{
             String graphType = graphTypeResolver.resolveEdgeDefault(selectedFile);
             GraphViewerPanelManager viewerPanelManager =
                     graphViewerPanelManagerFactory.createGraphViewerPanelManager(
+                            this,
                             graphType,
                             projectType,
                             viewerConfig,

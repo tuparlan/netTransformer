@@ -220,21 +220,17 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void createResource(ResourceType resourceType) {
-        String resourceName = resourceType.getName();
-        if (resourceName == null) {
-            throw new ResourceManagerException("Invalid resource name");
-        }
-        ResourceType existingResourceType = getResource(resourceName);
-        if (existingResourceType != null) {
-            throw new ResourceManagerException("Resource Type with name " + resourceName + " already exists");
-        }
-        resource.getResource().add(resourceType);
+    public ResourcesType getResources() {
+        return resource;
+    }
+    @Override
+    public void createResources(ResourcesType resourcesType) {
+        resource = resourcesType;
         save();
     }
 
     @Override
-    public void createResource(String resourceName) {
+    public void createResourceName(String resourceName) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType != null) {
             throw new ResourceManagerException("Resource with name already exists");
@@ -246,7 +242,7 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void updateResource(String resourceName, String newResourceName) {
+    public void updateResourceName(String resourceName, String newResourceName) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType == null) {
             throw new ResourceManagerException("Resource with name does not exist");
@@ -256,7 +252,7 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void deleteResource(String resourceName) {
+    public void deleteResourceName(String resourceName) {
         List<ResourceType> list = resource.getResource();
         for (ResourceType currResourceType : list) {
             if (currResourceType.getName().equalsIgnoreCase(resourceName)){
@@ -268,7 +264,7 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public List<String> getResources() {
+    public List<String> getResourceNames() {
         List<String> list = new ArrayList<>();
         for (ResourceType resourceType : this.resource.getResource()) {
             list.add(resourceType.getName());
@@ -415,7 +411,7 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public List<String> getConnections(String resourceName) {
+    public List<String> getConnectionTypes(String resourceName) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType == null) {
             throw new ResourceManagerException("Resource with name does not exist");
@@ -429,7 +425,7 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void createConnection(String resourceName, String connType) {
+    public void createConnectionType(String resourceName, String connType) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType == null) {
             throw new ResourceManagerException("Resource with name does not exist");
@@ -447,7 +443,7 @@ public class FileBasedResourceManager implements ResourceManager {
     }
 
     @Override
-    public void deleteConnection(String resourceName, String connType) {
+    public void deleteConnectionType(String resourceName, String connType) {
         ResourceType resourceType = getResource(resourceName);
         if (resourceType == null) {
             throw new ResourceManagerException("Resource with name does not exist");
@@ -477,8 +473,7 @@ public class FileBasedResourceManager implements ResourceManager {
         return params;
     }
 
-    @Override
-    public ResourceType getResource(String resourceName) {
+    private ResourceType getResource(String resourceName) {
         List<ResourceType> resourceTypeList = resource.getResource();
         for (ResourceType resourceType : resourceTypeList) {
             if (resourceType.getName().equals(resourceName)) {

@@ -86,7 +86,7 @@ public class NetDiscovererController implements ServletContextAware {
         props.put("version",version);
         NetworkDiscoverer networkDiscoverer = networkDiscovererFactory.createNetworkDiscoverer("async_parallel", props);
         ConnectionDetailsManager connectionManager = connectionManagerFactory.createConnectionDetailsManager("xml", props);
-        Map<String, ConnectionDetails> connDetails = connectionManager.getConnectionDetails();
+        Map<String, ConnectionDetails> connDetails = connectionManager.getConnections();
         networkDiscoverer.startDiscovery(new HashSet<>(connDetails.values()));
         context.setAttribute(version, networkDiscoverer);
     }
