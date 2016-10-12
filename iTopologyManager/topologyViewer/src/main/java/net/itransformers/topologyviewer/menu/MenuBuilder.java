@@ -366,10 +366,10 @@ public class MenuBuilder {
         configureParameters.addActionListener(new ConfigureParametersMenuHandler(frame));
         snmpDiscoverer.add(configureParameters);
 
-        final JMenuItem viewerSettingsItem = new JMenuItem("Viewer configuration editor");
+//        final JMenuItem viewerSettingsItem = new JMenuItem("Viewer configuration editor");
 
-        viewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
-        snmpDiscoverer.add(viewerSettingsItem);
+//        viewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
+//        snmpDiscoverer.add(viewerSettingsItem);
 
         final JMenu diffSettings = new JMenu("Diff Ignored keys editor");
         final JMenuItem ignoredNodeKeys = new JMenuItem("ignoredNodeKeys");

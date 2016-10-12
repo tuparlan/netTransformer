@@ -13,13 +13,19 @@ import java.util.Map;
  */
 public class XmlResourceManagerFactory implements ResourceManagerFactory {
     Logger logger = Logger.getLogger(XmlResourceManagerFactory.class);
+    String resourceRelativePath;
+
+    public XmlResourceManagerFactory(String resourceRelativePath) {
+        this.resourceRelativePath = resourceRelativePath;
+    }
+
     @Override
     public ResourceManager createResourceManager(String type, Map<String, String> properties) {
         String projectPath = properties.get("projectPath");
         if (projectPath == null) {
             throw new IllegalArgumentException("Missing projectPath parameter");
         }
-        FileBasedResourceManager fileBasedResourceManager = new FileBasedResourceManager(projectPath + "/iDiscover/resourceManager/conf/xml/resource.xml");
+        FileBasedResourceManager fileBasedResourceManager = new FileBasedResourceManager(projectPath + resourceRelativePath);
         try {
             fileBasedResourceManager.load();
         } catch (IOException | JAXBException e ) {

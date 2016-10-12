@@ -24,9 +24,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="connectionManagerFactory" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsManagerFactory">
-      <constructor-arg value="iDiscover/conf/txt/connection-details.txt"/>
+    <bean id="fileBasedProjectManagerFactory" class="net.itransformers.filebasedprojectmanager.FileBasedProjectManagerFactory">
+      <constructor-arg value="projectTemplates/netTransformer.pfl"/>
     </bean>
+
 
 
 </beans>

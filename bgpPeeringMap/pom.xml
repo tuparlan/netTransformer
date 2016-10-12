@@ -42,9 +42,9 @@
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>
-            <groupId>net.itransformers.snmp2xml4j</groupId>
+            <groupId>net.itransformers</groupId>
             <artifactId>snmptoolkit</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.5</version>
             <!--Change for new version-->
         </dependency>
         <dependency>

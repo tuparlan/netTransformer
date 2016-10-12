@@ -23,7 +23,7 @@ public class GraphViewerPanelManagerFactory {
 
     public GraphViewerPanelManager createGraphViewerPanelManager(String graphType,
                                                                  String projectType,
-                                                                 File viewerConfig, File selectedFile, File path, JTabbedPane tabbedPane) throws Exception {
+                                                                 String viewerConfig, File selectedFile, File path, JTabbedPane tabbedPane) throws Exception {
         if (graphType.equals("undirected")) {
             logger.info("Opening "+ projectType + " with viewer config" + viewerConfig + "and selected file" + selectedFile);
             return

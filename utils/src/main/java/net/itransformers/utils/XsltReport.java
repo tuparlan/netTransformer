@@ -30,43 +30,42 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
-import java.net.MalformedURLException;
 
 
 public class XsltReport {
  //   File xml = null; //input xml
-    File xsl = null; //input xsl
-    File tableXSL = null; //input xsl
+    InputStream xsl = null; //input xsl
+    InputStream tableXSL = null; //input xsl
     StreamSource inputXml;
     static Logger logger = Logger.getLogger(XsltReport.class);
 
 
-    public XsltReport(File pathToXSL, File pathToXML) throws FileNotFoundException {
+    public XsltReport(InputStream pathToXSL, File pathToXML) throws FileNotFoundException {
        // xml = pathToXML;
         inputXml = new StreamSource(new FileInputStream(pathToXML));
         xsl = pathToXSL;
 
     }
-    public XsltReport(File pathToXSL, File pathToTableXSL, StreamSource inputXML) {
+    public XsltReport(InputStream pathToXSL, InputStream pathToTableXSL, StreamSource inputXML) {
         inputXml = inputXML;
         xsl = pathToXSL;
         tableXSL = pathToTableXSL;
 
     }
 
-    public XsltReport(File pathToTableXSL, StreamSource inputXML) {
+    public XsltReport(InputStream pathToTableXSL, StreamSource inputXML) {
         inputXml = inputXML;
         tableXSL = pathToTableXSL;
 
     }
-    public XsltReport(File pathToXSL, StringBuffer inputXml1) throws FileNotFoundException {
+    public XsltReport(InputStream pathToXSL, StringBuffer inputXml1) throws FileNotFoundException {
         // xml = pathToXML;
         inputXml = new StreamSource(new ByteArrayInputStream(inputXml1.toString().getBytes()));
         xsl = pathToXSL;
 
     }
 
-    public XsltReport(File pathToXSL, File pathToTableXSL, File pathToXML) throws FileNotFoundException {
+    public XsltReport(InputStream pathToXSL, InputStream pathToTableXSL, File pathToXML) throws FileNotFoundException {
         inputXml = new StreamSource(new FileInputStream(pathToXML));
         xsl = pathToXSL;
         tableXSL = pathToTableXSL;
@@ -93,8 +92,11 @@ public class XsltReport {
             StringReader test = new StringReader(result.getOutputStream().toString());
             transformer1.transform(new StreamSource(test), result1);
             return result1.getOutputStream();
+        }else {
+            logger.error("Table transformer is null");
+            return null;
         }
-        return result.getOutputStream();
+        //return result.getOutputStream();
 
     }
     public OutputStream singleTransformer() throws TransformerException, TransformerConfigurationException, IOException {
@@ -125,19 +127,19 @@ public class XsltReport {
 
     }
 
-    public static void main(String args[]) throws MalformedURLException, FileNotFoundException {
-
-        // set the TransformFactory to use the Saxon TransformerFactoryImpl method
-//         System.setProperty("javax.xml.transform.TransformerFactory",
-//         "net.sf.saxon.TransformerFactoryImpl");
-
-        XsltReport testReport = new XsltReport(new File("rightclick/conf/xslt/table_creator.xslt"),
-                new File("device-data-R111.xml"));
-        try {
-            System.out.print(testReport.doubleTransformer().toString());
-        } catch (Exception ex) {
-            handleException(ex);
-        }
-
-    }
+//    public static void main(String args[]) throws MalformedURLException, FileNotFoundException {
+//
+//        // set the TransformFactory to use the Saxon TransformerFactoryImpl method
+////         System.setProperty("javax.xml.transform.TransformerFactory",
+////         "net.sf.saxon.TransformerFactoryImpl");
+//
+//        XsltReport testReport = new XsltReport(("rightclick/conf/table_creator.xslt"),
+//                new File("device-data-R111.xml"));
+//        try {
+//            System.out.print(testReport.doubleTransformer().toString());
+//        } catch (Exception ex) {
+//            handleException(ex);
+//        }
+//
+//    }
 }

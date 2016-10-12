@@ -21,10 +21,11 @@
 
 package net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers;
 
+import net.itransformers.filebasedprojectmanager.FileBasedProjectManager;
+import net.itransformers.projectmanagerapi.ProjectManagerException;
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
-import net.itransformers.utils.ProjectConstants;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import net.itransformers.utils.RecursiveCopy;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -32,9 +33,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Created by IntelliJ IDEA.
@@ -68,7 +66,7 @@ public class NewProjectMenuHandler implements ActionListener {
             case ProjectConstants.mrtBgpDiscovererProjectType:
                 file = new File("bgpPeeringMap.pfl");
                 frame.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
-                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+                frame.setViewerConfig("iTopologyManager/topologyViewer/bgpPeeringMap/viewer-config.xml");
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
@@ -76,7 +74,7 @@ public class NewProjectMenuHandler implements ActionListener {
             case ProjectConstants.freeGraphProjectType:
                 file = new File("freeGraph.pfl");
                 frame.setProjectType(ProjectConstants.freeGraphProjectType);
-                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
+                frame.setViewerConfig("iTopologyManager/topologyViewer/freeGraph/viewer-config.xml");
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(false);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(5).setEnabled(true);
@@ -84,7 +82,7 @@ public class NewProjectMenuHandler implements ActionListener {
             case ProjectConstants.snmpProjectType:
                 file = new File("netTransformer.pfl");
                 frame.setProjectType(ProjectConstants.snmpProjectType);
-                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+                frame.setViewerConfig("iTopologyManager/topologyViewer/discovery/viewer-config.xml");
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
@@ -93,7 +91,7 @@ public class NewProjectMenuHandler implements ActionListener {
             case ProjectConstants.snmpBgpDiscovererProjectType:
                 file = new File("bgpSnmpPeeringMap.pfl");
                 frame.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
-                frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+                frame.setViewerConfig("iTopologyManager/topologyViewer/bgpPeeringMap/viewer-config.xml");
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
@@ -135,52 +133,33 @@ public class NewProjectMenuHandler implements ActionListener {
         frame.setTitle(ProjectConstants.getProjectName(frame.getProjectType()));
 
 
-        Scanner s = null;
-        try {
-            try {
-                s = new Scanner(file);
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-                JOptionPane.showMessageDialog(this.frame, "Can not find file:" + file.getAbsolutePath());
-                return;
-            }
-            try {
-                RecursiveCopy.copyFile(file, dialog.getProjectDir());
-                while (s.hasNextLine()) {
-                    String text = s.nextLine();
-                    if (text.startsWith("#") || text.trim().equals("")) continue;
-                    if (System.getProperty("base.dir") == null) System.setProperty("base.dir", ".");
-                    String workDirName = System.getProperty("base.dir");
-                    File workDir = new File(workDirName);
-                    File srcDir = new File(workDir, text);
-                    File destDir = new File(dialog.getProjectDir(), text).getParentFile();
-                    destDir.mkdirs();
-                    RecursiveCopy.copyDir(srcDir, destDir);
+        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager();
 
-                }
 
-            } catch (IOException e1) {
-                JOptionPane.showMessageDialog(frame, "Unable to create project the reason is:" + e1.getMessage());
-                e1.printStackTrace();
-            }
-            frame.setPath(dialog.getProjectDir());
-            frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(6).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(7).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(7).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(true);
-            frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(true);
+       try{
+           fileBasedProjectManager.createProject("projectTemplates/netTransformer.pfl", dialog.getProjectDir().getAbsolutePath());
+       } catch (ProjectManagerException e1)
+       {
+           JOptionPane.showMessageDialog(frame, "Unable to create project in "+dialog.getProjectDir());
 
-        } finally {
-            if (s != null) s.close();
-        }
+       }
+
+    frame.setPath(dialog.getProjectDir());
+    frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(6).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(7).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(7).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(true);
+    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(true);
+
+
 
     }
 

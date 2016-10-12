@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
-  ~ generic.xml
+  ~ table_creator.xslt
   ~
   ~ This work is free software; you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published
@@ -20,13 +20,40 @@
   ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
   -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+ 
+<xsl:template match="/">
+<HTML>
+<BODY>
+    <xsl:apply-templates/>
+</BODY>
+</HTML>
+</xsl:template>
 
-    <bean id="connectionManagerFactory" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsManagerFactory">
-      <constructor-arg value="iDiscover/conf/txt/connection-details.txt"/>
-    </bean>
+<xsl:template match="/*">
+<TABLE BORDER="1" frame="vsides" rules="cols">
+<TR>
+        <xsl:for-each select="*[position() = 1]/*">
+          <TD><b>
+              <xsl:value-of select="local-name()"/>
+              </b>
+          </TD>
+        </xsl:for-each>
+</TR>
+      <xsl:apply-templates/>
+</TABLE>
+</xsl:template>
 
+<xsl:template match="/*/*">
+<TR>
+    <xsl:apply-templates/>
+</TR>
+</xsl:template>
 
-</beans>
+<xsl:template match="/*/*/*">
+<TD>
+    <xsl:value-of select="."/>
+</TD>
+</xsl:template>
+
+</xsl:stylesheet>

@@ -28,9 +28,12 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Map;
 
 public class XsltReportCreator implements RightClickHandler {
+    Logger logger = Logger.getLogger(XsltReportCreator.class);
+
     public <G> void handleRightClick(JFrame parent, String v,
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
@@ -45,7 +48,6 @@ public class XsltReportCreator implements RightClickHandler {
         text.setContentType("text/html");
         String xsltFile = rightClickParams.get("xsl_transformator");
         String xsltTableFile = rightClickParams.get("table_transformator");
-        Logger logger = Logger.getLogger(XsltReportCreator.class);
 
         String path =  rightClickParams.get("path");
         String xmlSourcePath = null;
@@ -69,11 +71,16 @@ public class XsltReportCreator implements RightClickHandler {
 
 
         logger.info("XML source path: " + xmlSourcePath + " xsltFile: " + xsltFile + "xsltTableFile: " + xsltTableFile);
+        InputStream xsltInputStream = this.getClass().getClassLoader().getResourceAsStream(xsltFile);
+
+
         if (!xsltTableFile.equals("")) {
-            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), new File(projectPath, xsltTableFile), xmlSourceFile);
+            InputStream xsltTableTransformerStream = this.getClass().getClassLoader().getResourceAsStream(xsltTableFile);
+            XsltReport testReport = new XsltReport(xsltInputStream,xsltTableTransformerStream,xmlSourceFile);
             try {
 
                 String report = testReport.doubleTransformer().toString();
+                System.out.println(report);
                 text.setText(report);
                 logger.debug(report);
 
@@ -82,12 +89,13 @@ public class XsltReportCreator implements RightClickHandler {
             }
         } else {
 
-            XsltReport testReport = new XsltReport(new File(projectPath, xsltFile), versionDir);
+            XsltReport testReport = new XsltReport(xsltInputStream, versionDir);
             String report = testReport.doubleTransformer().toString() ;
-
+            System.out.println(report);
             logger.debug(report);
             try {
                 text.setText(report);
+
             } catch (Exception ex) {
                 testReport.handleException(ex);
             }

@@ -46,6 +46,7 @@
         <module>wsitransformer</module>
         <module>postDiscoverer</module>
         <module>ideas</module>
+        <module>projectManager</module>
     </modules>
     <build>
         <pluginManagement>
