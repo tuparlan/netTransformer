@@ -27,11 +27,11 @@ public class XmlTopologyViewerConfigManagerFactory implements TopologyViewerConf
         }
         String configRelFileName;
         if (configName.equals("bgpPeeringMap")) {
-            configRelFileName = "topologyViewer/conf/bgpPeeringMap/viewer-config.xml";
+            configRelFileName = "xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/viewer-config.xml";
         } else if (configName.equals("freeGraph")){
-            configRelFileName = "topologyViewer/conf/freeGraph/viewer-config.xml";
+            configRelFileName = "xmlTopologyViewerConfig/conf/xml/freeGraph/viewer-config.xml";
         } else if (configName.equals("discovery")){
-            configRelFileName = "topologyViewer/discovery/viewer-config.xml";
+            configRelFileName = "xmlTopologyViewerConfig/conf/xml/discovery/viewer-config.xml";
         } else {
             throw new IllegalArgumentException("Invalid config name: "+ configName);
         }

@@ -30,7 +30,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>topologyViewerConfig</artifactId>
+    <artifactId>topologyViewerConfigAPI</artifactId>
     <version>0.8</version><!--Change for new version-->
     <build>
         <plugins>

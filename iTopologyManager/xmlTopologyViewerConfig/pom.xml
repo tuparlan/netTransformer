@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>net.itransformers</groupId>
-            <artifactId>topologyViewerConfig</artifactId>
+            <artifactId>topologyViewerConfigAPI</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>

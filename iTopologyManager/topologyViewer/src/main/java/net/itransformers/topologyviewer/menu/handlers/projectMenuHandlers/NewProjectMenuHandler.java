@@ -62,6 +62,21 @@ public class NewProjectMenuHandler implements ActionListener {
         if (!dialog.isOkPressed()) {
             return;
         }
+        frame.setTitle(ProjectConstants.getProjectName(projectType));
+
+
+        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager();
+
+
+        try{
+            fileBasedProjectManager.createProject("projectTemplates/netTransformer.pfl", dialog.getProjectDir().getAbsolutePath());
+        } catch (ProjectManagerException e1)
+        {
+            JOptionPane.showMessageDialog(frame, "Unable to create project in "+dialog.getProjectDir());
+
+        }
+        frame.setPath(dialog.getProjectDir());
+
         switch (projectType) {
             case ProjectConstants.mrtBgpDiscovererProjectType:
                 file = new File("bgpPeeringMap.pfl");
@@ -91,7 +106,7 @@ public class NewProjectMenuHandler implements ActionListener {
             case ProjectConstants.snmpBgpDiscovererProjectType:
                 file = new File("bgpSnmpPeeringMap.pfl");
                 frame.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
-                frame.setViewerConfig("iTopologyManager/topologyViewer/bgpPeeringMap/viewer-config.xml");
+                frame.setViewerConfig("xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/viewer-config.xml");
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
@@ -130,19 +145,7 @@ public class NewProjectMenuHandler implements ActionListener {
 //
 //        }
 
-        frame.setTitle(ProjectConstants.getProjectName(frame.getProjectType()));
 
-
-        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager();
-
-
-       try{
-           fileBasedProjectManager.createProject("projectTemplates/netTransformer.pfl", dialog.getProjectDir().getAbsolutePath());
-       } catch (ProjectManagerException e1)
-       {
-           JOptionPane.showMessageDialog(frame, "Unable to create project in "+dialog.getProjectDir());
-
-       }
 
     frame.setPath(dialog.getProjectDir());
     frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
