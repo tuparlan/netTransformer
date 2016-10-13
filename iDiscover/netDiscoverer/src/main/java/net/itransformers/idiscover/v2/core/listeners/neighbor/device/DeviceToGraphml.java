@@ -57,8 +57,8 @@ public class DeviceToGraphml {
             String neighbourHostName = deviceNeighbour.getNeighbourHostName();
             String neighbourMac = deviceNeighbour.getNeighbourMac();
 
-
-            String neighbourId = getNeighbourIdFromAliases(neighbourHostName, neighbourIpAddress, neighbourMac);
+            AliasResolver aliasResolver = new AliasResolver(node,neighbourHostName, neighbourIpAddress, neighbourMac);
+            String neighbourId = aliasResolver.getNeighbourIdFromAliases();
 
             if (neighbourId==null) {
                 logger.info("Can't find neighbour id for: " + deviceNeighbour);
@@ -117,7 +117,9 @@ public class DeviceToGraphml {
                 String neighbourHostName = deviceNeighbour.getNeighbourHostName();
                 String neighbourMac = deviceNeighbour.getNeighbourMac();
 
-                String neighbourId = getNeighbourIdFromAliases(neighbourHostName, neighbourIpAddress, neighbourMac);
+                AliasResolver aliasResolver = new AliasResolver(node,neighbourHostName, neighbourIpAddress, neighbourMac);
+                String neighbourId = aliasResolver.getNeighbourIdFromAliases();
+
 
                 if (neighbourId == null)
                     continue;
@@ -200,7 +202,9 @@ public class DeviceToGraphml {
                 String neighbourHostName = deviceNeighbour.getNeighbourHostName();
                 String neighbourMac = deviceNeighbour.getNeighbourMac();
 
-                String neighbourId = getNeighbourIdFromAliases(neighbourHostName, neighbourIpAddress, neighbourMac);
+                AliasResolver aliasResolver = new AliasResolver(node,neighbourHostName, neighbourIpAddress, neighbourMac);
+                String neighbourId = aliasResolver.getNeighbourIdFromAliases();
+
 
                 if (neighbourId==null)
                     continue;
@@ -336,45 +340,7 @@ public class DeviceToGraphml {
         return finalDatas;
     }
 
-    private String getNeighbourIdFromAliases(String neighbourHostName,String neighbourIpAddress, String neighbourMac){
-       String neighbourId;
 
-        if (neighbourIpAddress!=null && !neighbourIpAddress.isEmpty()){
-            neighbourId  = findNeighbourFromAliases(neighbourIpAddress);
-            if (neighbourId!=null) {
-                return neighbourId;
-            }
-        } else if (neighbourHostName!=null && !neighbourHostName.isEmpty()){
-
-            neighbourId = findNeighbourFromAliases(neighbourHostName);
-            if (neighbourId!=null) {
-                return neighbourId;
-            }
-
-        }  else if (neighbourMac!=null && !neighbourMac.isEmpty()){
-            neighbourId = findNeighbourFromAliases(neighbourMac);
-            if (neighbourId!=null) {
-                return neighbourId;
-            }
-
-        } else {
-            logger.info("Can't find neighbour id hostName,ipAddress and mac are all null or empty!!!");
-
-        }
-
-        if (neighbourHostName!=null&&!neighbourHostName.isEmpty()) {
-            return neighbourHostName;
-
-        }else if (neighbourIpAddress!=null && !neighbourIpAddress.isEmpty()){
-                return neighbourIpAddress;
-        }else if (neighbourMac!=null && !neighbourMac.isEmpty()){
-                return neighbourMac;
-        }
-
-
-
-        return null;
-    }
 
 
     private List<GraphmlEdgeData> getGraphmlDirectNeighbourEdgeMetaData(DeviceNeighbour neighbour ) {
@@ -427,50 +393,50 @@ public class DeviceToGraphml {
     }
 
 
-//    private List<GraphmlEdgeData> getGraphmlSubnetNeighbourEdgeMetaData(Subnet subnet, DeviceNeighbour neighbour ) {
-//
-//        List<GraphmlEdgeData> graphmlEdgeDatas = new ArrayList<>();
-//        GraphmlEdgeData ipLink;
-//        if (neighbour.getNeighbourIpAddress()!=null && !neighbour.getNeighbourIpAddress().isEmpty())
-//             ipLink  = new GraphmlEdgeData("ipLink","true");
-//        else
-//            ipLink  = new GraphmlEdgeData("ipLink","false");
-//
-//        graphmlEdgeDatas.add(ipLink);
-//
-//        GraphmlEdgeData ipv4Forwarding;
-//        GraphmlEdgeData ipv6Forwarding;
-//        switch (subnet.getSubnetProtocolType()) {
-//            case "IPv4":
-//                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","YES");
-//                graphmlEdgeDatas.add(ipv4Forwarding);
-//                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","NO");
-//                graphmlEdgeDatas.add(ipv6Forwarding);
-//                break;
-//            case "IPv6":
-//                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","YES");
-//                graphmlEdgeDatas.add(ipv6Forwarding);
-//                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","NO");
-//                graphmlEdgeDatas.add(ipv4Forwarding);
-//                break;
-//        }
-//        String discoveryMethod= neighbour.getParameters().get("Discovery Method");
-//        GraphmlEdgeData linkDiscoveryMethod  = new GraphmlEdgeData("discoveryMethod",discoveryMethod);
-//        graphmlEdgeDatas.add(linkDiscoveryMethod);
-//        GraphmlEdgeData dataLink;
-//
-//        if (discoveryMethod.equals("CDP")||discoveryMethod.equals("LLDP")||discoveryMethod.equals("MAC")){
-//             dataLink  = new GraphmlEdgeData("dataLink","true");
-//        }    else {
-//            dataLink  = new GraphmlEdgeData("dataLink","false");
-//
-//        }
-//        graphmlEdgeDatas.add(dataLink);
-//
-//
-//        return graphmlEdgeDatas;
-//
-//    }
+    private List<GraphmlEdgeData> getGraphmlSubnetNeighbourEdgeMetaData(Subnet subnet, DeviceNeighbour neighbour ) {
+
+        List<GraphmlEdgeData> graphmlEdgeDatas = new ArrayList<>();
+        GraphmlEdgeData ipLink;
+        if (neighbour.getNeighbourIpAddress()!=null && !neighbour.getNeighbourIpAddress().isEmpty())
+            ipLink  = new GraphmlEdgeData("ipLink","true");
+        else
+            ipLink  = new GraphmlEdgeData("ipLink","false");
+
+        graphmlEdgeDatas.add(ipLink);
+
+        GraphmlEdgeData ipv4Forwarding;
+        GraphmlEdgeData ipv6Forwarding;
+        switch (subnet.getSubnetProtocolType()) {
+            case "IPv4":
+                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","YES");
+                graphmlEdgeDatas.add(ipv4Forwarding);
+                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","NO");
+                graphmlEdgeDatas.add(ipv6Forwarding);
+                break;
+            case "IPv6":
+                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","YES");
+                graphmlEdgeDatas.add(ipv6Forwarding);
+                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","NO");
+                graphmlEdgeDatas.add(ipv4Forwarding);
+                break;
+        }
+        String discoveryMethod= neighbour.getParameters().get("Discovery Method");
+        GraphmlEdgeData linkDiscoveryMethod  = new GraphmlEdgeData("discoveryMethod",discoveryMethod);
+        graphmlEdgeDatas.add(linkDiscoveryMethod);
+        GraphmlEdgeData dataLink;
+
+        if (discoveryMethod.equals("CDP")||discoveryMethod.equals("LLDP")||discoveryMethod.equals("MAC")){
+             dataLink  = new GraphmlEdgeData("dataLink","true");
+        }    else {
+            dataLink  = new GraphmlEdgeData("dataLink","false");
+
+        }
+        graphmlEdgeDatas.add(dataLink);
+
+
+        return graphmlEdgeDatas;
+
+    }
 
 
     private List<GraphmlNodeData> getGraphmlSubnetNodeMetaData(Subnet subnet){
@@ -549,19 +515,6 @@ public class DeviceToGraphml {
     }
 
 
-    private String findNeighbourFromAliases(String key){
 
-
-        for (Node neighbour : node.getNeighbours()){
-
-            Set<String> neighbourAliases = neighbour.getAliases();
-            if (neighbourAliases!=null && neighbourAliases.contains(key)){
-                return neighbour.getId();
-            }
-
-        }
-        return null;
-
-    }
 
 }
