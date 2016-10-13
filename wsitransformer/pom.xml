@@ -115,6 +115,16 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.21</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>topologyViewerConfigAPI</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlTopologyViewerConfig</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
     <pluginRepositories>
         <pluginRepository>
