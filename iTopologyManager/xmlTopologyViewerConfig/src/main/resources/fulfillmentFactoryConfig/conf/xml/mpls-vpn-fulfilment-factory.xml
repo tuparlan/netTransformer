@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ mpls-vpn-fulfilment-factory.xml
+  ~
+  ~ This work is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published
+  ~ by the Free Software Foundation; either version 2 of the License,
+  ~ or (at your option) any later version.
+  ~
+  ~ This work is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+  ~ USA
+  ~
+  ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+  -->
+
+<fulfilment-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../xsd/fulfilment-factory.xsd">
+    <fulfilment-factory-types>
+        <type name="Create vrf" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">Create vrf</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/create_vrf.templ</param>
+        </type>
+        <type name="Apply vrf" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">apply vrf</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/apply_vrf.templ</param>
+        </type>
+        <type name="Add static to vrf" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">Add static to vrf</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/add_static_route.templ</param>
+        </type>
+        <type name="Add default to vrf" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
+            <param name="cmd">Add default to vrf</param>
+            <param name="commands">iTopologyManager/fulfilmentFactory/conf/templ/add_default_to_vrf.templ</param>
+        </type>
+        <!--type name="setDeviceLocation" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
+            <param name="xslFileName">iTopologyManager/fulfilmentFactory/conf/xslt/setDeviceLocation.xslt</param>
+        </type-->
+        <type name="xsl2" class="com.cdsd.Xsl">
+            <param name="xslFileName">some2.xsl</param>
+        </type>
+    </fulfilment-factory-types>
+    <fulfilment-factory name="Create vrf" resourceName="cisco" type="Create vrf" parameterFactoryName="CreateVRF"/>
+    <fulfilment-factory name="Apply vrf" resourceName="cisco" type="Apply vrf" parameterFactoryName="ApplyVRF"/>
+    <fulfilment-factory name="Add static to vrf" resourceName="cisco" type="Add static to vrf" parameterFactoryName="enableIPv6Routing"/>
+    <fulfilment-factory name="Add default to vrf" resourceName="cisco" type="Add default to vrf" parameterFactoryName="addDefaultToVRF"/>
+
+</fulfilment-factories>
