@@ -341,7 +341,7 @@
                 <include>net.itransformers.netTransformer:resourceManager</include>
                 <include>net.itransformers.netTransformer.iTopologyManager:launcher</include>
                 <include>net.itransformers.netTransformer.iTopologyManager:topologyViewer</include>
-                <include>net.itransformers.netTransformer.iTopologyManager:topologyManagerConfig</include>
+                <include>net.itransformers.netTransformer.iTopologyManager:topologyViewerConfig</include>
                 <include>net.itransformers.netTransformer.iTopologyManager:rightClick</include>
                 <include>net.itransformers.netTransformer.iTopologyManager:rightClickAPI</include>
                 <include>net.itransformers.netTransformer.iTopologyManager:parameterFactory</include>
@@ -368,7 +368,7 @@
                 <include>iTransformers.iTransformer.iTopologyManager:launcher</include>
                 <include>iTransformers.iTransformer:resourceManager</include>
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
-                <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyViewerConfig</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>
                 <include>iTransformers.iTransformer.iTopologyManager:parameterFactory</include>

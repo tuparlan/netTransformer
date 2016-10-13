@@ -24,10 +24,10 @@ package net.itransformers.topologyviewer.gui;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import edu.uci.ics.jung.visualization.LayeredIcon;
-import net.itransformers.topologyviewer.config.DataMatcherType;
-import net.itransformers.topologyviewer.config.IconType;
-import net.itransformers.topologyviewer.config.TopologyViewerConfType;
-import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
+import net.itransformers.topologyviewer.config.models.DataMatcherType;
+import net.itransformers.topologyviewer.config.models.IconType;
+import net.itransformers.topologyviewer.config.models.TopologyViewerConfType;
+import net.itransformers.topologyviewer.config.models.datamatcher.DataMatcher;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

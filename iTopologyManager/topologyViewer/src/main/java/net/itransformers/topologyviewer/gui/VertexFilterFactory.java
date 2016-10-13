@@ -24,10 +24,10 @@ package net.itransformers.topologyviewer.gui;
 import edu.uci.ics.jung.algorithms.filters.VertexPredicateFilter;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
-import net.itransformers.topologyviewer.config.FilterType;
-import net.itransformers.topologyviewer.config.ForType;
-import net.itransformers.topologyviewer.config.IncludeType;
-import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
+import net.itransformers.topologyviewer.config.models.FilterType;
+import net.itransformers.topologyviewer.config.models.ForType;
+import net.itransformers.topologyviewer.config.models.IncludeType;
+import net.itransformers.topologyviewer.config.models.datamatcher.DataMatcher;
 import org.apache.commons.collections15.Predicate;
 import org.apache.log4j.Logger;
 

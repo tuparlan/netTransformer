@@ -21,7 +21,7 @@
 
 package net.itransformers.topologyviewer.edgetooltip;
 
-import net.itransformers.topologyviewer.config.TooltipType;
+import net.itransformers.topologyviewer.config.models.TooltipType;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import org.apache.commons.collections15.Transformer;
 

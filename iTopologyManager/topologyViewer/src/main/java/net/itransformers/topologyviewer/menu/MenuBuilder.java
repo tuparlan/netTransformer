@@ -426,10 +426,10 @@ public class MenuBuilder {
         final JMenuItem configureBGPParameters = new JMenuItem("BGP peering Map Parameters");
         configureBGPParameters.addActionListener(new ConfigureBGPParametersMenuHandler(frame));
         bgpPeeringDiscovery.add(configureBGPParameters);
-        final JMenuItem bgpViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
+//        final JMenuItem bgpViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
 
-        bgpViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
-        bgpPeeringDiscovery.add(bgpViewerSettingsItem);
+//        bgpViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
+//        bgpPeeringDiscovery.add(bgpViewerSettingsItem);
 
         final JMenu bgpDiffSettings = new JMenu("Diff Ignored keys Editor");
         final JMenuItem bgpIgnoredNodeKeys = new JMenuItem("ignoredNodeKeys");
@@ -448,10 +448,10 @@ public class MenuBuilder {
         configuration.add(bgpPeeringDiscovery);
 
         final JMenuItem freeGraph = new JMenu("Free Graph");
-        final JMenuItem freeGraphViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
-        freeGraphViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
-
-        freeGraph.add(freeGraphViewerSettingsItem);
+//        final JMenuItem freeGraphViewerSettingsItem = new JMenuItem("Viewer Configuration Editor");
+//        freeGraphViewerSettingsItem.addActionListener(new ConfigMenuHandler(frame));
+//
+//        freeGraph.add(freeGraphViewerSettingsItem);
 
         final JMenu freeGraphDiffSettings = new JMenu("Diff Ignored keys Editor");
 

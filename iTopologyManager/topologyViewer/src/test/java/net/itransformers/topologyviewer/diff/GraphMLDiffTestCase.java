@@ -43,7 +43,7 @@ public class GraphMLDiffTestCase {
         File xsltFile = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
         File nodeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_node_keys.xml");
         File edgeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_edge_keys.xml");
-        GraphMLDiff graphmDiffer = new GraphMLDiff(file1.toURI(),file2.toURI(),outFile,"topologyViewer/conf/xslt/graphml_diff.xslt",nodeIgnores,edgeIgnores);
+        GraphMLDiff graphmDiffer = new GraphMLDiff(file1.toURI(),file2.toURI(),outFile, "xmlTopologyViewerConfig/conf/xslt/graphml_diff.xslt",nodeIgnores,edgeIgnores);
         graphmDiffer.createDiffGraphml();
 
     }

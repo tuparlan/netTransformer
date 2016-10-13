@@ -246,7 +246,7 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
         if (!path3Undirected.exists()){
             path3Undirected.mkdir();
         }
-        task = new GraphMLFileDiffTool(new File(path1),new File(path2),new File(path3UndirectedNetwork), getNodeIgnoredKeysFile(),getEdgeIgnoredKeysFile(),"topologyViewer/conf/xslt/graphml_diff.xslt");
+        task = new GraphMLFileDiffTool(new File(path1),new File(path2),new File(path3UndirectedNetwork), getNodeIgnoredKeysFile(),getEdgeIgnoredKeysFile(), "xmlTopologyViewerConfig/conf/xslt/graphml_diff.xslt");
         task.addPropertyChangeListener(this);
         task.execute();
     }

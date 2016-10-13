@@ -1,8 +1,7 @@
 package net.itransformers.topologyviewer.gui;
 
 import edu.uci.ics.jung.graph.Graph;
-import net.itransformers.topologyviewer.config.TopologyViewerConfType;
-import net.itransformers.topologyviewer.gui.*;
+import net.itransformers.topologyviewer.config.models.TopologyViewerConfType;
 import net.itransformers.topologyviewer.rightclick.RightClickInvoker;
 
 import java.io.File;

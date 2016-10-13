@@ -29,6 +29,7 @@
     <bean id="topologyManagerFrame" class="net.itransformers.topologyviewer.gui.TopologyManagerFrame">
         <constructor-arg name="name" value="NetTransformer"/>
         <constructor-arg name="graphViewerPanelManagerFactory" ref="graphViewerPanelManagerFactory"/>
+        <constructor-arg name="topologyViewerConfigManagerFactory" ref="topologyViewerConfigManagerFactory"/>
         <constructor-arg name="menuBuilder" ref="menuBuilder"/>
     </bean>
     <bean id="menuBuilder" class="net.itransformers.topologyviewer.menu.MenuBuilder">

@@ -21,8 +21,8 @@
 
 package net.itransformers.topologyviewer.rightclick;
 
-import net.itransformers.topologyviewer.config.ParamType;
-import net.itransformers.topologyviewer.config.RightClickItemType;
+import net.itransformers.topologyviewer.config.models.ParamType;
+import net.itransformers.topologyviewer.config.models.RightClickItemType;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 
 import javax.swing.*;

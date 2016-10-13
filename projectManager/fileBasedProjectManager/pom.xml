@@ -23,6 +23,11 @@
             <artifactId>utils</artifactId>
             <version>0.8</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlTopologyViewerConfig</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
 
 </project>
