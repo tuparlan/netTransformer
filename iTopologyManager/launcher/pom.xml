@@ -42,9 +42,14 @@
         </dependency>
         <dependency>
             <groupId>net.itransformers</groupId>
-            <artifactId>topologyManagerConfig</artifactId>
+            <artifactId>topologyViewerConfig</artifactId>
             <version>0.8</version><!--Change for new version-->
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlTopologyViewerConfig</artifactId>
+            <version>0.8</version>
         </dependency>
         <dependency>
             <groupId>net.itransformers</groupId>

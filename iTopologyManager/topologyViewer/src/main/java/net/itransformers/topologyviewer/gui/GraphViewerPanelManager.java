@@ -23,7 +23,8 @@ package net.itransformers.topologyviewer.gui;
 
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
-import net.itransformers.topologyviewer.config.TopologyViewerConfType;
+import net.itransformers.topologyviewer.config.TopologyViewerConfigManager;
+import net.itransformers.topologyviewer.config.models.TopologyViewerConfType;
 import org.apache.commons.collections15.Factory;
 
 import javax.swing.*;
@@ -35,7 +36,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private GraphmlLoader<G> graphmlLoader;
     private String initialNode;
     private File projectPath;
-    private String viewerConfigPath;
+    private TopologyViewerConfigManager viewerConfigManager;
     private GraphType graphType;
     private IconMapLoader iconMapLoader;
     private EdgeStrokeMapLoader edgeStrokeMapLoader;
@@ -50,13 +51,13 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private final File deviceXmlPath;
     protected  GraphViewerPanelFactory graphViewerPanelFactory;
 
-    public GraphViewerPanelManager(TopologyManagerFrame frame, String projectType, File projectPath, String viewerConfigPath,
+    public GraphViewerPanelManager(TopologyManagerFrame frame, String projectType, File projectPath, TopologyViewerConfigManager viewerConfigPath,
                                    File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane,
                                    GraphType graphType, GraphViewerPanelFactory graphViewerPanelFactory) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
         this.graphType = graphType;
-        this.viewerConfigPath = viewerConfigPath;
+        this.viewerConfigManager = viewerConfigPath;
         versionDir = new File(new File(graphmlFile.getParent()).getParent());
        // TODO remove this Hardcode
         this.deviceXmlPath = versionDir;
@@ -64,7 +65,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         this.factory = factory;
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
-        viewerConfig = ViewerConfigLoader.loadViewerConfig(this.viewerConfigPath);
+        viewerConfig = viewerConfigManager.getTopologyViewerConfType();
         this.layout="FRLayout";
         this.graphViewerPanelFactory = graphViewerPanelFactory;
     }

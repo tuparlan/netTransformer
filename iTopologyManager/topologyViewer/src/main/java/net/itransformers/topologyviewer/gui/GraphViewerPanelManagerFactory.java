@@ -4,6 +4,7 @@ import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.UndirectedGraph;
 import edu.uci.ics.jung.graph.UndirectedSparseMultigraph;
+import net.itransformers.topologyviewer.config.TopologyViewerConfigManager;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -22,7 +23,10 @@ public class GraphViewerPanelManagerFactory {
     public GraphViewerPanelManager createGraphViewerPanelManager(TopologyManagerFrame topologyManagerFrame,
                                                                  String graphType,
                                                                  String projectType,
-                                                                 String viewerConfig, File selectedFile, File path, JTabbedPane tabbedPane) throws Exception {
+                                                                 TopologyViewerConfigManager viewerConfig,
+                                                                 File selectedFile,
+                                                                 File path,
+                                                                 JTabbedPane tabbedPane) throws Exception {
         if (graphType.equals("undirected")) {
             logger.info("Opening "+ projectType + " with viewer config" + viewerConfig + "and selected file" + selectedFile);
             return

@@ -21,8 +21,8 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import net.itransformers.topologyviewer.config.EdgeStrokeType;
-import net.itransformers.topologyviewer.config.TopologyViewerConfType;
+import net.itransformers.topologyviewer.config.models.EdgeStrokeType;
+import net.itransformers.topologyviewer.config.models.TopologyViewerConfType;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.io.GraphMLMetadata;
 import org.apache.log4j.Logger;

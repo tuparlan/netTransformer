@@ -21,14 +21,14 @@
   -->
 
 <topology-viewer-conf>
-    <dataMatcher name="default" class="net.itransformers.topologyviewer.config.datamatcher.impl.StringEquals"/>
-    <dataMatcher name="gt" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterThen"/>
-    <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessThen"/>
-    <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.datamatcher.impl.GreaterOrEqual"/>
-    <dataMatcher name="le" class="net.itransformers.topologyviewer.config.datamatcher.impl.LessOrEqual"/>
-    <dataMatcher name="be" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenInterval"/>
-    <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.datamatcher.impl.BetweenOrEqualInterval"/>
-    <dataMatcher name="sw" class="net.itransformers.topologyviewer.config.datamatcher.impl.StringStartsWith"/>
+    <dataMatcher name="default" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.StringEquals"/>
+    <dataMatcher name="gt" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.GreaterThen"/>
+    <dataMatcher name="lt" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.LessThen"/>
+    <dataMatcher name="ge" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.GreaterOrEqual"/>
+    <dataMatcher name="le" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.LessOrEqual"/>
+    <dataMatcher name="be" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.BetweenInterval"/>
+    <dataMatcher name="beoq" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.BetweenOrEqualInterval"/>
+    <dataMatcher name="sw" class="net.itransformers.topologyviewer.config.models.datamatcher.impl.StringStartsWith"/>
     <scaling-factor>
         <data key="0.00001"/>
     </scaling-factor>

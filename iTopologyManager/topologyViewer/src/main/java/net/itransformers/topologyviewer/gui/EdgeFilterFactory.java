@@ -19,12 +19,12 @@
 
 package net.itransformers.topologyviewer.gui;
 
-import net.itransformers.topologyviewer.config.FilterType;
-import net.itransformers.topologyviewer.config.ForType;
-import net.itransformers.topologyviewer.config.IncludeType;
+import net.itransformers.topologyviewer.config.models.FilterType;
+import net.itransformers.topologyviewer.config.models.ForType;
+import net.itransformers.topologyviewer.config.models.IncludeType;
 import edu.uci.ics.jung.algorithms.filters.EdgePredicateFilter;
 import edu.uci.ics.jung.io.GraphMLMetadata;
-import net.itransformers.topologyviewer.config.datamatcher.DataMatcher;
+import net.itransformers.topologyviewer.config.models.datamatcher.DataMatcher;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.apache.log4j.Logger;

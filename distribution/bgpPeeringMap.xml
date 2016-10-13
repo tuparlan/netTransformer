@@ -136,7 +136,7 @@
                 <include>iTransformers.iTransformer:utils</include>
                 <!--include>iTransformers.iTransformer:snmptoolkit</include-->
                 <include>iTransformers.iTransformer.iTopologyManager:topologyViewer</include>
-                <include>iTransformers.iTransformer.iTopologyManager:topologyManagerConfig</include>
+                <include>iTransformers.iTransformer.iTopologyManager:topologyViewerConfig</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClick</include>
                 <include>iTransformers.iTransformer.iTopologyManager:rightClickAPI</include>
                 <include>iTransformers.iTransformer:bgpPeeringMap</include>

@@ -30,33 +30,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class ConfigMenuHandler implements ActionListener {
-
-    private TopologyManagerFrame frame;
-    String path;
-
-    public ConfigMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
-
-        this.frame = frame;
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String filePath = frame.getViewerConfig();
-        frame.getProjectType();
-        frame.getPath();
-        System.out.println("Viewer Config file path: " + filePath);
-        String dir =  frame.getViewerConfig();
-            JEditorPane settingsEditor = new JEditorPane(filePath,dir,".xml");
-            try {
-                settingsEditor.init();
-            } catch (IOException e1) {
-                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (BadLocationException e1) {
-                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-
-        }
-
+public class ConfigMenuHandler {
+//
+//    private TopologyManagerFrame frame;
+//    String path;
+//
+//    public ConfigMenuHandler(TopologyManagerFrame frame) throws HeadlessException {
+//
+//        this.frame = frame;
+//    }
+//
+//
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        String filePath = frame.getViewerConfig();
+//        frame.getProjectType();
+//        frame.getPath();
+//        System.out.println("Viewer Config file path: " + filePath);
+//        String dir =  frame.getViewerConfig();
+//            JEditorPane settingsEditor = new JEditorPane(filePath,dir,".xml");
+//            try {
+//                settingsEditor.init();
+//            } catch (IOException e1) {
+//                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            } catch (BadLocationException e1) {
+//                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            }
+//
+//        }
+//
 }

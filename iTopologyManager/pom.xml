@@ -25,17 +25,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.itransformers</groupId>
     <artifactId>iTopologyManager</artifactId>
     <version>0.8</version><!--Change for new version-->
     <modules>
         <module>rightClickAPI</module>
         <module>rightClick</module>
-        <module>topologyManagerConfig</module>
+        <module>topologyViewerConfigAPI</module>
         <module>fulfilmentFactory</module>
         <module>parameterFactory</module>
         <module>topologyViewer</module>
         <module>launcher</module>
+        <module>xmlTopologyViewerConfig</module>
     </modules>
     <packaging>pom</packaging>
 
