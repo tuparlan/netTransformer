@@ -58,12 +58,12 @@ public class DiscoveryWizardDialog extends JDialog {
     public static void main(String[] args) {
         try {
             UIManager.put("Table.gridColor", new ColorUIResource(Color.gray));
-            ResourceManagerFactory resourceManagerFactory =  new XmlResourceManagerFactory();
+            ResourceManagerFactory resourceManagerFactory =  new XmlResourceManagerFactory("xmlResourceManager/conf/xml/resource.xml");
             Map<String, String> params = new HashMap<>();
             params.put("projectPath", new File(".").getAbsolutePath());
             ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml", params);
 
-            ConnectionDetailsManagerFactory connectionDetailsManagerFactory = new CsvConnectionDetailsManagerFactory();
+            ConnectionDetailsManagerFactory connectionDetailsManagerFactory = new CsvConnectionDetailsManagerFactory("csvConnectionDetails/conf/txt/connection-details.txt");
             ConnectionDetailsManager connectionDetailsManager = connectionDetailsManagerFactory.createConnectionDetailsManager("csv",params);
 
             DiscoveryWizardDialog dialog = new DiscoveryWizardDialog(null,
@@ -135,7 +135,11 @@ public class DiscoveryWizardDialog extends JDialog {
     }
 
     private void init() {
+//<<<<<<< HEAD
         ConnectionDetailsPanel connectionDetailsPanel = new ConnectionDetailsPanel(connectionDetailsManager);
+//=======
+        File file = new File(projectPath, "csvConnectionDetails/conf/txt/connection-details.txt");
+//        ConnectionDetailsPanel connectionDetailsPanel = new ConnectionDetailsPanel();
         try {
             connectionDetailsPanel.load();
         } catch (IOException e) {
@@ -150,13 +154,22 @@ public class DiscoveryWizardDialog extends JDialog {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
         if (contentPanel instanceof DiscoveryResourcePanel) {
+//<<<<<<< HEAD
+//=======
+//            File resourceFile = new File(projectPath, "xmlResourceManager/conf/xml/resource.xml");
+//>>>>>>> add3ffcab75d1513e3f0f2fd15a0396334417256
             try {
                 ((DiscoveryResourcePanel) contentPanel).save();
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");
             }
-            ConnectionDetailsPanel panel = new ConnectionDetailsPanel(connectionDetailsManager);
+//<<<<<<< HEAD
+           ConnectionDetailsPanel panel = new ConnectionDetailsPanel(connectionDetailsManager);
+////=======
+//            File file = new File(projectPath, "csvConnectionDetails/conf/txt/connection-details.txt");
+//            ConnectionDetailsPanel panel = new ConnectionDetailsPanel();
+//>>>>>>> add3ffcab75d1513e3f0f2fd15a0396334417256
             try {
                 panel.load();
             } catch (IOException e) {
@@ -187,7 +200,12 @@ public class DiscoveryWizardDialog extends JDialog {
 
         }
 
+//<<<<<<< HEAD
         final DiscoveryResourcePanel panel = new DiscoveryResourcePanel(resourceManager);
+//=======
+//        final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
+//        File resourceFile = new File(projectPath, "xmlResourceManager/conf/xml/resource.xml");
+//>>>>>>> add3ffcab75d1513e3f0f2fd15a0396334417256
         try {
             panel.load(projectPath);
         } catch (Exception e) {
@@ -212,6 +230,10 @@ public class DiscoveryWizardDialog extends JDialog {
 
 
     private void go() {
+//<<<<<<< HEAD
+//=======
+//        File resourceFile = new File(projectPath, "xmlResourceManager/conf/xml/resource.xml");
+//>>>>>>> add3ffcab75d1513e3f0f2fd15a0396334417256
         try {
             ((DiscoveryResourcePanel) contentPanel).save();
         } catch (Exception e) {

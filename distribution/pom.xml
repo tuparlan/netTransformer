@@ -42,12 +42,47 @@
          distribution project builds AFTER that one...
     -->
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>iTransformers.iTransformer</groupId>-->
-            <!--<artifactId>utils</artifactId>-->
-            <!--<version>0.7-SNAPSHOT</version>&lt;!&ndash;Change for new version&ndash;&gt;-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>netDiscoverer</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>cliDiscoveryLauncher</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>iDiscoverAPI</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
 
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlResourceManager</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>connectiondetailsapi</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>csvConnectionDetails</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>topologyViewer</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlNodeDataProvider</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -68,7 +103,7 @@
                                     <filter>netTransformer.properties</filter>
                             </filters>
                             <descriptors>
-                                <descriptor>distribution/netTransformer.xml</descriptor>
+                                <descriptor>netTransformer.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>

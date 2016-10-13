@@ -24,5 +24,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="resourceManagerFactory" class="net.itransformers.resourcemanager.xmlResourceManager.XmlResourceManagerFactory">
+      <constructor-arg value="xmlResourceManager/conf/xml/resource.xml"/>
     </bean>
 </beans>

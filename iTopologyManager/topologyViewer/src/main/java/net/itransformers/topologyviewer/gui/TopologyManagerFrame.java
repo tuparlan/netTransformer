@@ -40,7 +40,7 @@ public class TopologyManagerFrame extends JFrame{
     public static final String VIEWER_PREFERENCES_PROPERTIES = "viewer-preferences.properties";
     private File path;
     private String projectType;
-    private File viewerConfig;
+    private String viewerConfig;
     private JTabbedPane tabbedPane;
     private Properties preferences = new Properties();
     Map<String, GraphViewerPanelManager> viewerPanelManagerMap = new HashMap<String, GraphViewerPanelManager>();
@@ -99,11 +99,11 @@ public class TopologyManagerFrame extends JFrame{
         this.path = path;
     }
 
-    public File getViewerConfig() {
+    public String getViewerConfig() {
         return viewerConfig;
     }
 
-    public void setViewerConfig(File viewerConfig) {
+    public void setViewerConfig(String viewerConfig) {
         this.viewerConfig = viewerConfig;
     }
     public void setProjectType(String projectType) {
@@ -199,7 +199,7 @@ public class TopologyManagerFrame extends JFrame{
         if (selectedFile.getName().equals("bgpPeeringMap.pfl")) {
             this.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
             this.setName("bgpPeeringMap");
-            this.setViewerConfig(new File(selectedFile.getParentFile() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+            this.setViewerConfig("topologyViewer/conf/bgpPeeringMap/viewer-config.xml");
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
@@ -209,14 +209,14 @@ public class TopologyManagerFrame extends JFrame{
             this.setProjectType(ProjectConstants.freeGraphProjectType);
 
             this.setName("bgpPeeringMap");
-            this.setViewerConfig(new File(selectedFile.getParentFile() + File.separator + "iTopologyManager/topologyViewer/conf/xml/freeGraph/viewer-config.xml"));
+            this.setViewerConfig("topologyViewer/conf/freeGraph/viewer-config.xml");
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
         } else if (selectedFile.getName().equals("bgpSnmpPeeringMap.pfl")) {
             this.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
-            this.setViewerConfig(new File(selectedFile.getParentFile() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
+            this.setViewerConfig("topologyViewer/conf/bgpPeeringMap/viewer-config.xml");
             //
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
@@ -225,7 +225,7 @@ public class TopologyManagerFrame extends JFrame{
 
         } else if (selectedFile.getName().equals("netTransformer.pfl")) {
             this.setProjectType(ProjectConstants.snmpProjectType);
-            this.setViewerConfig(new File(selectedFile.getParentFile() + File.separator + "iTopologyManager/topologyViewer/conf/xml/viewer-config.xml"));
+            this.setViewerConfig("topologyViewer/discovery/viewer-config.xml");
             //
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);

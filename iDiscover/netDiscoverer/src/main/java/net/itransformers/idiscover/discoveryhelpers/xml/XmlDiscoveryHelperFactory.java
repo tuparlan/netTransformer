@@ -28,9 +28,8 @@ import net.itransformers.idiscover.discoveryhelpers.xml.discoveryParameters.Disc
 import net.itransformers.idiscover.util.JaxbMarshalar;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +42,11 @@ public class XmlDiscoveryHelperFactory implements DiscoveryHelperFactory {
     public XmlDiscoveryHelperFactory(Map<String, String> params) throws JAXBException, FileNotFoundException {
 
         String filename = params.get("fileName");
-        String projectPath = params.get("projectPath");
 
-        FileInputStream is = new FileInputStream(new File(projectPath,filename));
+
+        InputStream is =this.getClass().getClassLoader().getResourceAsStream(filename);
+
+        System.out.println(filename);
 
         discoveryHelperType = JaxbMarshalar.unmarshal(DiscoveryHelperType.class,is);
         List<DeviceType> list = discoveryHelperType.getDevice();

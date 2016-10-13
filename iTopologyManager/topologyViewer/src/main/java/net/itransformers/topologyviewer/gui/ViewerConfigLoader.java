@@ -28,11 +28,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.
@@ -42,7 +39,7 @@ import java.net.URL;
  */
 public class ViewerConfigLoader {
 
-    public static TopologyViewerConfType loadViewerConfig(File url) throws JAXBException, IOException {
+    public static TopologyViewerConfType loadViewerConfig(String viewerConfig) throws JAXBException, IOException {
         final Class<TopologyViewerConfType> docClass = TopologyViewerConfType.class;
         String packageName = docClass.getPackage().getName();
         JAXBContext jc = null;
@@ -60,7 +57,7 @@ public class ViewerConfigLoader {
         JAXBElement<TopologyViewerConfType> doc = null;
         InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(url);
+            inputStream = ViewerConfigLoader.class.getClassLoader().getResourceAsStream(viewerConfig);
 //            inputStream = this.getClass().getResourceAsStream(fileName);
             doc = u.unmarshal( new StreamSource(inputStream), docClass );
         } finally {

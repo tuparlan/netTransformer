@@ -21,19 +21,33 @@
 
 package net.itransformers.utils;
 
+import net.sf.saxon.TransformerFactoryImpl;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
+import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.util.Map;
 
+
 public class XsltTransformer {
+
     public void transformXML(InputStream xmlIn, File xslt, OutputStream xmlOut, Map<String, String> params) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+
+        Source xmlSource = new StreamSource(xmlIn);
+
+        Transformer trans = StylesheetCache.newTransformer(xslt.getCanonicalPath());
+        if (params != null) {
+            for (String param : params.keySet()) {
+                trans.setParameter(param, params.get(param));
+            }
+        }
+        trans.transform(xmlSource, new StreamResult(xmlOut));
+    }
+
+    public void transformXML(InputStream xmlIn, String xslt, OutputStream xmlOut, Map<String, String> params) throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
         Source xmlSource = new StreamSource(xmlIn);
 
@@ -50,30 +64,29 @@ public class XsltTransformer {
 
         Source xmlSource = new StreamSource(xmlIn);
 
+        Transformer trans = StylesheetCache.newTransformer(xslt.getCanonicalPath());
+        trans.transform(xmlSource, new StreamResult(xmlOut));
+    }
+
+    public void transformXML(InputStream xmlIn, String xslt, OutputStream xmlOut) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+
+        Source xmlSource = new StreamSource(xmlIn);
+
         Transformer trans = StylesheetCache.newTransformer(xslt);
         trans.transform(xmlSource, new StreamResult(xmlOut));
     }
 
-    public static ByteArrayOutputStream transformXML(File xslt,ByteArrayInputStream inputStream,  Map<String, String> params) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+
+
+    public static ByteArrayOutputStream transformXML( ByteArrayInputStream inputStream,String xslt) throws ParserConfigurationException, IOException, SAXException, TransformerException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
 
-        Transformer trans = StylesheetCache.newTransformer(xslt);
-        if (params != null) {
-            for (String param : params.keySet()) {
-                trans.setParameter(param, params.get(param));
-            }
-        }
-        Source xmlSource = new StreamSource(inputStream);
-        trans.transform(xmlSource, new StreamResult(outputStream));
+        Source xslSource = new StreamSource(inputStream);
 
-        return outputStream;
-
-    }
-
-    public static ByteArrayOutputStream transformXML(File xslt, ByteArrayInputStream inputStream) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
+        TransformerFactory transFact = TransformerFactory.newInstance();
+        ((TransformerFactoryImpl) transFact).getConfiguration().setMessageEmitterClass(Log4jEmitter.class.getName());
+//        Templates templates = transFact.newTemplates(xslSource);
 
         Transformer trans = StylesheetCache.newTransformer(xslt);
         Source xmlSource = new StreamSource(inputStream);

@@ -33,7 +33,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
-import java.io.File;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -116,7 +116,9 @@ public class SearchEdgeByNameEntireGraphMenuHandler implements ActionListener {
                     //  System.out.println(sb.toString());
                     ByteArrayInputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
 
-                    XsltReport testReport = new XsltReport(new File(frame.getPath(), "iTopologyManager/rightClick/conf/xslt/table_creator.xslt"), new StreamSource(inputStream));
+                    InputStream xsltInputStream = this.getClass().getClassLoader().getResourceAsStream("rightClick/conf/table_creator.xslt");
+
+                    XsltReport testReport = new XsltReport( xsltInputStream, new StreamSource(inputStream));
                     try {
 
                         String report = testReport.singleTransformer().toString();
