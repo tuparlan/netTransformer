@@ -7,6 +7,7 @@ import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.GraphmlRend
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNodeData;
+import net.itransformers.idiscover.v2.core.listeners.neighbor.device.AliasResolver;
 import net.itransformers.idiscover.v2.core.listeners.neighbor.device.DeviceToGraphml;
 import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.commons.io.FileUtils;
@@ -114,8 +115,6 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
             String bogonSubnetMarker =  (String) nodeDiscoveryResult.getDiscoveredData().get("bogon");
             String privateSubnetMarker = (String) nodeDiscoveryResult.getDiscoveredData().get("private");
 
-//            System.out.println("BOGON: "+bogonSubnetMarker.toString());
-//            System.out.println("PRIVATE: "+privateSubnetMarker.toString());
 
             if (bogonSubnetMarker!=null && bogonSubnetMarker.equals("YES"))
                 subnetNodeData.add(new GraphmlNodeData("bogon","YES"));
@@ -131,24 +130,30 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
             mainNodeGraphmlDatas.addAll(subnetNodeData);
 
 
-//            List<GraphmlNode> subnetNeighbourNodes = new ArrayList<>();
+            List<GraphmlNode> subnetNeighbourNodes = new ArrayList<>();
 //
-//            List<GraphmlEdge> subnetNeighbourEdges = new ArrayList<>();
+            List<GraphmlEdge> subnetNeighbourEdges = new ArrayList<>();
 
-//            for (Node subnetNeighbour : node.getNeighbours()) {
-//                GraphmlNode subnetNeighbourNode = new GraphmlNode(subnetNeighbour.getId(),subnetNeighbour.getId());
-//              //  subnetNeighbourNodes.add(subnetNeighbourNode);
-//                //TODO this edge has to be with id from the subnet ipAddress and the neighbour ip address in that subnet
-//
-//
-//                EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(subnetNeighbour.getId(),node.getId(),subnetNeighbour.getId(),node.getId());
-//
-//                GraphmlEdge subnetNeighbourEdge = edgeIdGenerator.createEdge();
-//                subnetNeighbourEdges.add(subnetNeighbourEdge);
-//            }
+            for (Node subnetNeighbour : node.getNeighbours()) {
 
-//            graphmlNodes.addAll(subnetNeighbourNodes);
-//            graphmlEdges.addAll(subnetNeighbourEdges);
+                AliasResolver aliasResolver = new AliasResolver(node,subnetNeighbour.getId(), null, null);
+                String neighbourId = aliasResolver.getNeighbourIdFromAliases();
+                GraphmlNode subnetNeighbourNode;
+
+                if (neighbourId==null) neighbourId = subnetNeighbour.getId();
+
+                subnetNeighbourNode = new GraphmlNode(neighbourId, neighbourId);
+
+                subnetNeighbourNodes.add(subnetNeighbourNode);
+                EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId,node.getId(),neighbourId,node.getId());
+                GraphmlEdge subnetNeighbourEdge = edgeIdGenerator.createEdge();
+
+
+                subnetNeighbourEdges.add(subnetNeighbourEdge);
+            }
+
+            graphmlNodes.addAll(subnetNeighbourNodes);
+            graphmlEdges.addAll(subnetNeighbourEdges);
             String subnetIpAddress = subnetDetails.get("ipAddress");
             String subnetPrefixMask = subnetDetails.get("subnetPrefixMask");
 
