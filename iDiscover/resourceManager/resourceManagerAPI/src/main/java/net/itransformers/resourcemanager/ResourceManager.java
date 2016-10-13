@@ -25,6 +25,8 @@ package net.itransformers.resourcemanager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.resourcemanager.config.ResourcesType;
+
 import java.util.*;
 
 public interface ResourceManager {
@@ -33,25 +35,24 @@ public interface ResourceManager {
     List<ResourceType> findResourceBy(Map<String, String> deviceParams);
     List<ResourceType> findResourcesByConnectionType(String connectionParametersType);
 
-    void createResource(ResourceType resourceType);
-    void createResource(String resourceName);
-    void updateResource(String resourceName, String newResourceName);
-    void deleteResource(String resourceName);
-    List<String> getResources();
-    ResourceType getResource(String resourceName);
+    void createResources(ResourcesType resourcesType);
+    ResourcesType getResources();
+
+    List<String> getResourceNames();
+    void createResourceName(String resourceName);
+    void updateResourceName(String resourceName, String newResourceName);
+    void deleteResourceName(String resourceName);
 
     void createSelectionParam(String resourceName, String paramName, String paramValue);
     void updateSelectionParam(String resourceName, String paramName, String paramValue);
     void deleteSelectionParam(String resourceName, String paramName);
     List<ParamType> getSelectionParams(String resourceName);
 
-    List<String> getConnections(String resourceName);
-    void createConnection(String resourceName, String connType);
+    List<String> getConnectionTypes(String resourceName);
+    void createConnectionType(String resourceName, String connType);
+    void deleteConnectionType(String resourceName, String connType);
     void createConnectionParam(String resourceName, String connectionType, String paramName, String paramValue);
     void updateConnectionParams(String resourceName, String connectionType, String paramName, String paramValue);
     void deleteConnectionParams(String resourceName, String connectionType, String paramName);
-    List<ParamType> getConnectionParams(String resourceName , String connectionType);
-
-
-
+    List<ParamType> getConnectionParams(String resourceName, String connectionType);
 }

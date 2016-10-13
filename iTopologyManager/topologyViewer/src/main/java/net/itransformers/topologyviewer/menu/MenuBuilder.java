@@ -21,6 +21,10 @@
 
 package net.itransformers.topologyviewer.menu;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.*;
@@ -47,6 +51,14 @@ import java.lang.reflect.InvocationTargetException;
 
 
 public class MenuBuilder {
+
+    private StartDiscoveryWizardMenuHandler startDiscoveryWizardMenuHandler;
+    private TopologyManagerFrame frame;
+
+    public MenuBuilder(StartDiscoveryWizardMenuHandler startDiscoveryWizardMenuHandler) {
+        this.startDiscoveryWizardMenuHandler = startDiscoveryWizardMenuHandler;
+    }
+
     public JMenuBar createMenuBar(final TopologyManagerFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         //Main menu items
@@ -63,10 +75,6 @@ public class MenuBuilder {
         createPreferencesMenu(frame, menuBar);
         createHelpMenu(frame, menuBar);
         return menuBar;
-    }
-
-    public JMenuBar getMenubar(final TopologyManagerFrame frame) {
-        return frame.getJMenuBar();
     }
 
     private void createHelpMenu(TopologyManagerFrame frame, JMenuBar menuBar) {
@@ -320,7 +328,7 @@ public class MenuBuilder {
         menuBar.add(discovery);
 
         final JMenuItem startDiscoveryWizard = new JMenuItem("Discovery Wizard");
-        startDiscoveryWizard.addActionListener(new StartDiscoveryWizardMenuHandler(frame));
+        startDiscoveryWizard.addActionListener(startDiscoveryWizardMenuHandler);
         discovery.add(startDiscoveryWizard);
 
         final JMenuItem startDiscovery = new JMenuItem("Discover Now!");
@@ -484,4 +492,8 @@ public class MenuBuilder {
         return handler;
     }
 
+    public void setFrame(TopologyManagerFrame frame) {
+        this.frame = frame;
+        this.startDiscoveryWizardMenuHandler.setFrame(frame);
+    }
 }

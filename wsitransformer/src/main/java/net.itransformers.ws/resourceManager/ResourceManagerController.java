@@ -4,6 +4,7 @@ import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.resourcemanager.config.ResourcesType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -44,53 +45,59 @@ public class ResourceManagerController implements ServletContextAware {
         }
         return resourceManager;
     }
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/names", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> getResources() {
+    public List<String> getResourceNames() {
+        return getResourceManager().getResourceNames();
+    }
+
+    @RequestMapping(value = "/", method=RequestMethod.GET)
+    @ResponseBody
+    public ResourcesType getResources() {
         return getResourceManager().getResources();
     }
 
-    @RequestMapping(value = "/{resourceName}", method=RequestMethod.GET)
+    @RequestMapping(value = "/names", method=RequestMethod.POST)
     @ResponseBody
-    public ResourceType getResource(@PathVariable String resourceName) {
-        return getResourceManager().getResource(resourceName);
+    public void createResourceName(@RequestBody String resourceName) {
+        getResourceManager().createResourceName(resourceName);
     }
 
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @ResponseBody
-    public void createResource(@RequestBody String resourceName) {
-        getResourceManager().createResource(resourceName);
-    }
-
-    @RequestMapping(value = "/", method=RequestMethod.PATCH)
-    @ResponseBody
-    public void createResourceAll(@RequestBody ResourceType resourceType) {
-        getResourceManager().createResource(resourceType);
+    public void createResources(@RequestBody ResourcesType resourcesType) {
+        getResourceManager().createResources(resourcesType);
     }
 
 
     @RequestMapping(value = "/{resourceName}", method=RequestMethod.PUT)
     @ResponseBody
-    public void updateResource(@PathVariable String resourceName, @RequestBody String newResourceName) {
-        getResourceManager().updateResource(resourceName, newResourceName);
+    public void updateResourceName(@PathVariable String resourceName, @RequestBody String newResourceName) {
+        getResourceManager().updateResourceName(resourceName, newResourceName);
     }
 
     @RequestMapping(value = "/{resourceName}", method=RequestMethod.DELETE)
     @ResponseBody
-    public void deleteResource(@PathVariable String resourceName) {
-        getResourceManager().deleteResource(resourceName);
+    public void deleteResourceName(@PathVariable String resourceName) {
+        getResourceManager().deleteResourceName(resourceName);
     }
 
     @RequestMapping(value = "/{resourceName}/connection", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getConnections(@PathVariable String resourceName) {
-        return getResourceManager().getConnections(resourceName);
+        return getResourceManager().getConnectionTypes(resourceName);
     }
 
     @RequestMapping(value = "/{resourceName}/connection", method = RequestMethod.POST)
     @ResponseBody
     public void createConnections(@PathVariable String resourceName, @RequestBody String connType) {
-        getResourceManager().createConnection(resourceName, connType);
+        getResourceManager().createConnectionType(resourceName, connType);
+    }
+
+    @RequestMapping(value = "/{resourceName}/connection/{connType}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteConnections(@PathVariable String resourceName, @PathVariable String connType) {
+        getResourceManager().deleteConnectionType(resourceName, connType);
     }
 
     @RequestMapping(value = "/{resourceName}/connection/{connType}/param", method = RequestMethod.GET)
@@ -99,9 +106,9 @@ public class ResourceManagerController implements ServletContextAware {
         return getResourceManager().getConnectionParams(resourceName, connType);
     }
 
-    @RequestMapping(value="/{resourceName}/connection/{connType}/param/{paramName}", method=RequestMethod.POST)
+    @RequestMapping(value="/{resourceName}/connection/{connType}/param", method=RequestMethod.POST)
     @ResponseBody
-    public void createConnectionParam(@PathVariable String resourceName, @PathVariable String connType, @PathVariable String paramName, @RequestBody String paramValue) {
+    public void createConnectionParam(@PathVariable String resourceName, @PathVariable String connType, @RequestParam String paramName, @RequestParam String paramValue) {
         getResourceManager().createConnectionParam(resourceName, connType, paramName, paramValue);
     }
 
@@ -123,9 +130,9 @@ public class ResourceManagerController implements ServletContextAware {
         return getResourceManager().getSelectionParams(resourceName);
     }
 
-    @RequestMapping(value="/{resourceName}/selection/param/{paramName}", method=RequestMethod.POST)
+    @RequestMapping(value="/{resourceName}/selection/param", method=RequestMethod.POST)
     @ResponseBody
-    public void createSelectionParam(@PathVariable String resourceName, @PathVariable String paramName, @RequestBody String paramValue) {
+    public void createSelectionParam(@PathVariable String resourceName, @RequestParam String paramName, @RequestParam String paramValue) {
         getResourceManager().createSelectionParam(resourceName, paramName, paramValue);
     }
 
@@ -140,5 +147,4 @@ public class ResourceManagerController implements ServletContextAware {
     public void deleteSelectionParam(@PathVariable String resourceName, @PathVariable String paramName) {
         getResourceManager().deleteSelectionParam(resourceName, paramName);
     }
-
 }

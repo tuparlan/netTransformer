@@ -14,14 +14,13 @@ import java.io.File;
  */
 public class GraphViewerPanelManagerFactory {
     static Logger logger = Logger.getLogger(GraphViewerPanelManagerFactory.class);
-    private TopologyManagerFrame topologyManagerFrame;
     protected GraphViewerPanelFactory graphViewerPanelFactory;
-    public GraphViewerPanelManagerFactory(TopologyManagerFrame topologyManagerFrame, GraphViewerPanelFactory graphViewerPanelFactory) {
-        this.topologyManagerFrame = topologyManagerFrame;
+    public GraphViewerPanelManagerFactory(GraphViewerPanelFactory graphViewerPanelFactory) {
         this.graphViewerPanelFactory = graphViewerPanelFactory;
     }
 
-    public GraphViewerPanelManager createGraphViewerPanelManager(String graphType,
+    public GraphViewerPanelManager createGraphViewerPanelManager(TopologyManagerFrame topologyManagerFrame,
+                                                                 String graphType,
                                                                  String projectType,
                                                                  File viewerConfig, File selectedFile, File path, JTabbedPane tabbedPane) throws Exception {
         if (graphType.equals("undirected")) {

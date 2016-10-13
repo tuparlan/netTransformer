@@ -67,6 +67,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     @Override
     public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
+        this.setDiscoveryStatus(Status.STARTED);
         try {
             long startTime = System.currentTimeMillis();
             futureCounter = 0;
@@ -121,6 +122,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
             logger.info("Discovery finished in " + ((System.currentTimeMillis() - startTime) / 1000) + " seconds.");
         } finally {
+            this.setDiscoveryStatus(Status.STOPPED);
             nodes.clear();
             discoveredConnectionDetails.clear();
             nodeNeighbourFuturesMap.clear();
@@ -215,15 +217,6 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         logger.info("Shutting down event executor service");
 
 
-
-    }
-
-    public synchronized boolean isStopped() {
-        return executorService.isTerminated();
-    }
-
-    public synchronized boolean isRunning() {
-        return !executorService.isTerminated();
 
     }
 
@@ -349,17 +342,23 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
 
     @Override
     public synchronized void stopDiscovery() {
+        this.setDiscoveryStatus(Status.STOPPING);
         executorService.shutdown();
+        this.setDiscoveryStatus(Status.STOPPED);
     }
 
     @Override
     public void pauseDiscovery() {
+        this.setDiscoveryStatus(Status.PAUSING);
         this.executorService.pause();
+        this.setDiscoveryStatus(Status.PAUSED);
     }
 
     @Override
     public void resumeDiscovery() {
+        this.setDiscoveryStatus(Status.RESUMING);
         this.executorService.resume();
+        this.setDiscoveryStatus(Status.STARTED);
     }
 
 }

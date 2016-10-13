@@ -28,10 +28,20 @@ import java.util.List;
 import java.util.Set;
 
 public interface NetworkDiscoverer  {
+    enum Status {
+        STARTING,
+        STARTED,
+        PAUSING,
+        PAUSED,
+        RESUMING,
+        STOPPING,
+        STOPPED
+    }
     void startDiscovery(Set<ConnectionDetails> connectionDetailsList);
     void stopDiscovery();
     void pauseDiscovery();
     void resumeDiscovery();
+    Status getDiscoveryStatus();
 
     void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners);
     void removeNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners);

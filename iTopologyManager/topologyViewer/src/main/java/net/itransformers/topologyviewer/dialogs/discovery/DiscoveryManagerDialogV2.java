@@ -285,7 +285,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
 
         LinkedHashMap<String,ConnectionDetails> connectionList = null;
         if (connectionDetails != null) {
-            connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetails.getConnectionDetails();
+            connectionList = (LinkedHashMap<String, ConnectionDetails>) connectionDetails.getConnections();
         }
         props.put("version", version);
         NetworkDiscoverer nodeDiscovererImpl =

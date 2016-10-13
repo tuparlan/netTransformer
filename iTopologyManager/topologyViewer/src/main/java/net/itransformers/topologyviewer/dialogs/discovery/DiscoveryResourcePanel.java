@@ -21,11 +21,11 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ConnectionParamsType;
 import net.itransformers.resourcemanager.config.ParamType;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.resourcemanager.config.ResourcesType;
-import net.itransformers.utils.JaxbMarshalar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -34,7 +34,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,17 +46,22 @@ public class DiscoveryResourcePanel extends JPanel {
     private DefaultTableModel resourcesTableModel;
     private DefaultTableModel resourceParamsTableModel;
     private ResourcesType resources;
-    private final DefaultTableModel resourceConnectionParamsTableModel;
+    private DefaultTableModel resourceConnectionParamsTableModel;
     private JComboBox comboBox;
     private JTable resourcesTable;
     private int currentResourceIndex;
     private int mCurrentConnectionTypeIndex;
-
+    private ResourceManager resourceManager;
 
     /**
      * Create the panel.
      */
-    public DiscoveryResourcePanel() {
+    public DiscoveryResourcePanel(ResourceManager resourceManager) {
+        this.resourceManager = resourceManager;
+        init();
+    }
+
+    private void init(){
         this.resources = new ResourcesType();
 
         this.setLayout(new BorderLayout());
@@ -459,28 +463,24 @@ public class DiscoveryResourcePanel extends JPanel {
         }
     }
 
-    public void load(File file) throws Exception{
-        FileInputStream is = null;
-        is = new FileInputStream(file);
-        ResourcesType resources = null;
-        resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
+    public void load(String projectPath) throws Exception{
+        ResourcesType resources = resourceManager.getResources();
         this.setResources(resources);
     }
 
-    public void save(File file) throws Exception{
+    public void save() throws Exception{
         ResourcesType resources = this.getResources();
-        FileOutputStream os = new FileOutputStream(file);
-        JaxbMarshalar.marshal(resources, os, "resourcesType");
+        resourceManager.createResources(resources);
     }
 
-    public static void main(String[] args) throws IOException, JAXBException {
+    public static void main(String[] args) throws IOException {
         FileInputStream is = null;
         try {
-            is = new FileInputStream("iDiscover/resourceManager/conf/xml/resource.xml");
+//            is = new FileInputStream("iDiscover/resourceManager/conf/xml/resource.xml");
 
-            ResourcesType resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
-            final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
-            panel.setResources(resources);
+//            ResourcesType resources = JaxbMarshalar.unmarshal(ResourcesType.class, is);
+//            final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
+//            panel.setResources(resources);
 
             EventQueue.invokeLater(new Runnable() {
                 public void run() {
@@ -493,8 +493,8 @@ public class DiscoveryResourcePanel extends JPanel {
                         frame.setContentPane(contentPane);
                         contentPane.setLayout(null);
 
-                        panel.setBounds(10, 11, 917, 648);
-                        contentPane.add(panel);
+//                        panel.setBounds(10, 11, 917, 648);
+//                        contentPane.add(panel);
                         frame.setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();

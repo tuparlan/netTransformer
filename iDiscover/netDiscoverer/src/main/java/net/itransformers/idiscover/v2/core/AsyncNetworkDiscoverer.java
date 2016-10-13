@@ -38,6 +38,11 @@ public class AsyncNetworkDiscoverer implements NetworkDiscoverer {
     }
 
     @Override
+    public Status getDiscoveryStatus() {
+        return networkDiscoverer.getDiscoveryStatus();
+    }
+
+    @Override
     public void addNetworkDiscoveryListeners(NetworkDiscoveryListener networkDiscoveryListeners) {
         networkDiscoverer.addNetworkDiscoveryListeners(networkDiscoveryListeners);
     }

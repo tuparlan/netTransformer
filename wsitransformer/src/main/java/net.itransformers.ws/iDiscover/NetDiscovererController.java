@@ -49,6 +49,15 @@ public class NetDiscovererController implements ServletContextAware {
     }
 
 
+    @RequestMapping(value = "/", method=RequestMethod.GET)
+    @ResponseBody
+    public String[] getVersions() {
+        Map<String, String> props = new HashMap<>();
+        props.put("projectPath",projectPath);
+        VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
+        return versionManager.getVersions();
+    }
+
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @ResponseBody
     public String createVersion() {
@@ -77,7 +86,7 @@ public class NetDiscovererController implements ServletContextAware {
         props.put("version",version);
         NetworkDiscoverer networkDiscoverer = networkDiscovererFactory.createNetworkDiscoverer("async_parallel", props);
         ConnectionDetailsManager connectionManager = connectionManagerFactory.createConnectionDetailsManager("xml", props);
-        Map<String, ConnectionDetails> connDetails = connectionManager.getConnectionDetails();
+        Map<String, ConnectionDetails> connDetails = connectionManager.getConnections();
         networkDiscoverer.startDiscovery(new HashSet<>(connDetails.values()));
         context.setAttribute(version, networkDiscoverer);
     }
@@ -88,9 +97,11 @@ public class NetDiscovererController implements ServletContextAware {
         if (operation == Operation.PAUSE){
             NetworkDiscoverer networkDiscoverer = (NetworkDiscoverer) context.getAttribute(version);
             networkDiscoverer.pauseDiscovery();
-        } else {
+        } else if (operation == Operation.RESUME) {
             NetworkDiscoverer networkDiscoverer = (NetworkDiscoverer) context.getAttribute(version);
             networkDiscoverer.resumeDiscovery();
+        } else {
+            throw new IllegalArgumentException("Invalid operation parameter: "+operation);
         }
     }
 
@@ -100,6 +111,17 @@ public class NetDiscovererController implements ServletContextAware {
         NetworkDiscoverer networkDiscoverer = (NetworkDiscoverer) context.getAttribute(version);
         networkDiscoverer.stopDiscovery();
         context.removeAttribute(version);
+    }
+
+    @RequestMapping(value = "/{version}/discoverer", method=RequestMethod.GET)
+    @ResponseBody
+    public NetworkDiscoverer.Status getDiscoverer(@PathVariable String version) {
+        NetworkDiscoverer networkDiscoverer = (NetworkDiscoverer) context.getAttribute(version);
+        if (networkDiscoverer != null) {
+            return networkDiscoverer.getDiscoveryStatus();
+        } else {
+            return null;
+        }
     }
     enum Operation{
         PAUSE,
