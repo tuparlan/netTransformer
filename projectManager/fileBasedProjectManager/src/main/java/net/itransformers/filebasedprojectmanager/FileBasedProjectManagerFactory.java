@@ -1,6 +1,5 @@
 package net.itransformers.filebasedprojectmanager;
 
-import net.itransformers.projectmanagerapi.ProjectManagerAPI;
 import net.itransformers.projectmanagerapi.ProjectManagerFactory;
 
 /**
@@ -23,8 +22,9 @@ public class FileBasedProjectManagerFactory implements ProjectManagerFactory {
     }
 
     @Override
-    public ProjectManagerAPI createProjectManager (String projectPath) {
+    public FileBasedProjectManager createProjectManager () {
         FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager();
+
         return fileBasedProjectManager;
     }
 }

@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>iDiscover</artifactId>
+        <artifactId>netTransformer</artifactId>
         <groupId>net.itransformers</groupId>
         <version>0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>discoveryAssembly</artifactId>
+    <artifactId>netTransformerBundle</artifactId>
     <dependencies>
         <dependency>
             <groupId>net.itransformers</groupId>
@@ -47,6 +47,16 @@
             <artifactId>xmlNodeDataProvider</artifactId>
             <version>0.8</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>net.itransformers</groupId>-->
+            <!--<artifactId>topologyViewer</artifactId>-->
+            <!--<version>0.8</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>net.itransformers</groupId>-->
+            <!--<artifactId>rightClick</artifactId>-->
+            <!--<version>0.8</version>-->
+        <!--</dependency>-->
 
     </dependencies>
     <build>
@@ -55,19 +65,23 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
             <version>2.4.3</version>
+
             <executions>
                 <execution>
                     <phase>package</phase>
                     <id>iDiscover</id>
                     <goals>
                         <goal>shade</goal>
+
                     </goals>
                     <configuration>
                         <transformers>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                 <mainClass>net.itransformer.cli_discovery_launcher.CliDiscoveryLauncher</mainClass>
                             </transformer>
+
                         </transformers>
+                        <finalName>netTransformer</finalName>
                     </configuration>
                 </execution>
             </executions>

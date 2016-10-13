@@ -47,6 +47,7 @@
         <module>postDiscoverer</module>
         <module>ideas</module>
         <module>projectManager</module>
+        <module>netTransformerBundle</module>
     </modules>
     <build>
         <pluginManagement>

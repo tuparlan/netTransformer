@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@Deprecated
 public class CmdLineParser {
     public static Map<String, String> parseCmdLine(String[] args){
         Map<String, String> params = new HashMap<String, String>();

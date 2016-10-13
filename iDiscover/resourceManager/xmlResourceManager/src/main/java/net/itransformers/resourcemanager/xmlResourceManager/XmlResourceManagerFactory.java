@@ -5,6 +5,7 @@ import net.itransformers.resourcemanager.ResourceManagerFactory;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class XmlResourceManagerFactory implements ResourceManagerFactory {
         if (projectPath == null) {
             throw new IllegalArgumentException("Missing projectPath parameter");
         }
-        FileBasedResourceManager fileBasedResourceManager = new FileBasedResourceManager(projectPath + resourceRelativePath);
+        FileBasedResourceManager fileBasedResourceManager = new FileBasedResourceManager(projectPath + File.separator+resourceRelativePath);
         try {
             fileBasedResourceManager.load();
         } catch (IOException | JAXBException e ) {

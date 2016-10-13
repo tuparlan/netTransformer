@@ -109,7 +109,7 @@ public class DiscoveryWizardDialog extends JDialog {
     }
 
     private void init() {
-        File file = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
+        File file = new File(projectPath, "csvConnectionDetails/conf/txt/connection-details.txt");
         ConnectionDetailsPanel connectionDetailsPanel = new ConnectionDetailsPanel();
         try {
             connectionDetailsPanel.load(file);
@@ -125,14 +125,14 @@ public class DiscoveryWizardDialog extends JDialog {
         prevButton.setEnabled(true);
         nextButton.setEnabled(true);
         if (contentPanel instanceof DiscoveryResourcePanel) {
-            File resourceFile = new File(projectPath, "iDiscover/conf/xml/resource.xml");
+            File resourceFile = new File(projectPath, "xmlResourceManager/conf/xml/resource.xml");
             try {
                 ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(DiscoveryWizardDialog.this, "Error saving resources file");
             }
-            File file = new File(projectPath, "iDiscover/conf/txt/connection-details.txt");
+            File file = new File(projectPath, "csvConnectionDetails/conf/txt/connection-details.txt");
             ConnectionDetailsPanel panel = new ConnectionDetailsPanel();
             try {
                 panel.load(file);
@@ -166,7 +166,7 @@ public class DiscoveryWizardDialog extends JDialog {
         }
 
         final DiscoveryResourcePanel panel = new DiscoveryResourcePanel();
-        File resourceFile = new File(projectPath, "iDiscover/conf/xml/resource.xml");
+        File resourceFile = new File(projectPath, "xmlResourceManager/conf/xml/resource.xml");
         try {
             panel.load(resourceFile);
         } catch (Exception e) {
@@ -191,7 +191,7 @@ public class DiscoveryWizardDialog extends JDialog {
 
 
     private void go() {
-        File resourceFile = new File(projectPath, "iDiscover/conf/xml/resource.xml");
+        File resourceFile = new File(projectPath, "xmlResourceManager/conf/xml/resource.xml");
         try {
             ((DiscoveryResourcePanel) contentPanel).save(resourceFile);
         } catch (Exception e) {

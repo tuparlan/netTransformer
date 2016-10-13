@@ -46,7 +46,7 @@ public class JEditorPane implements ActionListener {
     }
 
     public static void main(String[] a) throws IOException, BadLocationException {
-        (new JEditorPane("iDiscover/resourceManager/conf/xml/resource.xml", "resourceManager/conf/xml", "xml")).init();
+        (new JEditorPane("xmlResourceManager/conf/xml/resource.xml", "xmlResourceManager/conf/xml", "xml")).init();
     }
 
     public void init() throws IOException, BadLocationException {

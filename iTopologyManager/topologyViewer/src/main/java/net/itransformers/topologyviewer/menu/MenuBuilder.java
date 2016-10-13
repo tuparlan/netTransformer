@@ -355,11 +355,11 @@ public class MenuBuilder {
         configuration.add(snmpDiscoverer);
 
         final JMenuItem resources = new JMenuItem("Resource editor");
-        resources.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/resourceManager/conf/xml/resource.xml"));
+        resources.addActionListener(new EditConfigMenuHandler(frame, "xmlResourceManager/conf/xml/resource.xml"));
         snmpDiscoverer.add(resources);
 
         final JMenuItem configureManager = new JMenuItem("Discovery entry points editor");
-        configureManager.addActionListener(new EditConfigMenuHandler(frame, "iDiscover/conf/txt/connection-details.txt"));
+        configureManager.addActionListener(new EditConfigMenuHandler(frame, "csvConnectionDetails/conf/txt/connection-details.txt"));
         snmpDiscoverer.add(configureManager);
 
         final JMenuItem configureParameters = new JMenuItem("SNMP Discovery Parameters editor");

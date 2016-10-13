@@ -5,5 +5,5 @@ package net.itransformers.projectmanagerapi;
  */
 public interface ProjectManagerFactory {
 
-   ProjectManagerAPI createProjectManager(String projectPath);
+   ProjectManagerAPI createProjectManager();
 }
