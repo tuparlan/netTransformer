@@ -37,9 +37,9 @@ public class GraphMLFileDiffTool extends SwingWorker<Void, Void> {
     private File graphmlCFile;
     private File ignoredNodeKeysFile;
     private File ignoredEdgeKeysFile;
-    private File xsltTransformerFile;
+    private String xsltTransformerFile;
 
-    public GraphMLFileDiffTool(File graphmlAFile, File graphmlBFile, File graphmlCFile, File ignoredNodeKeysFile, File ignoredEdgeKeysFile, File xsltTransformerFile) {
+    public GraphMLFileDiffTool(File graphmlAFile, File graphmlBFile, File graphmlCFile, File ignoredNodeKeysFile, File ignoredEdgeKeysFile, String xsltTransformerFile) {
         this.graphmlAFile = graphmlAFile;
         this.graphmlBFile = graphmlBFile;
         this.graphmlCFile = graphmlCFile;

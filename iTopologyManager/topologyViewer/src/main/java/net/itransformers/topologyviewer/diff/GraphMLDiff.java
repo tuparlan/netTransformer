@@ -41,11 +41,11 @@ public class GraphMLDiff {
     URI file1;
     URI file2;
     File OutputFile;
-    File xsltFile;
+    String xsltFile;
     File ignoredNodeKeysPath;
     File ignoredEdgeKeysPath;
 
-    public GraphMLDiff(URI file1, URI file2, File outputFile, File xsltFile, File ignoredNodeKeysPath, File ignoredEdgeKeysPath) {
+    public GraphMLDiff(URI file1, URI file2, File outputFile, String xsltFile, File ignoredNodeKeysPath, File ignoredEdgeKeysPath) {
         this.file1 = file1;
         this.file2 = file2;
         OutputFile = outputFile;

@@ -25,6 +25,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="connectionManagerFactory" class="net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsManagerFactory">
+      <constructor-arg value="csvConnectionDetails/conf/txt/connection-details.txt"/>
     </bean>
 
 

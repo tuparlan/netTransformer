@@ -239,7 +239,7 @@ public class XmlDiscoveryHelper implements DiscoveryHelper {
         XsltTransformer transformer = new XsltTransformer();
 
         try {
-            transformer.transformXML(new ByteArrayInputStream(rawData), new File(System.getProperty("base.dir"), xsltFileName), outputStream, params);
+            transformer.transformXML(new ByteArrayInputStream(rawData), xsltFileName, outputStream, params);
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

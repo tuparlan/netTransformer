@@ -1347,7 +1347,7 @@ handlerClass="com.topolgyviewer.rightclick.impl.CmdRightClickHandler">
 name="parameterFactoryXml">parameter-factory/conf/xml/param-factory.xml</param>
 
 <param
-name="resource">resource-manager/conf/xml/resource.xml</param>
+name="resource">xmlResourceManager/conf/xml/resource.xml</param>
 
 <param
 name="fulfilment-factory">fulfilment-factory/conf/xml/fulfilment-factory.xml</param>

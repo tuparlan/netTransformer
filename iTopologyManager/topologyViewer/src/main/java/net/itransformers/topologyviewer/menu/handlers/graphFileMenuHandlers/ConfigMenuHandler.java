@@ -43,11 +43,11 @@ public class ConfigMenuHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String filePath = frame.getViewerConfig().getAbsolutePath();
+        String filePath = frame.getViewerConfig();
         frame.getProjectType();
         frame.getPath();
         System.out.println("Viewer Config file path: " + filePath);
-        String dir =  frame.getViewerConfig().getParent();
+        String dir =  frame.getViewerConfig();
             JEditorPane settingsEditor = new JEditorPane(filePath,dir,".xml");
             try {
                 settingsEditor.init();

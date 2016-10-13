@@ -25,21 +25,17 @@ import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 import net.itransformers.expect4groovy.Expect4GroovyScriptLauncher;
 import net.itransformers.postDiscoverer.reportGenerator.*;
-import net.itransformers.resourcemanager.ResourceManager;
-import net.itransformers.resourcemanager.config.ConnectionParamsType;
-import net.itransformers.resourcemanager.config.ParamType;
-import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.resourcemanager.config.ResourcesType;
-import net.itransformers.utils.JaxbMarshalar;
 import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -292,7 +288,7 @@ public class ReportManager {
 
 
         try {
-            transformer.transformXML(inputStream, xsltTransformator, reportOutputStream, null);
+            transformer.transformXML(inputStream, xsltTransformator.getCanonicalPath(), reportOutputStream, null);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

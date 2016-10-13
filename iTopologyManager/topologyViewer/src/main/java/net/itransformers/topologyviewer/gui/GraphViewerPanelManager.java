@@ -35,7 +35,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private GraphmlLoader<G> graphmlLoader;
     private String initialNode;
     private File projectPath;
-    private File viewerConfigFile;
+    private String viewerConfigPath;
     private GraphType graphType;
     private IconMapLoader iconMapLoader;
     private EdgeStrokeMapLoader edgeStrokeMapLoader;
@@ -50,13 +50,13 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
     private final File deviceXmlPath;
     protected  GraphViewerPanelFactory graphViewerPanelFactory;
 
-    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, File viewerConfigFile,
+    public GraphViewerPanelManager(JFrame frame, String projectType, File projectPath, String viewerConfigPath,
                                    File graphmlFile, Factory<G> factory, JTabbedPane tabbedPane,
                                    GraphType graphType, GraphViewerPanelFactory graphViewerPanelFactory) throws Exception {
         this.frame = frame;
         this.projectPath = projectPath;
         this.graphType = graphType;
-        this.viewerConfigFile = viewerConfigFile;
+        this.viewerConfigPath = viewerConfigPath;
         versionDir = new File(new File(graphmlFile.getParent()).getParent());
        // TODO remove this Hardcode
         this.deviceXmlPath = versionDir;
@@ -64,7 +64,7 @@ public class GraphViewerPanelManager<G extends Graph<String, String>> {
         this.factory = factory;
         this.tabbedPane = tabbedPane;
         entireGraph = factory.create();
-        viewerConfig = ViewerConfigLoader.loadViewerConfig(this.viewerConfigFile);
+        viewerConfig = ViewerConfigLoader.loadViewerConfig(viewerConfigPath);
         this.layout="FRLayout";
         this.graphViewerPanelFactory = graphViewerPanelFactory;
     }

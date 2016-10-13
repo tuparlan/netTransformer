@@ -33,7 +33,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
-import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -88,8 +88,10 @@ public class RandomWalkBetweennessCentralityMenuHandler implements ActionListene
         }
         sb.append("\n</RandomWalkBetweennessCentralityRankings>");
         ByteArrayInputStream inputStream = new ByteArrayInputStream(sb.toString().getBytes());
+        InputStream xsltInputStream = this.getClass().getClassLoader().getResourceAsStream("rightClick/conf/table_creator.xslt");
 
-        XsltReport testReport = new XsltReport(new File(frame.getPath(), "iTopologyManager/rightClick/conf/xslt/table_creator.xslt"), new StreamSource(inputStream));
+
+        XsltReport testReport = new XsltReport(xsltInputStream, new StreamSource(inputStream));
         try {
 
             String report = testReport.singleTransformer().toString();
