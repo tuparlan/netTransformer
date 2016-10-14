@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +65,7 @@ public class TopologyViewerConfigManagerController implements ServletContextAwar
     public List<IconType> getIcons() {
         return getTopologyViewerConfigManager().getIcons();
     }
+
     @RequestMapping(value = "/edge/strokes", method = RequestMethod.GET)
     @ResponseBody
     public List<EdgeStrokeType> getEdgeStrokes() {
@@ -69,5 +75,22 @@ public class TopologyViewerConfigManagerController implements ServletContextAwar
     @ResponseBody
     public List<EdgeColorType> getEdgeColors() {
         return getTopologyViewerConfigManager().getEdgeColors();
+    }
+
+
+    @RequestMapping(value = "/icons/{name}", method = RequestMethod.GET, produces = "image/png")
+    public @ResponseBody byte[] getIcon(@PathVariable String name)  {
+        if (name.contains("..")) {
+            throw new IllegalArgumentException("Name cannot contain ..");
+        }
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/"+name);
+            BufferedImage img = ImageIO.read(is);
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+            ImageIO.write(img, "png", bao);
+            return bao.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
