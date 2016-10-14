@@ -36,6 +36,7 @@
         <module>topologyViewer</module>
         <module>launcher</module>
         <module>xmlTopologyViewerConfig</module>
+        <module>images</module>
     </modules>
     <packaging>pom</packaging>
 

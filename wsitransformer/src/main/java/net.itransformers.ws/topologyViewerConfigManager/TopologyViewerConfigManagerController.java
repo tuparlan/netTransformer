@@ -84,7 +84,7 @@ public class TopologyViewerConfigManagerController implements ServletContextAwar
             throw new IllegalArgumentException("Name cannot contain ..");
         }
         try {
-            InputStream is = this.getClass().getResourceAsStream("/"+name);
+            InputStream is = this.getClass().getResourceAsStream("/images/"+name);
             BufferedImage img = ImageIO.read(is);
             ByteArrayOutputStream bao = new ByteArrayOutputStream();
             ImageIO.write(img, "png", bao);
