@@ -38,14 +38,16 @@
     #foreach ($port in $node.graphmlNodePorts)
             <port name="${port.name}"/>
     #end
-    #foreach ($nodeData in $node.graphmlNodeDataList)
+    #set ($nodeDataMap = $node.getGraphmlNodeData() )
+    #foreach ($nodeData in $nodeDataMap.entrySet())
             <data key="${nodeData.key}">${nodeData.value}</data>
     #end
         </node>
     #end
     #foreach ($edge in $edges)
+    #set ($edgeDataMap = $edge.getGraphmlEdgeData() )
         <edge id="${edge.id}" label="${edge.label}" source="${edge.fromNode}" target="${edge.toNode}">
-    #foreach ($edgeData in $edge.graphmlEdgeDataList)
+    #foreach ($edgeData in $edgeDataMap.entrySet())
             <data key="${edgeData.key}">${edgeData.value}</data>
     #end
         </edge>

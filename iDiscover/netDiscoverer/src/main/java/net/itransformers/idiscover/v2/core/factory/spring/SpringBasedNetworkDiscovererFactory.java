@@ -3,7 +3,6 @@ package net.itransformers.idiscover.v2.core.factory.spring;
 import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscovererFactory;
 import net.itransformers.idiscover.v2.core.AsyncNetworkDiscoverer;
-import net.itransformers.idiscover.v2.core.version_manager.DirectoryVersionManager;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;

@@ -6,7 +6,6 @@ import net.itransformers.idiscover.api.NodeNeighboursDiscoveryListener;
 import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.GraphmlRenderer;
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
-import net.itransformers.idiscover.api.models.graphml.GraphmlNodeData;
 import net.itransformers.idiscover.v2.core.listeners.neighbor.device.AliasResolver;
 import net.itransformers.idiscover.v2.core.listeners.neighbor.device.DeviceToGraphml;
 import net.itransformers.idiscover.api.models.network.Node;
@@ -65,70 +64,53 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
 
         String icmpStatus = (String) nodeDiscoveryResult.getDiscoveredData().get("icmpStatus");
 
-
-
-
         String dnsFQDN =   (String) nodeDiscoveryResult.getDiscoveredData().get("FQDN");
         String dnsPQDN =   (String) nodeDiscoveryResult.getDiscoveredData().get("PQDN");
-
-
 
         HashMap<String, Object> params = new HashMap<>();
         ArrayList<GraphmlNode> graphmlNodes = new ArrayList<>();
         List<GraphmlEdge> graphmlEdges = new ArrayList<>();
         GraphmlNode mainNode = new GraphmlNode(node.getId(), node.getId());
-        List<GraphmlNodeData> mainNodeGraphmlDatas =  new ArrayList<>();
-
-
-
+        Map<String, String> mainNodeGraphmlDatas =  new HashMap<>();
 
         if(icmpStatus!=null){
             //We got an icmpDevice
 
-            GraphmlNodeData icmpNodeData = new GraphmlNodeData("icmpStatus",icmpStatus);
-            mainNodeGraphmlDatas.add(icmpNodeData);
-            GraphmlNodeData discoveredIPv4AddressNodeData = new GraphmlNodeData("discoveredIPv4Address",discoveredIPv4Address);
-            mainNodeGraphmlDatas.add(discoveredIPv4AddressNodeData);
-
+            mainNodeGraphmlDatas.put("icmpStatus",icmpStatus);
+            mainNodeGraphmlDatas.put("discoveredIPv4Address",discoveredIPv4Address);
         }
 
         if (discoveredDevice!=null) {
 
             //We got an Snmp Device
-            GraphmlNodeData snmpStatus = new GraphmlNodeData("snmpStatus","REACHABLE");
-            GraphmlNodeData discoveredIPv4AddressNodeData = new GraphmlNodeData("discoveredIPv4Address",discoveredIPv4Address);
-            mainNodeGraphmlDatas.add(discoveredIPv4AddressNodeData);
-            mainNodeGraphmlDatas.add(snmpStatus);
-            List<GraphmlNodeData> snmpNodeData = getSnmpMainNode(discoveredDevice);
-            mainNodeGraphmlDatas.addAll(snmpNodeData);
+            mainNodeGraphmlDatas.put("snmpStatus","REACHABLE");
+            mainNodeGraphmlDatas.put("discoveredIPv4Address",discoveredIPv4Address);
+            Map<String, String> snmpNodeData = getSnmpMainNode(discoveredDevice);
+            mainNodeGraphmlDatas.putAll(snmpNodeData);
             DeviceToGraphml deviceToGraphml = new DeviceToGraphml(node, discoveredDevice);
             graphmlNodes.addAll(deviceToGraphml.getSubnetNodes());
             graphmlNodes.addAll(deviceToGraphml.getNonSubnetNeighbours());
             graphmlEdges = deviceToGraphml.getSubnetEdgesToMainNode();
             graphmlEdges.addAll(deviceToGraphml.getEdgesToNeighbours());
 
-
         }
         if (subnetDetails!=null){
 
-            List<GraphmlNodeData> subnetNodeData = getSubnetMainNode(subnetDetails);
+            Map<String, String> subnetNodeData = getSubnetMainNode(subnetDetails);
             String bogonSubnetMarker =  (String) nodeDiscoveryResult.getDiscoveredData().get("bogon");
             String privateSubnetMarker = (String) nodeDiscoveryResult.getDiscoveredData().get("private");
 
-
             if (bogonSubnetMarker!=null && bogonSubnetMarker.equals("YES"))
-                subnetNodeData.add(new GraphmlNodeData("bogon","YES"));
+                subnetNodeData.put("bogon","YES");
             else
-                subnetNodeData.add(new GraphmlNodeData("bogon","NO"));
+                subnetNodeData.put("bogon","NO");
 
             if (privateSubnetMarker!=null && privateSubnetMarker.equals("YES"))
-                subnetNodeData.add(new GraphmlNodeData("private","YES"));
+                subnetNodeData.put("private","YES");
             else
-                subnetNodeData.add(new GraphmlNodeData("private", "NO"));
+                subnetNodeData.put("private", "NO");
 
-
-            mainNodeGraphmlDatas.addAll(subnetNodeData);
-
+            mainNodeGraphmlDatas.putAll(subnetNodeData);
 
             List<GraphmlNode> subnetNeighbourNodes = new ArrayList<>();
 //
@@ -158,24 +140,18 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
             String subnetPrefixMask = subnetDetails.get("subnetPrefixMask");
 
             nodeFileName = subnetIpAddress+"--"+subnetPrefixMask;
-
-
-
         }
 
-
-
         if (dnsFQDN!=null){
-            GraphmlNodeData fqdn =   new GraphmlNodeData("fqdn",dnsFQDN);
-            mainNodeGraphmlDatas.add(fqdn);
-            GraphmlNodeData pqdn =   new GraphmlNodeData("pqdn",dnsPQDN);
-            mainNodeGraphmlDatas.add(pqdn);
+            mainNodeGraphmlDatas.put("fqdn",dnsFQDN);
+
+            mainNodeGraphmlDatas.put("pqdn",dnsPQDN);
         }
 
         if (icmpStatus==null && dnsFQDN==null && discoveredDevice ==null && subnetDetails==null)
             return;
 
-        mainNode.setGraphmlNodeDataList(mainNodeGraphmlDatas);
+        mainNode.setGraphmlNodeData(mainNodeGraphmlDatas);
         graphmlNodes.add(mainNode);
         params.put("nodes", graphmlNodes);
         params.put("graphDirection", "undirected");
@@ -229,47 +205,38 @@ public class SnmpNodeNeighbourDiscoveryListener implements NodeNeighboursDiscove
         }
     }
 
-    private List<GraphmlNodeData> getSubnetMainNode(Map<String,String> subnetParams) {
-        List<GraphmlNodeData> graphmlNodeData = new ArrayList<>();
+    private Map<String, String> getSubnetMainNode(Map<String,String> subnetParams) {
+        Map<String, String> graphmlNodeData = new HashMap<>();
 
 
         String procotocolType = subnetParams.get("protocolType");
-        GraphmlNodeData ipv4ForwardingNodeData;
-        GraphmlNodeData ipv6ForwardingNodeData;
         if (procotocolType.equals("IPv4")) {
-            ipv4ForwardingNodeData = new GraphmlNodeData("ipv4Forwarding", "YES");
-            ipv6ForwardingNodeData = new GraphmlNodeData("ipv6Forwarding", "NO");
+            graphmlNodeData.put("ipv4Forwarding", "YES");
+            graphmlNodeData.put("ipv6Forwarding", "NO");
 
         }else {
-             ipv4ForwardingNodeData = new GraphmlNodeData("ipv4Forwarding", "NO");
-             ipv6ForwardingNodeData = new GraphmlNodeData("ipv6Forwarding", "YES");
+            graphmlNodeData.put("ipv4Forwarding", "NO");
+            graphmlNodeData.put("ipv6Forwarding", "YES");
         }
-        graphmlNodeData.add(ipv4ForwardingNodeData);
-        graphmlNodeData.add(ipv6ForwardingNodeData);
-
 
         String ipAddress = subnetParams.get("ipAddress");
-        GraphmlNodeData ipAddressNodeData = new GraphmlNodeData("ipAddress",ipAddress);
-
-        graphmlNodeData.add(ipAddressNodeData);
+        graphmlNodeData.put("ipAddress",ipAddress);
 
         String subnetPrefixMask = subnetParams.get("subnetPrefixMask");
-        GraphmlNodeData subnetPrefixMaskNodeData = new GraphmlNodeData("subnetPrefixMask",subnetPrefixMask);
-        graphmlNodeData.add(subnetPrefixMaskNodeData);
-
+        graphmlNodeData.put("subnetPrefixMask",subnetPrefixMask);
 
         return graphmlNodeData;
     }
 
 
-    private List<GraphmlNodeData> getSnmpMainNode(DiscoveredDevice discoveredDevice) {
+    private Map<String, String> getSnmpMainNode(DiscoveredDevice discoveredDevice) {
 
-        List<GraphmlNodeData> graphmlNodeMetaDatas = new ArrayList<>();
+        Map<String, String> graphmlNodeMetaDatas = new HashMap<>();
 
         for (Map.Entry<String, String> entry : discoveredDevice.getParams().entrySet()) {
             logger.trace("MainNodeParm: " + entry.getKey() + "|" + entry.getValue());
 
-            graphmlNodeMetaDatas.add(new GraphmlNodeData(entry.getKey(), entry.getValue()));
+            graphmlNodeMetaDatas.put(entry.getKey(), entry.getValue());
 
         }
         return graphmlNodeMetaDatas;

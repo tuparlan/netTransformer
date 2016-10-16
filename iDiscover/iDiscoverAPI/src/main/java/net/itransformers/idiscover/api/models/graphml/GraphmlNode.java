@@ -1,7 +1,9 @@
 package net.itransformers.idiscover.api.models.graphml;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by niau on 8/17/16.
@@ -11,15 +13,17 @@ public class GraphmlNode {
     private String id;
     private String label;
 
-    private List<GraphmlNodeData> graphmlNodeDataList;
+    private Map<String, String> graphmlNodeData = new HashMap<>();
 
-    private List<GraphmlPort> graphmlNodePorts;
+    private Map<String, String> graphmlNodePorts = new HashMap<>();
 
+    public GraphmlNode(String id) {
+        this.id = id;
+    }
 
     public GraphmlNode(String id, String label) {
         this.id = id;
         this.label = label;
-        graphmlNodeDataList = new ArrayList<>();
     }
 
     public String getId() {
@@ -38,26 +42,19 @@ public class GraphmlNode {
         this.label = label;
     }
 
-    public GraphmlNode(List<GraphmlNodeData> graphmlNodeDataList) {
-        this.graphmlNodeDataList = graphmlNodeDataList;
-    }
-    public GraphmlNode() {
-        this.graphmlNodeDataList = new ArrayList<>();
+    public Map<String, String> getGraphmlNodeData() {
+        return graphmlNodeData;
     }
 
-    public List<GraphmlPort> getGraphmlNodePorts() {
+    public void setGraphmlNodeData(Map<String, String> graphmlNodeData) {
+        this.graphmlNodeData = graphmlNodeData;
+    }
+
+    public Map<String, String> getGraphmlNodePorts() {
         return graphmlNodePorts;
     }
 
-    public void setGraphmlNodePorts(List<GraphmlPort> graphmlNodePorts) {
+    public void setGraphmlNodePorts(Map<String, String> graphmlNodePorts) {
         this.graphmlNodePorts = graphmlNodePorts;
-    }
-
-    public List<GraphmlNodeData> getGraphmlNodeDataList() {
-        return graphmlNodeDataList;
-    }
-
-    public void setGraphmlNodeDataList(List<GraphmlNodeData> graphmlNodeDataList) {
-        this.graphmlNodeDataList = graphmlNodeDataList;
     }
 }

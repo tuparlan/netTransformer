@@ -34,20 +34,20 @@
 
     <graph id="test - version1" edgedefault="undirected">
             <node id="R1" label="router1">
-                    <data key="deviceName">R1</data>
-                <data key="deviceModel">cisco2911</data>
-                <data key="deviceType">CISCO</data>
+                    <data key="deviceType">CISCO</data>
                 <data key="discoveredIPv4Address">1.1.1.1</data>
-                <data key="ipv4Forwarding">YES</data>
                 <data key="totalInterfaceCount">27</data>
+                <data key="deviceModel">cisco2911</data>
+                <data key="ipv4Forwarding">YES</data>
+                <data key="deviceName">R1</data>
             </node>
             <node id="R2" label="router2">
-                    <data key="deviceName">R2</data>
-                <data key="deviceModel">cisco2911</data>
-                <data key="deviceType">CISCO</data>
+                    <data key="deviceType">CISCO</data>
                 <data key="discoveredIPv4Address">2.2.2.2</data>
-                <data key="ipv4Forwarding">YES</data>
                 <data key="totalInterfaceCount">12</data>
+                <data key="deviceModel">cisco2911</data>
+                <data key="ipv4Forwarding">YES</data>
+                <data key="deviceName">R2</data>
             </node>
             </graph>
 </graphml>

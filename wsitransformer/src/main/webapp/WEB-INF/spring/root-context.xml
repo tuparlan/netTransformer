@@ -12,6 +12,7 @@
     <import resource="classpath:xmlNodeDataProvider/xmlNodeDataProvider.xml" />
     <import resource="classpath:netDiscoverer/netDiscovererFactory.xml" />
     <import resource="classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml" />
+    <import resource="classpath:discoveryResultTopologyViewer/discoveryResultTopologyViewerFactory.xml" />
 
     <bean id="projectPath" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/wsitransformer/projectPath"/>

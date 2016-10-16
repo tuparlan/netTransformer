@@ -78,7 +78,7 @@ public class IconMapLoader implements GraphmlLoaderListener{
         List<IconType> iconTypeList = viewerConfig.getIcon();
         List<IconType.Data> datas;
         for (String vertice : vertices) {
-            System.out.println(vertice);
+            //System.out.println(vertice);
             for (IconType iconType : iconTypeList) {
                 boolean match = true;
                 datas = iconType.getData();

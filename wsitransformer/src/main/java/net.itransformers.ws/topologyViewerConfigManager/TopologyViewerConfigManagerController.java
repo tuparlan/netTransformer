@@ -34,7 +34,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="/topology_viewer/config")
 public class TopologyViewerConfigManagerController implements ServletContextAware {
-    final Logger logger = LoggerFactory.getLogger(ResourceManagerController.class);
+    final Logger logger = LoggerFactory.getLogger(TopologyViewerConfigManagerController.class);
 
     @Resource(name="topologyViewerConfigManagerFactory")
     private TopologyViewerConfigManagerFactory topologyViewerConfigManagerFactory;
@@ -80,11 +80,8 @@ public class TopologyViewerConfigManagerController implements ServletContextAwar
 
     @RequestMapping(value = "/icons/{name}", method = RequestMethod.GET, produces = "image/png")
     public @ResponseBody byte[] getIcon(@PathVariable String name)  {
-        if (name.contains("..")) {
-            throw new IllegalArgumentException("Name cannot contain ..");
-        }
         try {
-            InputStream is = this.getClass().getResourceAsStream("/images/"+name);
+            InputStream is = this.getClass().getResourceAsStream("/images/"+name+".png");
             BufferedImage img = ImageIO.read(is);
             ByteArrayOutputStream bao = new ByteArrayOutputStream();
             ImageIO.write(img, "png", bao);
