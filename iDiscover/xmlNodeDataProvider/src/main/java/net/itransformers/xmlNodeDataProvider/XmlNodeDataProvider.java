@@ -267,24 +267,22 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     private GraphmlNode vertexToNode(Vertex vertex){
 
-        GraphmlNode node = new GraphmlNode();
-        List<GraphmlNodeData> graphmlNodeDataList = new ArrayList<>();
-        node.setId(vertex.getId().toString());
+        GraphmlNode node = new GraphmlNode(vertex.getId().toString());
+        Map<String, String> graphmlNodeData = new HashMap<>();
         Set<String> keys = vertex.getPropertyKeys();
         for (String key : keys) {
-            graphmlNodeDataList.add(new GraphmlNodeData(key,vertex.getProperty(key)));
+            graphmlNodeData.put(key,vertex.getProperty(key));
         }
-        node.setGraphmlNodeDataList(graphmlNodeDataList);
+        node.setGraphmlNodeData(graphmlNodeData);
 
        return node;
     }
 
     private GraphmlEdge edgeToGraphmlEdge(Edge edge){
 
-        GraphmlEdge graphmlEdge = new GraphmlEdge();
+        GraphmlEdge graphmlEdge = new GraphmlEdge(edge.getId().toString());
 
-        List<GraphmlEdgeData> graphmlEdgeDataList = new ArrayList<>();
-        graphmlEdge.setId(edge.getId().toString());
+        Map<String, String> graphmlEdgeData = new HashMap<>();
 
         Vertex vertexIn = edge.getVertex(Direction.IN);
 
@@ -296,9 +294,9 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
         Set<String> keys = edge.getPropertyKeys();
         for (String key : keys) {
-            graphmlEdgeDataList.add(new GraphmlEdgeData(key,edge.getProperty(key)));
+            graphmlEdgeData.put(key,edge.getProperty(key));
         }
-        graphmlEdge.setGraphmlEdgeDataList(graphmlEdgeDataList);
+        graphmlEdge.setGraphmlEdgeData(graphmlEdgeData);
 
 
         return graphmlEdge;

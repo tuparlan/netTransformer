@@ -1,7 +1,9 @@
 package net.itransformers.idiscover.api.models.graphml;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by niau on 8/22/16.
@@ -13,15 +15,17 @@ public class GraphmlEdge {
         private String fromNode;
         private String toNode;
 
-        private List<GraphmlEdgeData> graphmlEdgeDataList;
+        private Map<String, String> graphmlEdgeData = new HashMap<>();
 
+    public GraphmlEdge(String id) {
+        this.id = id;
+    }
 
-        public GraphmlEdge(String id, String label,String fromNode,String toNode) {
+    public GraphmlEdge(String id, String label, String fromNode, String toNode) {
             this.id = id;
             this.label = label;
             this.fromNode = fromNode;
             this.toNode = toNode;
-            graphmlEdgeDataList = new ArrayList<>();
         }
 
     public String getFromNode() {
@@ -56,21 +60,13 @@ public class GraphmlEdge {
             this.label = label;
         }
 
-        public GraphmlEdge(List<GraphmlEdgeData> graphmlEdgeDataList) {
-            this.graphmlEdgeDataList = graphmlEdgeDataList;
-        }
-        public GraphmlEdge() {
-            this.graphmlEdgeDataList = new ArrayList<>();
-        }
+    public Map<String, String> getGraphmlEdgeData() {
+        return graphmlEdgeData;
+    }
 
-
-        public List<GraphmlEdgeData> getGraphmlEdgeDataList() {
-            return graphmlEdgeDataList;
-        }
-
-        public void setGraphmlEdgeDataList(List<GraphmlEdgeData> graphmlEdgeDataList) {
-            this.graphmlEdgeDataList = graphmlEdgeDataList;
-        }
+    public void setGraphmlEdgeData(Map<String, String> graphmlEdgeData) {
+        this.graphmlEdgeData = graphmlEdgeData;
+    }
 
     @Override
     public String toString() {
@@ -79,7 +75,7 @@ public class GraphmlEdge {
                 ", label='" + label + '\'' +
                 ", fromNode='" + fromNode + '\'' +
                 ", toNode='" + toNode + '\'' +
-                ", graphmlEdgeDataList=" + graphmlEdgeDataList +
+                ", graphmlEdgeData=" + graphmlEdgeData +
                 '}';
     }
 }

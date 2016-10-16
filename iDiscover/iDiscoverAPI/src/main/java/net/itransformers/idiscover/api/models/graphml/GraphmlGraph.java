@@ -1,12 +1,13 @@
 package net.itransformers.idiscover.api.models.graphml;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by vasko on 26.09.16.
  */
 public class GraphmlGraph {
-    List<GraphmlKeyData> graphmlKeys;
+    Map<String, String> graphmlKeyData;
 
     List<GraphmlEdge> graphmlEdges;
     List<GraphmlNode> graphmlNodes;

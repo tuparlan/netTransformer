@@ -3,6 +3,7 @@ package net.itransformers.idiscover.v2.core.snmpNetworkGraphMerge;
 import net.itransformers.idiscover.v2.core.SnmpGraphmlMetadataProvider;
 import net.itransformers.utils.graphmlmerge.GrahmlMerge;
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,11 +29,9 @@ public class NBULabGraphMergeTestCase {
     @Before
     public void setUp() throws Exception {
 
-         outputFile = new File(baseDir + File.separator +"iDiscover/netDiscoverer/src/test/resources/lab-results/nbulab/network/version1/generated/network-generated.graphml");
+         outputFile = File.createTempFile("graph",".graphml");
 
          inputVersionDir = new File(baseDir + File.separator+"iDiscover/netDiscoverer/src/test/resources/lab-results/nbulab/network/version1/graphml-undirected");
-
-
 
         inputFiles = inputVersionDir.listFiles(new FileFilter() {
             @Override
@@ -55,8 +54,10 @@ public class NBULabGraphMergeTestCase {
         edgesTypes =         snmpGraphmlMetadataProvider.getEdgesMetadataTypes();
         vertexTypes =         snmpGraphmlMetadataProvider.getVertexMetadataTypes();
 
-
-
+    }
+    @After
+    public void tearDown(){
+        outputFile.delete();
     }
     @Test
     public void loadFiles(){

@@ -41,7 +41,8 @@ public class SpringBasedNetworkDiscovererFactory implements NetworkDiscovererFac
     private NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version, int initialNumberOfThreads, int maxNumberOfThreads) {
 
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:netDiscoverer/netDiscoverer.xml");
+        ctx.load("classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml");
+        ctx.load("classpath:xmlNodeDataProvider/xmlNodeDataProvider.xml");
         AbstractBeanDefinition projectPathBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ generic.xml
+  ~
+  ~ This work is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published
+  ~ by the Free Software Foundation; either version 2 of the License,
+  ~ or (at your option) any later version.
+  ~
+  ~ This work is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+  ~ USA
+  ~
+  ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="topologyViewerConfigManager" factory-bean="topologyViewerConfigManagerFactory" factory-method="createTopologyViewerConfigManager">
+        <constructor-arg name="type" value="xml"/>
+        <constructor-arg name="properties">
+            <map>
+                <entry key="projectPath" value="#{projectPath}"/>
+                <entry key="name" value="discovery"/>
+            </map>
+        </constructor-arg>
+
+    </bean>
+    <bean id="viewerConfigType" factory-bean="topologyViewerConfigManager" factory-method="getTopologyViewerConfType">
+    </bean>
+
+    <bean id="dataMatcherMap" class="net.itransformers.topologyviewer.discoveryresult.DataMatcherMap" init-method="init">
+        <constructor-arg name="viewerConfig" ref="viewerConfigType"/>
+    </bean>
+    <bean id="iconMapLoader" class="net.itransformers.topologyviewer.discoveryresult.IconMapLoader">
+        <constructor-arg name="viewerConfig" ref="viewerConfigType"/>
+        <constructor-arg name="dataMatcherMap" ref="dataMatcherMap"/>
+    </bean>
+    <bean id="edgeColorMapLoader" class="net.itransformers.topologyviewer.discoveryresult.EdgeColorMapLoader">
+        <constructor-arg name="viewerConfig" ref="viewerConfigType"/>
+    </bean>
+    <bean id="edgeStrokeMapLoader" class="net.itransformers.topologyviewer.discoveryresult.EdgeStrokeMapLoader">
+        <constructor-arg name="viewerConfig" ref="viewerConfigType"/>
+    </bean>
+
+    <bean id="discoveryResultTopologyViewer" class="net.itransformers.topologyviewer.discoveryresult.DiscoveryResultTopologyViewer">
+        <constructor-arg name="discoveryResult" ref="xmlNodeDataProvider"/>
+        <constructor-arg name="iconMapLoader" ref="iconMapLoader"/>
+        <constructor-arg name="edgeStrokeMapLoader" ref="edgeStrokeMapLoader"/>
+        <constructor-arg name="edgeColorMapLoader" ref="edgeColorMapLoader"/>
+    </bean>
+</beans>

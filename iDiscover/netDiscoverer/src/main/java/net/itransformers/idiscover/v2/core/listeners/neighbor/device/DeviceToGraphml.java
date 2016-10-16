@@ -1,9 +1,7 @@
 package net.itransformers.idiscover.v2.core.listeners.neighbor.device;
 
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
-import net.itransformers.idiscover.api.models.graphml.GraphmlEdgeData;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
-import net.itransformers.idiscover.api.models.graphml.GraphmlNodeData;
 import net.itransformers.idiscover.api.models.network.Node;
 import net.itransformers.idiscover.core.Subnet;
 import net.itransformers.idiscover.networkmodelv2.DeviceNeighbour;
@@ -36,10 +34,9 @@ public class DeviceToGraphml {
         Set<Subnet> subnetSet =  device.getDeviceSubnetsFromActiveInterfaces();
         List<GraphmlNode> graphmlSubnetNodes     = new ArrayList<>();
         for (Subnet subnet : subnetSet) {
-            GraphmlNode subnetNode = new GraphmlNode();
-            subnetNode.setId(subnet.getName());
+            GraphmlNode subnetNode = new GraphmlNode(subnet.getName());
             subnetNode.setLabel(subnet.getName());
-            subnetNode.setGraphmlNodeDataList(getGraphmlSubnetNodeMetaData(subnet));
+            subnetNode.setGraphmlNodeData(getGraphmlSubnetNodeMetaData(subnet));
             graphmlSubnetNodes.add(subnetNode);
         }
         return graphmlSubnetNodes;
@@ -87,7 +84,7 @@ public class DeviceToGraphml {
             EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(device.getName(), subnet.getName(),device.getName(), subnet.getName());
 
             GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
-            graphmlEdge.setGraphmlEdgeDataList(getGraphmlSubnetEdgeMetaData(subnet));
+            graphmlEdge.setGraphmlEdgeData(getGraphmlSubnetEdgeMetaData(subnet));
             graphmlEdges.add(graphmlEdge);
 
         }
@@ -132,7 +129,7 @@ public class DeviceToGraphml {
                             EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, subnet.getName(), neighbourIpAddress, subnet.getIpAddress());
 
                             GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
-                            graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+                            graphmlEdge.setGraphmlEdgeData(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
 
                             boolean edgeAlreadyDefined = false;
                             for (GraphmlEdge edge : graphmlEdges) {
@@ -142,9 +139,9 @@ public class DeviceToGraphml {
                                     logger.info(graphmlEdge + "already exists");
 
 
-                                    List<GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
-                                    List<GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
-                                    edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(existingGraphmlEdgeDatas, newGraphmlEdgeDatas)));
+                                    Map<String, String> existingGraphmlEdgeDatas = edge.getGraphmlEdgeData();
+                                    Map<String, String> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeData();
+                                    edge.setGraphmlEdgeData(combineEdgeMetaDatas(existingGraphmlEdgeDatas, newGraphmlEdgeDatas));
 
 
                                     graphmlEdges.set(index, edge);
@@ -166,7 +163,7 @@ public class DeviceToGraphml {
                     EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, node.getId(), neighbourId, node.getId(), localMac, neighbourMac);
 
                     GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
-                    graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+                    graphmlEdge.setGraphmlEdgeData(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
 
                     boolean edgeAlreadyDefined = false;
                     for (GraphmlEdge edge : graphmlEdges) {
@@ -176,11 +173,11 @@ public class DeviceToGraphml {
                             logger.info(graphmlEdge + "already exists");
 
 
-                            List<GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
-                            List<GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
+                            Map<String, String> existingGraphmlEdgeDatas = edge.getGraphmlEdgeData();
+                            Map<String, String> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeData();
 
 
-                            edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(existingGraphmlEdgeDatas, newGraphmlEdgeDatas)));
+                            edge.setGraphmlEdgeData(combineEdgeMetaDatas(existingGraphmlEdgeDatas, newGraphmlEdgeDatas));
 
                             graphmlEdges.set(index, edge);
 
@@ -218,7 +215,7 @@ public class DeviceToGraphml {
                             EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, subnet.getName(),neighbourIpAddress,subnet.getIpAddress());
 
                             GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
-                            graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+                            graphmlEdge.setGraphmlEdgeData(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
 
                             boolean edgeAlreadyDefined = false;
                             for (GraphmlEdge edge : graphmlEdges){
@@ -227,10 +224,10 @@ public class DeviceToGraphml {
                                     int index = graphmlEdges.indexOf(edge);
                                     logger.info (graphmlEdge +"already exists" );
 
-                                    List <GraphmlEdgeData> existingGraphmlEdgeDatas = edge.getGraphmlEdgeDataList();
-                                    List <GraphmlEdgeData> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeDataList();
+                                    Map<String, String> existingGraphmlEdgeDatas = edge.getGraphmlEdgeData();
+                                    Map<String, String> newGraphmlEdgeDatas = graphmlEdge.getGraphmlEdgeData();
 
-                                    edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(existingGraphmlEdgeDatas,newGraphmlEdgeDatas)));
+                                    edge.setGraphmlEdgeData(combineEdgeMetaDatas(existingGraphmlEdgeDatas,newGraphmlEdgeDatas));
 
                                     graphmlEdges.set(index,edge);
 
@@ -252,7 +249,7 @@ public class DeviceToGraphml {
 
                     EdgeIdGenerator edgeIdGenerator = new EdgeIdGenerator(neighbourId, node.getId(),neighbourId,node.getId());
                     GraphmlEdge graphmlEdge = edgeIdGenerator.createEdge();
-                    graphmlEdge.setGraphmlEdgeDataList(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
+                    graphmlEdge.setGraphmlEdgeData(getGraphmlDirectNeighbourEdgeMetaData(deviceNeighbour));
 
                     boolean edgeAlreadyDefined = false;
                     for (GraphmlEdge edge : graphmlEdges) {
@@ -260,7 +257,7 @@ public class DeviceToGraphml {
                             edgeAlreadyDefined = true;
                             int index = graphmlEdges.indexOf(edge);
                             logger.info(graphmlEdge + "already exists");
-                            edge.setGraphmlEdgeDataList(new ArrayList<>(combineEdgeMetaDatas(edge.getGraphmlEdgeDataList(),graphmlEdge.getGraphmlEdgeDataList())));
+                            edge.setGraphmlEdgeData(combineEdgeMetaDatas(edge.getGraphmlEdgeData(),graphmlEdge.getGraphmlEdgeData()));
                             graphmlEdges.set(index, edge);
 
                         }
@@ -276,11 +273,11 @@ public class DeviceToGraphml {
 
     }
 
-    private ArrayList<GraphmlEdgeData> combineEdgeMetaDatas(List<GraphmlEdgeData> existingGraphmlEdgeDatas,List<GraphmlEdgeData> newGraphmlEdgeDatas) {
+    private Map<String, String> combineEdgeMetaDatas(Map<String, String> existingGraphmlEdgeDatas,Map<String, String> newGraphmlEdgeDatas) {
 
         HashMap<String, String> combined = new HashMap<String, String>();
 
-        for (GraphmlEdgeData existingGraphmlEdgeData : existingGraphmlEdgeDatas) {
+        for (Map.Entry<String, String> existingGraphmlEdgeData : existingGraphmlEdgeDatas.entrySet()) {
             String key = existingGraphmlEdgeData.getKey();
 
             String value = existingGraphmlEdgeData.getValue();
@@ -290,7 +287,7 @@ public class DeviceToGraphml {
             }
         }
 
-        for (GraphmlEdgeData  newGraphmlEdgeData: newGraphmlEdgeDatas) {
+        for (Map.Entry<String, String>  newGraphmlEdgeData: newGraphmlEdgeDatas.entrySet()) {
             String key = newGraphmlEdgeData.getKey();
 
             String value =  newGraphmlEdgeData.getValue();
@@ -331,10 +328,10 @@ public class DeviceToGraphml {
             }
 
 
-        ArrayList<GraphmlEdgeData> finalDatas = new ArrayList<>();
+        Map<String, String> finalDatas = new HashMap<>();
 
         for (Map.Entry<String,String> entry: combined.entrySet()){
-            finalDatas.add(new GraphmlEdgeData(entry.getKey(),entry.getValue()));
+            finalDatas.put(entry.getKey(),entry.getValue());
         }
 
         return finalDatas;
@@ -343,16 +340,14 @@ public class DeviceToGraphml {
 
 
 
-    private List<GraphmlEdgeData> getGraphmlDirectNeighbourEdgeMetaData(DeviceNeighbour neighbour ) {
+    private Map<String, String> getGraphmlDirectNeighbourEdgeMetaData(DeviceNeighbour neighbour ) {
 
-        List<GraphmlEdgeData> graphmlEdgeDatas = new ArrayList<>();
-        GraphmlEdgeData ipLink;
+        Map<String, String> graphmlEdgeDatas = new HashMap<>();
         if (neighbour.getNeighbourIpAddress()!=null && !neighbour.getNeighbourIpAddress().isEmpty())
-            ipLink  = new GraphmlEdgeData("ipLink","YES");
+            graphmlEdgeDatas.put("ipLink","YES");
         else
-            ipLink  = new GraphmlEdgeData("ipLink","NO");
+            graphmlEdgeDatas.put("ipLink","NO");
 
-        graphmlEdgeDatas.add(ipLink);
 
        String neighbourIpAddress = neighbour.getIpAddress();
 
@@ -363,152 +358,107 @@ public class DeviceToGraphml {
             logger.error(e.getMessage(), e);
         }
         if (inetAddress instanceof Inet4Address) {
-            GraphmlEdgeData ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","YES");
-            graphmlEdgeDatas.add(ipv4Forwarding);
-            GraphmlEdgeData ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","NO");
-            graphmlEdgeDatas.add(ipv6Forwarding);
+            graphmlEdgeDatas.put("ipv4Forwarding","YES");
+            graphmlEdgeDatas.put("ipv6Forwarding","NO");
 
         }else{
-            GraphmlEdgeData ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","YES");
-            graphmlEdgeDatas.add(ipv6Forwarding);
-            GraphmlEdgeData ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","NO");
-            graphmlEdgeDatas.add(ipv4Forwarding);
+            graphmlEdgeDatas.put("ipv6Forwarding","YES");
+            graphmlEdgeDatas.put("ipv4Forwarding","NO");
         }
         String discoveryMethod= neighbour.getParameters().get("Discovery Method");
-        GraphmlEdgeData linkDiscoveryMethod  = new GraphmlEdgeData("discoveryMethod",discoveryMethod);
-        graphmlEdgeDatas.add(linkDiscoveryMethod);
-        GraphmlEdgeData dataLink;
+        graphmlEdgeDatas.put("discoveryMethod",discoveryMethod);
 
         if (discoveryMethod.equals("CDP")||discoveryMethod.equals("LLDP")||discoveryMethod.equals("MAC")){
-            dataLink  = new GraphmlEdgeData("dataLink","YES");
+            graphmlEdgeDatas.put("dataLink","YES");
         }    else {
-            dataLink  = new GraphmlEdgeData("dataLink","NO");
+            graphmlEdgeDatas.put("dataLink","NO");
 
         }
-        graphmlEdgeDatas.add(dataLink);
-
 
         return graphmlEdgeDatas;
 
     }
 
 
-    private List<GraphmlEdgeData> getGraphmlSubnetNeighbourEdgeMetaData(Subnet subnet, DeviceNeighbour neighbour ) {
+    private Map<String, String> getGraphmlSubnetNeighbourEdgeMetaData(Subnet subnet, DeviceNeighbour neighbour ) {
 
-        List<GraphmlEdgeData> graphmlEdgeDatas = new ArrayList<>();
-        GraphmlEdgeData ipLink;
+        Map<String, String> graphmlEdgeDatas = new HashMap<>();
         if (neighbour.getNeighbourIpAddress()!=null && !neighbour.getNeighbourIpAddress().isEmpty())
-            ipLink  = new GraphmlEdgeData("ipLink","true");
+            graphmlEdgeDatas.put("ipLink","true");
         else
-            ipLink  = new GraphmlEdgeData("ipLink","false");
+            graphmlEdgeDatas.put("ipLink","false");
 
-        graphmlEdgeDatas.add(ipLink);
-
-        GraphmlEdgeData ipv4Forwarding;
-        GraphmlEdgeData ipv6Forwarding;
         switch (subnet.getSubnetProtocolType()) {
             case "IPv4":
-                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","YES");
-                graphmlEdgeDatas.add(ipv4Forwarding);
-                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","NO");
-                graphmlEdgeDatas.add(ipv6Forwarding);
+                graphmlEdgeDatas.put("ipv4Forwarding","YES");
+                graphmlEdgeDatas.put("ipv6Forwarding","NO");
                 break;
             case "IPv6":
-                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","YES");
-                graphmlEdgeDatas.add(ipv6Forwarding);
-                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","NO");
-                graphmlEdgeDatas.add(ipv4Forwarding);
+                graphmlEdgeDatas.put("ipv6Forwarding","YES");
+                graphmlEdgeDatas.put("ipv4Forwarding","NO");
                 break;
         }
         String discoveryMethod= neighbour.getParameters().get("Discovery Method");
-        GraphmlEdgeData linkDiscoveryMethod  = new GraphmlEdgeData("discoveryMethod",discoveryMethod);
-        graphmlEdgeDatas.add(linkDiscoveryMethod);
-        GraphmlEdgeData dataLink;
+        graphmlEdgeDatas.put("discoveryMethod",discoveryMethod);
 
         if (discoveryMethod.equals("CDP")||discoveryMethod.equals("LLDP")||discoveryMethod.equals("MAC")){
-             dataLink  = new GraphmlEdgeData("dataLink","true");
+            graphmlEdgeDatas.put("dataLink","true");
         }    else {
-            dataLink  = new GraphmlEdgeData("dataLink","false");
+            graphmlEdgeDatas.put("dataLink","false");
 
         }
-        graphmlEdgeDatas.add(dataLink);
-
 
         return graphmlEdgeDatas;
 
     }
 
 
-    private List<GraphmlNodeData> getGraphmlSubnetNodeMetaData(Subnet subnet){
+    private Map<String, String> getGraphmlSubnetNodeMetaData(Subnet subnet){
 
-        List<GraphmlNodeData> graphmlNodeDatas = new ArrayList<>();
+        Map<String, String> graphmlNodeDatas = new HashMap<>();
 
-        GraphmlNodeData ipAddress = new GraphmlNodeData("ipAddress",subnet.getIpAddress());
-        graphmlNodeDatas.add(ipAddress);
-        GraphmlNodeData ipv4Forwarding;
-        GraphmlNodeData ipv6Forwarding;
+        graphmlNodeDatas.put("ipAddress",subnet.getIpAddress());
         switch (subnet.getSubnetProtocolType()){
             case "IPv4":
-                ipv4Forwarding  = new GraphmlNodeData("ipv4Forwarding","YES");
-                graphmlNodeDatas.add(ipv4Forwarding);
-                ipv6Forwarding  = new GraphmlNodeData("ipv6Forwarding","NO");
-                graphmlNodeDatas.add(ipv6Forwarding);
+                graphmlNodeDatas.put("ipv4Forwarding","YES");
+                graphmlNodeDatas.put("ipv6Forwarding","NO");
                 break;
             case "IPv6":
-                ipv6Forwarding  = new GraphmlNodeData("ipv6Forwarding","YES");
-                graphmlNodeDatas.add(ipv6Forwarding);
-                ipv4Forwarding  = new GraphmlNodeData("ipv4Forwarding","NO");
-                graphmlNodeDatas.add(ipv4Forwarding);
+                graphmlNodeDatas.put("ipv6Forwarding","YES");
+                graphmlNodeDatas.put("ipv4Forwarding","NO");
                 break;
         }
 
 
-        GraphmlNodeData subnetPrefixMask = new GraphmlNodeData("subnetPrefixMask",subnet.getSubnetPrefixMask());
-        graphmlNodeDatas.add(subnetPrefixMask);
-        GraphmlNodeData subnetMask = new GraphmlNodeData("subnetMask",subnet.getsubnetMask());
-        graphmlNodeDatas.add(subnetMask);
-        GraphmlNodeData subnetDeviceType = new GraphmlNodeData("deviceType","subnet");
-        graphmlNodeDatas.add(subnetDeviceType);
-        GraphmlNodeData subnetPort = new GraphmlNodeData("port",subnet.getLocalInterface());
-        graphmlNodeDatas.add(subnetPort);
+        graphmlNodeDatas.put("subnetPrefixMask",subnet.getSubnetPrefixMask());
+        graphmlNodeDatas.put("subnetMask",subnet.getsubnetMask());
+        graphmlNodeDatas.put("deviceType","subnet");
+        graphmlNodeDatas.put("port",subnet.getLocalInterface());
 
 
         return graphmlNodeDatas;
 
     }
 
-    private List<GraphmlEdgeData> getGraphmlSubnetEdgeMetaData(Subnet subnet){
-        List<GraphmlEdgeData> graphmlEdgeDatas = new ArrayList<>();
-        GraphmlEdgeData ipLink  = new GraphmlEdgeData("ipLink","YES");
-        graphmlEdgeDatas.add(ipLink);
+    private Map<String, String> getGraphmlSubnetEdgeMetaData(Subnet subnet){
+        Map<String, String> graphmlEdgeDatas = new HashMap<>();
+        graphmlEdgeDatas.put("ipLink","YES");
 
-        GraphmlEdgeData dataLink  = new GraphmlEdgeData("dataLink","YES");
-        graphmlEdgeDatas.add(dataLink);
+        graphmlEdgeDatas.put("dataLink","YES");
 
         String protocolType= subnet.getSubnetProtocolType();
-        GraphmlEdgeData ipv4Forwarding;
-        GraphmlEdgeData ipv6Forwarding;
-
         switch (protocolType){
             case "IPv4":
-                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","YES");
-                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","NO");
-                graphmlEdgeDatas.add(ipv4Forwarding);
-                graphmlEdgeDatas.add(ipv6Forwarding);
-
+                graphmlEdgeDatas.put("ipv4Forwarding","YES");
+                graphmlEdgeDatas.put("ipv6Forwarding","NO");
                 break;
             case "IPv6":
-                ipv6Forwarding  = new GraphmlEdgeData("ipv6Forwarding","YES");
-                ipv4Forwarding  = new GraphmlEdgeData("ipv4Forwarding","NO");
-                graphmlEdgeDatas.add(ipv4Forwarding);
-                graphmlEdgeDatas.add(ipv6Forwarding);
+                graphmlEdgeDatas.put("ipv6Forwarding","YES");
+                graphmlEdgeDatas.put("ipv4Forwarding","NO");
                 break;
-
-
         }
 
-        GraphmlEdgeData linkDiscoveryMethod  = new GraphmlEdgeData("discoveryMethod",subnet.getSubnetDiscoveryMethods());
-        graphmlEdgeDatas.add(linkDiscoveryMethod);
+        graphmlEdgeDatas.put("discoveryMethod",subnet.getSubnetDiscoveryMethods());
 
         return graphmlEdgeDatas;
 
