@@ -21,11 +21,10 @@
 
 package net.itransformers.topologyviewer.dialogs.discovery;
 
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
-import net.itransformers.connectiondetails.csvconnectiondetails.CsvConnectionDetailsFileManager;
 import net.itransformers.idiscover.api.*;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.AppenderSkeleton;
@@ -80,6 +79,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
     public DiscoveryManagerDialogV2(Frame parent, File projectDir, String discoveryBeanName) {
         super(parent, "Discovery Manager", false);
         this.projectDir = projectDir;
+        //TODO remove that hardcode
         conDetails =new File(projectDir,"iDiscover/conf/txt/connection-details.txt");
         this.discoveryBeanName = discoveryBeanName;
 

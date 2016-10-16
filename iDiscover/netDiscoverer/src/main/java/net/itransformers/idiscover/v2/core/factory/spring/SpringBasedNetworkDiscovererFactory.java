@@ -3,7 +3,6 @@ package net.itransformers.idiscover.v2.core.factory.spring;
 import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscovererFactory;
 import net.itransformers.idiscover.v2.core.AsyncNetworkDiscoverer;
-import net.itransformers.idiscover.v2.core.version_manager.DirectoryVersionManager;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -41,8 +40,7 @@ public class SpringBasedNetworkDiscovererFactory implements NetworkDiscovererFac
     private NetworkDiscoverer createNetworkDiscoverer(String projectPath, String version, int initialNumberOfThreads, int maxNumberOfThreads) {
 
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml");
-        ctx.load("classpath:xmlNodeDataProvider/xmlNodeDataProvider.xml");
+        ctx.load("classpath:netDiscoverer/netDiscoverer.xml");
         AbstractBeanDefinition projectPathBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 
