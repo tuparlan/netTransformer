@@ -75,7 +75,7 @@ public class IconMapLoader {
                     final String name = iconType.getName();
                     String[] iconNames = name.split(",");
                     iconMap.putIfAbsent(vertice.getId(), new ArrayList<>());
-                    for (int i=1;i<iconNames.length;i++) {
+                    for (int i=0;i<iconNames.length;i++) {
                         List<Icon> iconList = iconMap.get(vertice.getId());
                         iconList.add(new Icon(iconNames[i].trim()));
                     }
