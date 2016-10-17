@@ -78,7 +78,7 @@ public class TopologyViewerConfigManagerController implements ServletContextAwar
     }
 
 
-    @RequestMapping(value = "/icons/{name}", method = RequestMethod.GET, produces = "image/png")
+    @RequestMapping(value = "/images/{name}", method = RequestMethod.GET, produces = "image/png")
     public @ResponseBody byte[] getIcon(@PathVariable String name)  {
         try {
             InputStream is = this.getClass().getResourceAsStream("/images/"+name+".png");

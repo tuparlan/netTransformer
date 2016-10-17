@@ -66,6 +66,8 @@ public class DiscoveryResultTopologyViewer implements TopologyViewer {
             edge.setLabel(graphmlEdge.getLabel());
             edge.setColor(edgeColorMap.get(graphmlEdge.getId()));
             edge.setStroke(edgeStrokeMap.get(graphmlEdge.getId()));
+            edge.setFromVertex(graphmlEdge.getFromNode());
+            edge.setToVertex(graphmlEdge.getToNode());
             graph.getEdges().add(edge);
         }
     }

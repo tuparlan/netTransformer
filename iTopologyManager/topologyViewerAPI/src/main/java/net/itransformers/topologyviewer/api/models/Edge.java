@@ -9,6 +9,9 @@ public class Edge {
     Color color;
     Stroke stroke;
 
+    String fromVertex;
+    String toVertex;
+
     public Edge(String id) {
         this.id = id;
     }
@@ -43,5 +46,21 @@ public class Edge {
 
     public void setStroke(Stroke stroke) {
         this.stroke = stroke;
+    }
+
+    public String getFromVertex() {
+        return fromVertex;
+    }
+
+    public void setFromVertex(String fromVertex) {
+        this.fromVertex = fromVertex;
+    }
+
+    public String getToVertex() {
+        return toVertex;
+    }
+
+    public void setToVertex(String toVertex) {
+        this.toVertex = toVertex;
     }
 }
