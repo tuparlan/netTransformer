@@ -48,6 +48,7 @@
         <module>ideas</module>
         <module>projectManager</module>
         <module>netTransformerBundle</module>
+        <module>webitransformer</module>
     </modules>
     <build>
         <pluginManagement>
