@@ -15,36 +15,66 @@ import java.util.Map;
  * Created by pod on 10/15/16.
  */
 public class DiscoveryResultTopologyViewer implements TopologyViewer {
-    private DiscoveryResult discoveryResult;
-    private IconMapLoader iconMapLoader;
-    private EdgeStrokeMapLoader edgeStrokeMapLoader;
-    private EdgeColorMapLoader edgeColorMapLoader;
+    protected DiscoveryResult discoveryResult;
+    protected IconMapLoader iconMapLoader;
+    protected EdgeStrokeMapLoader edgeStrokeMapLoader;
+    protected EdgeColorMapLoader edgeColorMapLoader;
+    protected VertexFilter vertexFilter;
+    protected EdgeFilter edgeFilter;
 
-    public DiscoveryResultTopologyViewer(DiscoveryResult discoveryResult, IconMapLoader iconMapLoader, EdgeStrokeMapLoader edgeStrokeMapLoader, EdgeColorMapLoader edgeColorMapLoader) {
+    public DiscoveryResultTopologyViewer(DiscoveryResult discoveryResult,
+                                         IconMapLoader iconMapLoader,
+                                         EdgeStrokeMapLoader edgeStrokeMapLoader,
+                                         EdgeColorMapLoader edgeColorMapLoader,
+                                         VertexFilter vertexFilter,
+                                         EdgeFilter edgeFilter) {
         this.discoveryResult = discoveryResult;
         this.iconMapLoader = iconMapLoader;
         this.edgeStrokeMapLoader = edgeStrokeMapLoader;
         this.edgeColorMapLoader = edgeColorMapLoader;
+        this.vertexFilter = vertexFilter;
+        this.edgeFilter = edgeFilter;
     }
 
     @Override
     public Graph getGraph(String version) {
+        return this.getGraph(version, null, null);
+    }
+    @Override
+    public Graph getGraph(String version, String vertexFilterName, String edgeFilterName) {
         Graph graph = new Graph();
         GraphmlGraph graphmlGraph = discoveryResult.getNetwork(version);
-        createVertices(graphmlGraph, graph);
-        createEdges(graphmlGraph, graph);
+        Map<String, GraphmlNode> graphmlNodeMap = createGraphmlNodeMap(graphmlGraph);
+        Map<String, GraphmlEdge> graphmlEdgeMap = createGraphmlEdgeMap(graphmlGraph);
+        graphmlNodeMap = vertexFilter.filter(vertexFilterName, graphmlNodeMap);
+        graphmlEdgeMap = edgeFilter.filter(edgeFilterName, graphmlEdgeMap);
+        createVertices(graphmlNodeMap, graph);
+        createEdges(graphmlEdgeMap, graph);
         return graph;
     }
 
-    private Graph createVertices(GraphmlGraph graphmlGraph, Graph graph) {
+    protected Map<String, GraphmlNode> createGraphmlNodeMap(GraphmlGraph graphmlGraph) {
         List<GraphmlNode> verteces = graphmlGraph.getGraphmlNodes();
-        Map<String, GraphmlNode> vertexMap = new HashMap<>();
+        Map<String, GraphmlNode> nodeMap = new HashMap<>();
         for (GraphmlNode graphmlNode: verteces){
-            vertexMap.put(graphmlNode.getId(), graphmlNode);
+            nodeMap.put(graphmlNode.getId(), graphmlNode);
         }
-        Map<String, List<Icon>> iconMap = iconMapLoader.getIconsMap(vertexMap);
+        return nodeMap;
+    }
+
+    protected Map<String, GraphmlEdge> createGraphmlEdgeMap(GraphmlGraph graphmlGraph) {
+        List<GraphmlEdge> verteces = graphmlGraph.getGraphmlEdges();
+        Map<String, GraphmlEdge> edgeMap = new HashMap<>();
+        for (GraphmlEdge graphmlNode: verteces){
+            edgeMap.put(graphmlNode.getId(), graphmlNode);
+        }
+        return edgeMap;
+    }
+
+    protected Graph createVertices(Map<String, GraphmlNode> graphmlNodeMap, Graph graph) {
+        Map<String, List<Icon>> iconMap = iconMapLoader.getIconsMap(graphmlNodeMap);
         graph.getVertices();
-        for (GraphmlNode graphmlNode: graphmlGraph.getGraphmlNodes()){
+        for (GraphmlNode graphmlNode: graphmlNodeMap.values()){
             Vertex vertex = new Vertex(graphmlNode.getId());
             vertex.setLabel(graphmlNode.getLabel());
             vertex.setIcons(iconMap.get(graphmlNode.getId()));
@@ -53,15 +83,10 @@ public class DiscoveryResultTopologyViewer implements TopologyViewer {
         return graph;
     }
 
-    private void createEdges(GraphmlGraph graphmlGraph, Graph graph) {
-        Map<String, GraphmlEdge> edgeMap = new HashMap<>();
-        List<GraphmlEdge> edges = graphmlGraph.getGraphmlEdges();
-        for (GraphmlEdge graphmlEdge: edges){
-            edgeMap.put(graphmlEdge.getId(), graphmlEdge);
-        }
-        Map<String, Stroke> edgeStrokeMap = edgeStrokeMapLoader.getEdgeStrokeMap(edgeMap);
-        Map<String, Color> edgeColorMap = edgeColorMapLoader.getEdgeColorMap(edgeMap);
-        for (GraphmlEdge graphmlEdge: graphmlGraph.getGraphmlEdges()){
+    protected void createEdges(Map<String, GraphmlEdge> graphmlEdgeMap, Graph graph) {
+        Map<String, Stroke> edgeStrokeMap = edgeStrokeMapLoader.getEdgeStrokeMap(graphmlEdgeMap);
+        Map<String, Color> edgeColorMap = edgeColorMapLoader.getEdgeColorMap(graphmlEdgeMap);
+        for (GraphmlEdge graphmlEdge: graphmlEdgeMap.values()){
             Edge edge = new Edge(graphmlEdge.getId());
             edge.setLabel(graphmlEdge.getLabel());
             edge.setColor(edgeColorMap.get(graphmlEdge.getId()));

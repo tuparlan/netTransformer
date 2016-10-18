@@ -41,7 +41,6 @@ public class IconMapLoader {
     }
 
     public Map<String, List<Icon>> getIconsMap(Map<String, GraphmlNode> vertexMap) {
-        Map<String, DataMatcher> matcherMap = this.dataMatcherMap.getMatcherMap();
         Map<String, List<Icon>> iconMap = new HashMap<>();
         List<IconType> iconTypeList = viewerConfig.getIcon();
         List<IconType.Data> datas;
@@ -63,7 +62,7 @@ public class IconMapLoader {
                         break;
 
                     }
-                    DataMatcher matcherInstance = matcherMap.get(matcher);
+                    DataMatcher matcherInstance = dataMatcherMap.getMatcher(matcher);
                     boolean matchResult = matcherInstance.compareData(value, data.getValue());
                     if (!matchResult) {
                         match = false;

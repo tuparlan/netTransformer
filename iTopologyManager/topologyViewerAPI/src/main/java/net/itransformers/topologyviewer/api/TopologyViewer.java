@@ -7,4 +7,5 @@ import net.itransformers.topologyviewer.api.models.Graph;
  */
 public interface TopologyViewer {
     Graph getGraph(String version);
+    Graph getGraph(String version, String vertexFilterName, String edgeFilterName);
 }

@@ -12,10 +12,7 @@ import net.itransformers.ws.resourceManager.ResourceManagerController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.annotation.Resource;
@@ -62,8 +59,8 @@ public class TopologyViewerController implements ServletContextAware {
     }
     @RequestMapping(value = "/{version}/graph", method = RequestMethod.GET)
     @ResponseBody
-    public Graph getGraph(@PathVariable String version) {
-        return getTopologyViewer().getGraph(version);
+    public Graph getGraph(@PathVariable String version, @RequestParam(required = false) String vertexFilterName, @RequestParam(required = false) String edgeFilterName) {
+        return getTopologyViewer().getGraph(version, vertexFilterName, edgeFilterName);
     }
 
 }

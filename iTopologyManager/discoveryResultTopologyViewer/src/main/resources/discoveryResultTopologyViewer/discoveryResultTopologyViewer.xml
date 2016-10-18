@@ -55,5 +55,21 @@
         <constructor-arg name="iconMapLoader" ref="iconMapLoader"/>
         <constructor-arg name="edgeStrokeMapLoader" ref="edgeStrokeMapLoader"/>
         <constructor-arg name="edgeColorMapLoader" ref="edgeColorMapLoader"/>
+        <constructor-arg name="vertexFilter" ref="vertexFilter"/>
+        <constructor-arg name="edgeFilter" ref="edgeFilter"/>
+    </bean>
+
+    <bean id="filterTypeMap" class="net.itransformers.topologyviewer.discoveryresult.FilterTypeMap" init-method="init">
+        <constructor-arg name="viewerConfig" ref="viewerConfigType"/>
+    </bean>
+
+    <bean id="vertexFilter" class="net.itransformers.topologyviewer.discoveryresult.VertexFilter">
+        <constructor-arg name="dataMatcherMap" ref="dataMatcherMap"/>
+        <constructor-arg name="filterTypeMap" ref="filterTypeMap"/>
+    </bean>
+
+    <bean id="edgeFilter" class="net.itransformers.topologyviewer.discoveryresult.EdgeFilter">
+        <constructor-arg name="dataMatcherMap" ref="dataMatcherMap"/>
+        <constructor-arg name="filterTypeMap" ref="filterTypeMap"/>
     </bean>
 </beans>
