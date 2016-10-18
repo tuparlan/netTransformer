@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pod on 10/16/16.
@@ -43,7 +44,7 @@ public class DataMatcherMap {
         }
     }
 
-    public Map<String, DataMatcher> getMatcherMap() {
-        return matcherMap;
+    public DataMatcher getMatcher(String matcherName) {
+        return matcherMap.get(matcherName);
     }
 }
