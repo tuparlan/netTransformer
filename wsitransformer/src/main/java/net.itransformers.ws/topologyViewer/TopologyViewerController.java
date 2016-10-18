@@ -59,7 +59,7 @@ public class TopologyViewerController implements ServletContextAware {
     }
     @RequestMapping(value = "/{version}/graph", method = RequestMethod.GET)
     @ResponseBody
-    public Graph getGraph(@PathVariable String version, @RequestParam String vertexFilterName, @RequestParam String edgeFilterName) {
+    public Graph getGraph(@PathVariable String version, @RequestParam(required = false) String vertexFilterName, @RequestParam(required = false) String edgeFilterName) {
         return getTopologyViewer().getGraph(version, vertexFilterName, edgeFilterName);
     }
 
