@@ -140,6 +140,13 @@
             <artifactId>discoveryResultTopologyViewer</artifactId>
             <version>0.8</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>itransformer-gui</artifactId>
+            <version>1.0</version>
+            <type>war</type>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <pluginRepositories>
         <pluginRepository>
@@ -167,12 +174,47 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <overlays>
+                        <overlay>
+                            <groupId>net.itransformers</groupId>
+                            <artifactId>itransformer-gui</artifactId>
+                        </overlay>
+                    </overlays>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            <goal>exec-war-only</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <!-- optional only if you want to use a preconfigured server.xml file -->
+                            <!--
+                            <serverXml>src/main/tomcatconf/server.xml</serverXml>
+                            -->
+                            <warRunDependencies>
+                                <warRunDependency>
+                                    <dependency>
+                                        <groupId>net.itransformers</groupId>
+                                        <artifactId>itransformer-gui</artifactId>
+                                        <version>1.0</version>
+                                        <type>war</type>
+                                    </dependency>
+                                    <contextPath>/</contextPath>
+                                </warRunDependency>
+                            </warRunDependencies>
+                            <!-- naming is disable by default so use true to enable it -->
+                            <enableNaming>true</enableNaming>
+                            <!-- extra dependencies to add jdbc driver mail jars -->
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
                     <server>localhost</server>
                     <port>8888</port>
