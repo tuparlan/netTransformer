@@ -142,8 +142,8 @@
         </dependency>
         <dependency>
             <groupId>net.itransformers</groupId>
-            <artifactId>itransformer-gui</artifactId>
-            <version>1.0</version>
+            <artifactId>netTransformerUI</artifactId>
+            <version>1.1</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
@@ -178,7 +178,7 @@
                     <overlays>
                         <overlay>
                             <groupId>net.itransformers</groupId>
-                            <artifactId>itransformer-gui</artifactId>
+                            <artifactId>netTransformerUI</artifactId>
                         </overlay>
                     </overlays>
                 </configuration>
@@ -203,7 +203,7 @@
                                 <warRunDependency>
                                     <dependency>
                                         <groupId>net.itransformers</groupId>
-                                        <artifactId>itransformer-gui</artifactId>
+                                        <artifactId>netTransformerUI</artifactId>
                                         <version>1.0</version>
                                         <type>war</type>
                                     </dependency>
