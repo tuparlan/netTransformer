@@ -140,6 +140,11 @@
             <artifactId>discoveryResultTopologyViewer</artifactId>
             <version>0.8</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>projectManagerAPI</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
     <pluginRepositories>
         <pluginRepository>
