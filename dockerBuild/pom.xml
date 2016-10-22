@@ -49,6 +49,7 @@
                                 <goal>copy</goal>
                             </goals>
                             <configuration>
+                                <stripVersion>true</stripVersion>
                                 <artifactItems>
                                     <artifactItem>
                                         <groupId>${project.groupId}</groupId>
@@ -191,13 +192,13 @@
                         <version>1.6</version>
                         <executions>
                             <execution>
-                                <phase>install</phase>
+                                <phase>package</phase>
                                 <configuration>
                                     <target>
                                         <exec executable="docker">
                                             <arg value="build"/>
                                             <arg value="-t"/>
-                                            <arg value="niau/itransformers:${project.version}_${git.commit.id.abbrev}"/>
+                                            <arg value="itransformers/netTransformer:${project.version}_${git.commit.id.abbrev}"/>
                                             <arg value="target"/>
                                         </exec>
                                     </target>
