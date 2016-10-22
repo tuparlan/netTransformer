@@ -32,6 +32,7 @@
     <profiles>
         <profile>
             <id>docker</id>
+
             <activation>
                 <file>
                     <exists>src/main/resources/Dockerfile</exists>
@@ -192,7 +193,7 @@
                         <version>1.6</version>
                         <executions>
                             <execution>
-                                <phase>package</phase>
+                                <phase>install</phase>
                                 <configuration>
                                     <target>
                                         <exec executable="docker">
