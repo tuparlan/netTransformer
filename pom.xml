@@ -25,9 +25,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <properties>
-        <version>0.8</version><!--Change for new version-->
+        <version>0.8-SNAPSHOT</version><!--Change for new version-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovy.version>2.1.9</groovy.version>
+        <docker.registry>docker.io:5000/</docker.registry>
+        <project.build.outputDirectory>target</project.build.outputDirectory>
+        <projectPath>..</projectPath>
     </properties>
     <groupId>net.itransformers</groupId>
     <artifactId>netTransformer</artifactId>
@@ -48,57 +51,38 @@
         <module>ideas</module>
         <module>projectManager</module>
         <module>netTransformerBundle</module>
+        <module>dockerBuild</module>
     </modules>
+
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/Dockerfile</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.vm</include>
+                    <include>**/*.pfl</include>
+
+                </includes>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.3</version>
-                    <configuration>
-                        <descriptors>
-                            <descriptor>distribution/netTransformer.xml</descriptor>
-                            <!--descriptor>distribution/bgpPeeringMap.xml</descriptor-->
-                        </descriptors>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                            <phase>package</phase> <!-- bind to the packaging phase -->
-                            <!--<goals>-->
-                            <!--<goal>single</goal>-->
-                            <!--</goals>-->
-                        </execution>
-                    </executions>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.opendaylight.yangtools</groupId>
-                    <artifactId>yang-maven-plugin</artifactId>
-                    <version>0.6.2-SNAPSHOT</version>
-                    <!-- configuration -->
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.1</version>
-                    <dependencies>
-                        <!--<dependency>-->
-                        <!--<groupId>org.apache.maven.doxia</groupId>-->
-                        <!--<artifactId>doxia-module-twiki</artifactId>-->
-                        <!--<version>1.2</version>-->
-                        <!--</dependency>-->
-                    </dependencies>
-                    <configuration>
-                        <skip>false</skip>
-                        <skipDeploy>true</skipDeploy>
-                    </configuration>
-                </plugin>
+
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>2.3.2</version>
@@ -107,39 +91,42 @@
                         <target>1.8</target>
                     </configuration>
                 </plugin>
+
+
+
                 <!--<plugin>-->
-                    <!--<groupId>org.jfrog.buildinfo</groupId>-->
-                    <!--<artifactId>artifactory-maven-plugin</artifactId>-->
-                    <!--<version>2.3.0</version>-->
-                    <!--<inherited>false</inherited>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<id>build-info</id>-->
-                            <!--<goals>-->
-                                <!--<goal>publish</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<deployProperties>-->
-                                    <!--<groupId>${project.groupId}</groupId>-->
-                                    <!--<artifactId>${project.artifactId}</artifactId>-->
-                                    <!--<version>${project.version}</version>-->
-                                <!--</deployProperties>-->
-                                <!--<publisher>-->
-                                    <!--<contextUrl>https://193.19.172.133:24280/artifactory</contextUrl>-->
-                                    <!--<username>niau</username>-->
-                                    <!--<password>APA7e6KmfBGqvAGsyt9arP4yEkB</password>-->
-                                    <!--<repoKey>libs-releases-local</repoKey>-->
-                                    <!--<snapshotRepoKey>libs-snapshots-local</snapshotRepoKey>-->
-                                <!--</publisher>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
+                <!--<groupId>org.jfrog.buildinfo</groupId>-->
+                <!--<artifactId>artifactory-maven-plugin</artifactId>-->
+                <!--<version>2.3.0</version>-->
+                <!--<inherited>false</inherited>-->
+                <!--<executions>-->
+                <!--<execution>-->
+                <!--<id>build-info</id>-->
+                <!--<goals>-->
+                <!--<goal>publish</goal>-->
+                <!--</goals>-->
+                <!--<configuration>-->
+                <!--<deployProperties>-->
+                <!--<groupId>${project.groupId}</groupId>-->
+                <!--<artifactId>${project.artifactId}</artifactId>-->
+                <!--<version>${project.version}</version>-->
+                <!--</deployProperties>-->
+                <!--<publisher>-->
+                <!--<contextUrl>https://193.19.172.133:24280/artifactory</contextUrl>-->
+                <!--<username>niau</username>-->
+                <!--<password>APA7e6KmfBGqvAGsyt9arP4yEkB</password>-->
+                <!--<repoKey>libs-releases-local</repoKey>-->
+                <!--<snapshotRepoKey>libs-snapshots-local</snapshotRepoKey>-->
+                <!--</publisher>-->
+                <!--</configuration>-->
+                <!--</execution>-->
+                <!--</executions>-->
                 <!--</plugin>-->
             </plugins>
         </pluginManagement>
     </build>
     <distributionManagement>
-            <repository>
+        <repository>
             <id>jfrogrepo</id>
             <name>jfrogrepo-releases</name>
             <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
@@ -148,14 +135,14 @@
     <repositories>
 
         <repository>
-        <id>jfrogrepo-libs-release-local</id>
-        <name>jfrogrepo-releases</name>
-        <url>http://build.itransformers.net:8081/artifactory/libs-release-local</url>
+            <id>jfrogrepo-libs-release-local</id>
+            <name>jfrogrepo-releases</name>
+            <url>http://build.itransformers.net:8081/artifactory/libs-release-local</url>
         </repository>
         <repository>
-        <id>jfrogrepo-ext-release-local</id>
-        <name>jfrogrepo-releases</name>
-        <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
+            <id>jfrogrepo-ext-release-local</id>
+            <name>jfrogrepo-releases</name>
+            <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
 
         <repository>
@@ -166,7 +153,13 @@
 
 
     </repositories>
-
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <name>Sonatype Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -194,4 +187,7 @@
             </exclusions>
         </dependency>
     </dependencies>
+    <profiles>
+
+    </profiles>
 </project>

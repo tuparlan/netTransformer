@@ -21,9 +21,11 @@
 
 <!--Change the value to refer to your project path -->
 
-<Context override="false" name="api">
-  <!--Set the environment according your own netTransformer project path-->
-  <!--You can create a new proejct with netTransformerCLI utils-->
-    <Environment name="wsitransformer/projectPath" type="java.lang.String"
-              value=".."/>
-</Context>
+<!--<Context override="false" name="api">-->
+  <!--&lt;!&ndash;Set the environment according your own netTransformer project path&ndash;&gt;-->
+  <!--&lt;!&ndash;You can create a new proejct with netTransformerCLI utils&ndash;&gt;-->
+    <!--<Environment name="wsitransformer/projectPath" type="java.lang.String"-->
+              <!--value="${projectPath}"/>-->
+<!--</Context>-->
+
+<Context/>
