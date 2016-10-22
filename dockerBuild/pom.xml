@@ -192,6 +192,7 @@
                         <version>1.6</version>
                         <executions>
                             <execution>
+                                <id>docker-build-image</id>
                                 <phase>install</phase>
                                 <configuration>
                                     <target>
@@ -200,6 +201,23 @@
                                             <arg value="-t"/>
                                             <arg value="itransformers/nettransformer${project.version}:${git.commit.id.abbrev}"/>
                                             <arg value="target"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                            <!-- docker tag -f binfalse/bives-webapp:1.6.2 binfalse/bives-webapp:latest-->
+                            <execution>
+                                <id>docker-tag-latest</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="docker">
+                                            <arg value="tag"/>
+                                            <arg value="itransformers/nettransformer${project.version}:${git.commit.id.abbrev}"/>
+                                            <arg value="itransformers/nettransformer:latest"/>
                                         </exec>
                                     </target>
                                 </configuration>
