@@ -111,7 +111,7 @@
                                 <includeOnlyProperty>^git.commit.id.full$</includeOnlyProperty>
                                 <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
                             </includeOnlyProperties>
-                            <useNativeGit>true</useNativeGit>
+                            <useNativeGit>false</useNativeGit>
                             <abbrevLength>7</abbrevLength>
                             <commitIdGenerationMode>flat</commitIdGenerationMode>
 
