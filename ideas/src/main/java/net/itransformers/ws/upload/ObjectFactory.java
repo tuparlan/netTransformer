@@ -52,11 +52,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportNode }
+     * Create an instance of {@link ImportNodeResponse }
      * 
      */
-    public ImportNode createImportNode() {
-        return new ImportNode();
+    public ImportNodeResponse createImportNodeResponse() {
+        return new ImportNodeResponse();
     }
 
     /**
@@ -68,11 +68,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ImportNodeResponse }
+     * Create an instance of {@link ImportNode }
      * 
      */
-    public ImportNodeResponse createImportNodeResponse() {
-        return new ImportNodeResponse();
+    public ImportNode createImportNode() {
+        return new ImportNode();
     }
 
     /**

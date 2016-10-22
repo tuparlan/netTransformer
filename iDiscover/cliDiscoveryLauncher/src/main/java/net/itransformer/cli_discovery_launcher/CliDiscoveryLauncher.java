@@ -41,6 +41,10 @@ public class CliDiscoveryLauncher {
         newProjectOption.setRequired(false);
         options.addOption(newProjectOption);
 
+        Option overrideOption = new Option("o", "override", true, "Override projectPath folder");
+        projectPathOption.setRequired(true);
+        options.addOption(overrideOption);
+
         Option deleteProject = new Option("d", "deleteProject", true, "If specified a the project in projectPath will be deleted");
         newProjectOption.setRequired(false);
         options.addOption(deleteProject);
@@ -58,10 +62,12 @@ public class CliDiscoveryLauncher {
             String usage=
                     "\n" +
                     "  Step 1: Create a new project. netTransformer will create your project and will discover your network in it.\n" +
-                    "  The project folder is important sicne we will store your discovered data,connection details and\n"+
+                    "  The project folder is important since we will store your discovered data,connection details and\n"+
                     "  discovery resources in it. Each discovery run will create a new \"version\" of your network into your\n"+
-                    "  projectPath folder.\n"+
-                    "  java -jar netTransformer.jar --newProject=y --projectPath=[Path to your desired project folder].\"\n"+
+                    "  projectPath folder. ProjectPath is the path to your project folder. If you specify -o=y (--override=y) \n"+
+                    "  the tool will simply create the project in a new or existing folder. If -o is not present the tool will expect\n"+
+                    "  the projectPath folder to be empty and if not will return an error.\n"+
+                    "  java -jar netTransformer.jar --newProject=y --override=y --projectPath=[Path to your desired project folder].\"\n"+
                     "\n" +
                     "  Step 2: Run again as many times as you wish netTransformer. It will discover your network and will store \n" +
                     "  the discovered data, in a new version folder into your projectPath folder.\n"+
@@ -85,6 +91,7 @@ public class CliDiscoveryLauncher {
 
         String projectPath = cmd.getOptionValue("projectPath");
 
+        String override = cmd.getOptionValue("override");
 
         String deleteProject1 = cmd.getOptionValue("deleteProject");
 
@@ -105,11 +112,15 @@ public class CliDiscoveryLauncher {
             }
             File project = new File(projectPath);
 
-            if (project.exists()){
+            if (project.exists() && override==null){
+
                 System.out.println("Project path folder already exists. Please specify an empty folder!!!");
                 return;
 
-            }else{
+            }else if (project.exists() && override!=null){
+                System.out.println("Project path folder already exists. Creating a project in it!!!");
+            }
+            else {
                 logger.info("Creating a new project in "+projectPath+"!!!");
                 project.mkdir();
             }

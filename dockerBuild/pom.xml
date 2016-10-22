@@ -13,6 +13,8 @@
     <artifactId>dockerBuild</artifactId>
     <properties>
         <version.number>${git.commit.time}.${git.commit.id.abbrev}</version.number>
+        <projectPath>/usr/local/netTransformer/Projects/TheNetworkProject</projectPath>
+
     </properties>
 
     <dependencies>
@@ -176,12 +178,9 @@
                                     <resources>
                                         <resource>
                                             <directory>src/main/resources</directory>
-                                            <filtering>true</filtering>
+                                            <!--<filtering>true</filtering>-->
                                         </resource>
-                                        <resource>
-                                            <directory>src/main/resources</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
+
                                     </resources>
                                 </configuration>
                             </execution>
@@ -199,7 +198,7 @@
                                         <exec executable="docker">
                                             <arg value="build"/>
                                             <arg value="-t"/>
-                                            <arg value="itransformers/netTransformer:${project.version}_${git.commit.id.abbrev}"/>
+                                            <arg value="itransformers/nettransformer${project.version}:${git.commit.id.abbrev}"/>
                                             <arg value="target"/>
                                         </exec>
                                     </target>
@@ -208,6 +207,8 @@
                                     <goal>run</goal>
                                 </goals>
                             </execution>
+
+
                         </executions>
                     </plugin>
                 </plugins>
