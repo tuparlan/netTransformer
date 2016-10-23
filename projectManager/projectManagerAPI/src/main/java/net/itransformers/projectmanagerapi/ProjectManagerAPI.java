@@ -7,7 +7,8 @@ package net.itransformers.projectmanagerapi;
 
 public interface ProjectManagerAPI  {
 
-    void createProject(String projectTemplate,String projectPath) throws ProjectManagerException;
-    void deleteProject(String projectPath) throws ProjectManagerException;
+    void createProject(String projectName, String projectTemplate) throws ProjectManagerException;
+    String[] getProjectNames();
+    void deleteProject(String projectName) throws ProjectManagerException;
 
 }
