@@ -1,29 +1,22 @@
 package net.itransformers.filebasedprojectmanager;
-
 import net.itransformers.projectmanagerapi.ProjectManagerFactory;
+
+import java.io.File;
+import java.util.Map;
 
 /**
  * Created by niau on 10/11/16.
  */
 public class FileBasedProjectManagerFactory implements ProjectManagerFactory {
 
-    String projectTemplate;
-
-    public FileBasedProjectManagerFactory(String projectTemplate) {
-        this.projectTemplate = projectTemplate;
-    }
-
-    public String getProjectTemplate() {
-        return projectTemplate;
-    }
-
-    public void setProjectTemplate(String projectTemplate) {
-        this.projectTemplate = projectTemplate;
-    }
-
     @Override
-    public FileBasedProjectManager createProjectManager () {
-        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager();
+    public FileBasedProjectManager createProjectManager (Map<String, String> parameters) {
+        if (!parameters.containsKey("baseDir")) {
+            throw new IllegalArgumentException("Parameter 'baseDir' is no provided for the ProjectManagerFactory");
+        }
+        String baseDirStr = parameters.get("baseDir");
+        File baseDir = new File(baseDirStr);
+        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager(baseDir);
 
         return fileBasedProjectManager;
     }
