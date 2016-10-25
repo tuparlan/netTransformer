@@ -35,8 +35,6 @@
     <version>0.8</version><!--Change for new version-->
     <build>
         <plugins>
-            <!-- It's advised not to checkin the generated classes. By default they are generated in target/generated-sources with xmlns namespace provided
-                        in xsd. If you need the sources to be generated uncomment the below.-->
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>jaxb2-maven-plugin</artifactId>

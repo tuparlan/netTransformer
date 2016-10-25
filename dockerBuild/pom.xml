@@ -193,7 +193,7 @@
                         <executions>
                             <execution>
                                 <id>docker-build-image</id>
-                                <phase>install</phase>
+                                <phase>package</phase>
                                 <configuration>
                                     <target>
                                         <exec executable="docker">
@@ -226,6 +226,22 @@
                                 </goals>
                             </execution>
 
+                            <!--docker push binfalse/bives-webapp:latest-->
+                            <execution>
+                                <id>docker-push-latest</id>
+                                <phase>deploy</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="docker">
+                                            <arg value="push"/>
+                                            <arg value="itransformers/nettransformer:latest"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
 
                         </executions>
                     </plugin>
