@@ -94,7 +94,14 @@ public class CliDiscoveryLauncher {
         ctx.refresh();
         ctx.load("classpath:fileBasedProjectManager/fileBasedProjectManager.xml");
         FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("fileBasedProjectManagerFactory", FileBasedProjectManagerFactory.class);
-        FileBasedProjectManager projectManager = fileBasedProjectManagerFactory.createProjectManager();
+        String baseDir = System.getProperty("base.dir");
+        if (baseDir == null) {
+            baseDir = ".";
+            System.setProperty("base.dir", baseDir);
+        }
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("baseDir", baseDir);
+        FileBasedProjectManager projectManager = fileBasedProjectManagerFactory.createProjectManager(parameters);
 
 
         if (newProjectFlag!=null ){

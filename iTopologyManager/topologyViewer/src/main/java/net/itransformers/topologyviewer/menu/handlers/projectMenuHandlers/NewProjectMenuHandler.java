@@ -33,6 +33,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,8 +66,7 @@ public class NewProjectMenuHandler implements ActionListener {
         }
         frame.setTitle(ProjectConstants.getProjectName(projectType));
 
-
-        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager();
+        FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager(dialog.getProjectDir().getParentFile());
 
 
         try{
