@@ -198,6 +198,7 @@
 
             <build>
                 <plugins>
+                    <!-- docker build -t itransformers/nettransformer:${project.version}:${git.commit.id.abbrev} -->
 
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -222,7 +223,7 @@
                                 </goals>
 
                             </execution>
-                            <!-- docker tag -f binfalse/bives-webapp:1.6.2 binfalse/bives-webapp:latest-->
+                            <!-- docker tag -f itransformers/nettransformer:${project.version}:${git.commit.id.abbrev} itransformers/nettransformer:latest-->
                             <execution>
                                 <id>docker-tag-latest</id>
                                 <phase>install</phase>
@@ -240,7 +241,7 @@
                                 </goals>
                             </execution>
 
-                            <!--docker push binfalse/bives-webapp:latest-->
+                            <!--docker push itransformers/nettransformer:latest-->
                             <execution>
                                 <id>docker-push-latest</id>
                                 <phase>deploy</phase>
