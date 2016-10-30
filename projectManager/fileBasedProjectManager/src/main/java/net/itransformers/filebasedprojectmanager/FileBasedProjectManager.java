@@ -15,25 +15,33 @@ import java.util.Scanner;
 public class FileBasedProjectManager implements ProjectManagerAPI {
     static Logger logger = Logger.getLogger(FileBasedProjectManager.class);
 
+    File baseDir;
 
-    public FileBasedProjectManager() {
+    public FileBasedProjectManager(File baseDir) {
+        this.baseDir = baseDir;
     }
 
     @Override
-    public void createProject(String projectTemplate, String projectPath) {
-
-        InputStream is =this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
-        copyInputStreamToFile(is, new File(projectPath+File.separator+"netTransformer.pfl"));
-        createDirs(projectTemplate,projectPath);
-        createFiles(projectTemplate, projectPath);
-
+    public void createProject(String projectName, String projectTemplate) {
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
+        File projectDir = getProjectDir(projectName);
+        copyInputStreamToFile(is, new File(projectDir, "netTransformer.pfl"));
+        createDirs(projectTemplate,projectName);
+        createFiles(projectTemplate, projectName);
     }
 
-    private void  createFiles(String projectTemplate,String projectPath){
+    private File getProjectDir(String projectName){
+        return new File(baseDir,projectName);
+    }
+
+    @Override
+    public String[] getProjectNames() {
+        return baseDir.list();
+    }
+
+    private void  createFiles(String projectTemplate,String projectName){
         InputStream is =this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
         Scanner s =  new Scanner(is);
-        if (System.getProperty("base.dir") == null) System.setProperty("base.dir", ".");
-        System.out.println("_________" + System.getProperty("base.dir") + "_________");
 
         while (s.hasNextLine()) {
             String text = s.nextLine();
@@ -42,56 +50,45 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
             if (iss==null){
                 System.out.println("File "+text + " is empty!!!!");
                 continue;
-//                throw new ProjectManagerException("File "+text + " is empty!!!!");
             }
-            if (copyInputStreamToFile(iss, new File(projectPath+File.separator+text))){
+            if (copyInputStreamToFile(iss, new File(getProjectDir(projectName), text))){
                 logger.trace("File "+text + " successfully created!!!");
 
             }   else{
                 logger.trace("File "+text + " creation failed!!!");
                 throw new ProjectManagerException("File "+text + " creation failed!!!");
-
-
             }
-
-
         }
     }
 
-    private void  createDirs(String projectTemplate,String projectPath){
+    private void  createDirs(String projectTemplate,String projectName){
         InputStream is =this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
         Scanner s =  new Scanner(is);
-        if (System.getProperty("base.dir") == null) System.setProperty("base.dir", ".");
-        System.out.println("_________"+System.getProperty("base.dir")+"_________");
 
         while (s.hasNextLine()) {
             String text = s.nextLine();
             if (text.startsWith("#") || text.trim().equals("")) continue;
 
-            File destDir = new File(projectPath, text).getParentFile();
+            File destDir = new File(getProjectDir(projectName), text).getParentFile();
             if(destDir.mkdirs()){
                 logger.trace("Dir "+text + " successfully created!!!");
             } else{
                 logger.trace("Dir "+text + " creation failed!!!");
-
             }
-
         }
     }
 
     @Override
-    public void deleteProject(String projectPath) {
+    public void deleteProject(String projectName) {
 
-        File projectDir = new File(projectPath);
+        File projectDir = getProjectDir(projectName);
         try {
             FileUtils.deleteDirectory(projectDir);
         } catch (IOException e) {
             throw new ProjectManagerException(e.getMessage(),e);
-
-
         }
-
     }
+
     private boolean copyInputStreamToFile( InputStream in, File file ) {
         try {
             OutputStream out = new FileOutputStream(file);
