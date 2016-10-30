@@ -52,6 +52,7 @@
         <module>projectManager</module>
         <module>netTransformerBundle</module>
         <module>dockerBuild</module>
+        <module>graphDiffer</module>
     </modules>
 
     <build>
