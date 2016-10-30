@@ -13,6 +13,8 @@
     <artifactId>dockerBuild</artifactId>
     <properties>
         <version.number>${git.commit.time}.${git.commit.id.abbrev}</version.number>
+        <projectPath>/usr/local/netTransformer/Projects/TheNetworkProject</projectPath>
+
     </properties>
 
     <dependencies>
@@ -31,8 +33,7 @@
 
     <profiles>
         <profile>
-            <id>docker</id>
-
+            <id>git</id>
             <activation>
                 <file>
                     <exists>src/main/resources/Dockerfile</exists>
@@ -40,36 +41,36 @@
             </activation>
             <build>
                 <plugins>
-                <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>copy-artifact</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>copy</goal>
-                            </goals>
-                            <configuration>
-                                <stripVersion>true</stripVersion>
-                                <artifactItems>
-                                    <artifactItem>
-                                        <groupId>${project.groupId}</groupId>
-                                        <artifactId>netTransformerBundle</artifactId>
-                                        <version>${project.version}</version>
-                                        <type>jar</type>
-                                    </artifactItem>
-                                    <artifactItem>
-                                        <groupId>${project.groupId}</groupId>
-                                        <artifactId>wsitransformer</artifactId>
-                                        <version>${project.version}</version>
-                                        <type>war</type>
-                                    </artifactItem>
-                                </artifactItems>
-                                <outputDirectory>target</outputDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-artifact</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <stripVersion>true</stripVersion>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>${project.groupId}</groupId>
+                                            <artifactId>netTransformerBundle</artifactId>
+                                            <version>${project.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>${project.groupId}</groupId>
+                                            <artifactId>wsitransformer</artifactId>
+                                            <version>${project.version}</version>
+                                            <type>war</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>target</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>pl.project13.maven</groupId>
                         <artifactId>git-commit-id-plugin</artifactId>
@@ -176,30 +177,42 @@
                                     <resources>
                                         <resource>
                                             <directory>src/main/resources</directory>
-                                            <filtering>true</filtering>
+                                            <!--<filtering>true</filtering>-->
                                         </resource>
-                                        <resource>
-                                            <directory>src/main/resources</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
+
                                     </resources>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>docker</id>
+
+            <activation>
+
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <build>
+                <plugins>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.7</version>
                         <executions>
                             <execution>
-                                <phase>install</phase>
+                                <id>docker-build-image</id>
+                                <phase>package</phase>
                                 <configuration>
                                     <target>
                                         <exec executable="docker">
                                             <arg value="build"/>
                                             <arg value="-t"/>
-                                            <arg value="itransformers/netTransformer:${project.version}_${git.commit.id.abbrev}"/>
+                                            <arg value="itransformers/nettransformer${project.version}:${git.commit.id.abbrev}"/>
                                             <arg value="target"/>
                                         </exec>
                                     </target>
@@ -207,12 +220,48 @@
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
+
                             </execution>
+                            <!-- docker tag -f binfalse/bives-webapp:1.6.2 binfalse/bives-webapp:latest-->
+                            <execution>
+                                <id>docker-tag-latest</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="docker">
+                                            <arg value="tag"/>
+                                            <arg value="itransformers/nettransformer${project.version}:${git.commit.id.abbrev}"/>
+                                            <arg value="itransformers/nettransformer:latest"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+
+                            <!--docker push binfalse/bives-webapp:latest-->
+                            <execution>
+                                <id>docker-push-latest</id>
+                                <phase>deploy</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="docker">
+                                            <arg value="push"/>
+                                            <arg value="itransformers/nettransformer:latest"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+
                         </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-    </project>
+</project>
 
