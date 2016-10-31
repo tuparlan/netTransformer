@@ -1,0 +1,208 @@
+<?xml version="1.0" ?>
+<root>
+<iso>
+	<std>
+		<iso8802>
+			<ieee802dot1>
+				<ieee802dot1mibs>
+					<lldpMIB>
+						<lldpObjects>
+							<lldpRemoteSystemsData>
+								<lldpRemTable>
+								</lldpRemTable>
+								<lldpRemManAddrTable>
+								</lldpRemManAddrTable>
+								<lldpRemUnknownTLVTable>
+								</lldpRemUnknownTLVTable>
+								<lldpRemOrgDefInfoTable>
+								</lldpRemOrgDefInfoTable>
+							</lldpRemoteSystemsData>
+						</lldpObjects>
+					</lldpMIB>
+				</ieee802dot1mibs>
+			</ieee802dot1>
+		</iso8802>
+	</std>
+	<org>
+		<dod>
+			<internet>
+				<mgmt>
+					<mib-2>
+						<system>
+								<sysDescr>Linux bgp 3.13.0-62-generic #102-Ubuntu SMP Tue Aug 11 14:29:36 UTC 2015 x86_64</sysDescr>
+								<sysObjectID>1.3.6.1.4.1.8072.3.2.10</sysObjectID>
+							<sysUpTime>
+							</sysUpTime>
+								<sysContact>root</sysContact>
+								<sysName>bgp</sysName>
+								<sysLocation>Unknown</sysLocation>
+								<sysServices>0:00:00.05</sysServices>
+								<sysORLastChange>0:00:00.05</sysORLastChange>
+							<sysORTable>
+								<sysOREntry>
+									<index name="sysORIndex">1</index>
+									<instance instanceIndex="1" instanceName="sysORIndex" instanceValue="1">1</instance>
+
+									<sysORID>1.3.6.1.6.3.11.3.1.1</sysORID>
+									<sysORDescr>The MIB for Message Processing and Dispatching.</sysORDescr>
+									<sysORUpTime>0:00:00.04</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">2</index>
+									<instance instanceIndex="2" instanceName="sysORIndex" instanceValue="2">2</instance>
+
+									<sysORID>1.3.6.1.6.3.15.2.1.1</sysORID>
+									<sysORDescr>The management information definitions for the SNMP User-based Security Model.</sysORDescr>
+									<sysORUpTime>0:00:00.04</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">3</index>
+									<instance instanceIndex="3" instanceName="sysORIndex" instanceValue="3">3</instance>
+
+									<sysORID>1.3.6.1.6.3.10.3.1.1</sysORID>
+									<sysORDescr>The SNMP Management Architecture MIB.</sysORDescr>
+									<sysORUpTime>0:00:00.04</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">4</index>
+									<instance instanceIndex="4" instanceName="sysORIndex" instanceValue="4">4</instance>
+
+									<sysORID>1.3.6.1.6.3.1</sysORID>
+									<sysORDescr>The MIB module for SNMPv2 entities</sysORDescr>
+									<sysORUpTime>0:00:00.04</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">5</index>
+									<instance instanceIndex="5" instanceName="sysORIndex" instanceValue="5">5</instance>
+
+									<sysORID>1.3.6.1.2.1.49</sysORID>
+									<sysORDescr>The MIB module for managing TCP implementations</sysORDescr>
+									<sysORUpTime>0:00:00.05</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">6</index>
+									<instance instanceIndex="6" instanceName="sysORIndex" instanceValue="6">6</instance>
+
+									<sysORID>1.3.6.1.2.1.4</sysORID>
+									<sysORDescr>The MIB module for managing IP and ICMP implementations</sysORDescr>
+									<sysORUpTime>0:00:00.05</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">7</index>
+									<instance instanceIndex="7" instanceName="sysORIndex" instanceValue="7">7</instance>
+
+									<sysORID>1.3.6.1.2.1.50</sysORID>
+									<sysORDescr>The MIB module for managing UDP implementations</sysORDescr>
+									<sysORUpTime>0:00:00.05</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">8</index>
+									<instance instanceIndex="8" instanceName="sysORIndex" instanceValue="8">8</instance>
+
+									<sysORID>1.3.6.1.6.3.16.2.2.1</sysORID>
+									<sysORDescr>View-based Access Control Model for SNMP.</sysORDescr>
+									<sysORUpTime>0:00:00.05</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">9</index>
+									<instance instanceIndex="9" instanceName="sysORIndex" instanceValue="9">9</instance>
+
+									<sysORID>1.3.6.1.6.3.13.3.1.3</sysORID>
+									<sysORDescr>The MIB modules for managing SNMP Notification, plus filtering.</sysORDescr>
+									<sysORUpTime>0:00:00.05</sysORUpTime>
+								</sysOREntry>
+								<sysOREntry>
+									<index name="sysORIndex">10</index>
+									<instance instanceIndex="10" instanceName="sysORIndex" instanceValue="10">10</instance>
+
+									<sysORID>1.3.6.1.2.1.92</sysORID>
+									<sysORDescr>The MIB module for logging SNMP Notifications.</sysORDescr>
+									<sysORUpTime>0:00:00.05</sysORUpTime>
+								</sysOREntry>
+							</sysORTable>
+						</system>
+						<interfaces>
+								<ifNumber>2</ifNumber>
+							<ifTable>
+								<ifEntry>
+									<index name="ifIndex">1</index>
+									<instance instanceIndex="1" instanceName="ifIndex" instanceValue="1">1</instance>
+
+									<ifIndex>1</ifIndex>
+									<ifDescr>lo</ifDescr>
+									<ifType>24</ifType>
+									<ifPhysAddress></ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+								<ifEntry>
+									<index name="ifIndex">2</index>
+									<instance instanceIndex="2" instanceName="ifIndex" instanceValue="2">2</instance>
+
+									<ifIndex>2</ifIndex>
+									<ifDescr>eth0</ifDescr>
+									<ifType>6</ifType>
+									<ifPhysAddress>fa:16:3e:f5:e2:53</ifPhysAddress>
+									<ifAdminStatus>1</ifAdminStatus>
+									<ifOperStatus>1</ifOperStatus>
+								</ifEntry>
+							</ifTable>
+						</interfaces>
+						<ip>
+							<ipAddrTable>
+								<ipAddrEntry>
+
+								</ipAddrEntry>
+							</ipAddrTable>
+							<ipRouteTable>
+								<ipRouteEntry>
+
+								</ipRouteEntry>
+							</ipRouteTable>
+							<ipNetToMediaTable>
+								<ipNetToMediaEntry>
+
+								</ipNetToMediaEntry>
+							</ipNetToMediaTable>
+						</ip>
+						<dot1dBridge>
+							<dot1dBase>
+									<dot1dBaseBridgeAddress>2 days, 5:45:38.44</dot1dBaseBridgeAddress>
+								<dot1dBasePortTable>
+								</dot1dBasePortTable>
+							</dot1dBase>
+							<dot1dStp>
+									<dot1dStpDesignatedRoot>2 days, 5:45:38.46</dot1dStpDesignatedRoot>
+								<dot1dStpPortTable>
+								</dot1dStpPortTable>
+							</dot1dStp>
+							<dot1dTp>
+								<dot1dTpFdbTable>
+								</dot1dTpFdbTable>
+							</dot1dTp>
+						</dot1dBridge>
+						<ifMIB>
+							<ifMIBObjects>
+								<ifXTable>
+									<ifXEntry>
+										<instance instanceIndex="1" instanceName="" instanceValue="">1</instance>
+
+										<ifName>lo</ifName>
+										<ifHighSpeed>10</ifHighSpeed>
+									</ifXEntry>
+									<ifXEntry>
+										<instance instanceIndex="2" instanceName="" instanceValue="">2</instance>
+
+										<ifName>eth0</ifName>
+										<ifHighSpeed>0</ifHighSpeed>
+									</ifXEntry>
+								</ifXTable>
+							</ifMIBObjects>
+						</ifMIB>
+					</mib-2>
+				</mgmt>
+			</internet>
+		</dod>
+	</org>
+</iso>
+</root>

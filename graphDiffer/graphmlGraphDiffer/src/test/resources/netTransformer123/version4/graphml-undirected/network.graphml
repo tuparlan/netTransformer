@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<graphml xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <key id="bgpAS" for="node" attr.name="bgpAS" attr.type="string" />
+    <key id="bogon" for="node" attr.name="bogon" attr.type="string" />
+    <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string" />
+    <key id="deviceType" for="node" attr.name="deviceType" attr.type="string" />
+    <key id="diff" for="node" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="node" attr.name="diffs" attr.type="string" />
+    <key id="discoveredIPv4Address" for="node" attr.name="discoveredIPv4Address" attr.type="string" />
+    <key id="discoveredState" for="node" attr.name="discoveredState" attr.type="string" />
+    <key id="fqdn" for="node" attr.name="fqdn" attr.type="string" />
+    <key id="hostname" for="node" attr.name="hostname" attr.type="string" />
+    <key id="icmpStatus" for="node" attr.name="icmpStatus" attr.type="string" />
+    <key id="ipv4Forwarding" for="node" attr.name="ipv4Forwarding" attr.type="string" />
+    <key id="ipv6Forwarding" for="node" attr.name="ipv6Forwarding" attr.type="string" />
+    <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string" />
+    <key id="pqdn" for="node" attr.name="pqdn" attr.type="string" />
+    <key id="site" for="node" attr.name="site" attr.type="string" />
+    <key id="subnet" for="node" attr.name="subnet" attr.type="YES" />
+    <key id="subnetPrefix" for="node" attr.name="subnetPrefix" attr.type="string" />
+    <key id="subnetRangeType" for="node" attr.name="subnetRangeType" attr.type="string" />
+    <key id="sysLocation" for="node" attr.name="sysLocation" attr.type="string" />
+    <key id="totalInterfaceCount" for="node" attr.name="totalInterfaceCount" attr.type="string" />
+    <key id="MPLS" for="edge" attr.name="MPLS" attr.type="string" />
+    <key id="dataLink" for="edge" attr.name="dataLink" attr.type="string" />
+    <key id="diff" for="edge" attr.name="diff" attr.type="string" />
+    <key id="diffs" for="edge" attr.name="diffs" attr.type="string" />
+    <key id="discoveryMethod" for="edge" attr.name="discoveryMethod" attr.type="string" />
+    <key id="ifSpeed" for="edge" attr.name="ifSpeed" attr.type="string" />
+    <key id="ifType" for="edge" attr.name="ifType" attr.type="string" />
+    <key id="interface" for="edge" attr.name="interface" attr.type="string" />
+    <key id="ipLink" for="edge" attr.name="ipLink" attr.type="string" />
+    <key id="ipv4Forwarding" for="edge" attr.name="ipv4Forwarding" attr.type="string" />
+    <key id="ipv6Forwarding" for="edge" attr.name="ipv6Forwarding" attr.type="string" />
+    <graph id="G" edgedefault="undirected">
+        <node id="10.10.10.0/29">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="10.101.202.0/24">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="10.101.202.196">
+            <data key="discoveredIPv4Address">10.101.202.196</data>
+        </node>
+        <node id="10.101.202.201">
+            <data key="discoveredIPv4Address">10.101.202.201</data>
+        </node>
+        <node id="10.103.0.0/24">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="10.103.0.157">
+            <data key="discoveredIPv4Address">10.103.0.157</data>
+        </node>
+        <node id="10.103.0.165">
+            <data key="discoveredIPv4Address">10.103.0.165</data>
+        </node>
+        <node id="10.103.0.181">
+            <data key="discoveredIPv4Address">10.103.0.181</data>
+        </node>
+        <node id="10.103.0.219">
+            <data key="discoveredIPv4Address">10.103.0.219</data>
+        </node>
+        <node id="10.103.0.63">
+            <data key="discoveredIPv4Address">10.103.0.63</data>
+        </node>
+        <node id="10.103.0.83">
+            <data key="discoveredIPv4Address">10.103.0.83</data>
+        </node>
+        <node id="10.17.1.0/24">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="10.17.1.101">
+            <data key="discoveredIPv4Address">10.17.1.101</data>
+        </node>
+        <node id="10.17.1.104">
+            <data key="discoveredIPv4Address">10.17.1.104</data>
+        </node>
+        <node id="10.17.1.13">
+            <data key="discoveredIPv4Address">10.17.1.13</data>
+        </node>
+        <node id="10.17.1.19">
+            <data key="discoveredIPv4Address">10.17.1.19</data>
+        </node>
+        <node id="10.17.1.222">
+            <data key="discoveredIPv4Address">10.17.1.222</data>
+        </node>
+        <node id="10.17.1.225">
+            <data key="discoveredIPv4Address">10.17.1.225</data>
+        </node>
+        <node id="10.19.1.0/24">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="10.19.1.2">
+            <data key="discoveredIPv4Address">10.19.1.2</data>
+        </node>
+        <node id="10.19.1.231">
+            <data key="discoveredIPv4Address">10.19.1.231</data>
+        </node>
+        <node id="10.19.1.232">
+            <data key="discoveredIPv4Address">10.19.1.232</data>
+        </node>
+        <node id="10.19.1.249">
+            <data key="discoveredIPv4Address">10.19.1.249</data>
+        </node>
+        <node id="10.19.1.253">
+            <data key="discoveredIPv4Address">10.19.1.253</data>
+        </node>
+        <node id="10.19.1.90">
+            <data key="discoveredIPv4Address">10.19.1.90</data>
+        </node>
+        <node id="10.19.1.98">
+            <data key="discoveredIPv4Address">10.19.1.98</data>
+        </node>
+        <node id="193.19.172.128/29">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="193.19.172.129" />
+        <node id="193.19.175.128/25">
+            <data key="deviceType">subnet</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </node>
+        <node id="193.19.175.162">
+            <data key="discoveredIPv4Address">193.19.175.162</data>
+        </node>
+        <node id="HeartOfGold">
+            <data key="deviceModel">Unknown</data>
+            <data key="deviceType">UNKNOWN</data>
+            <data key="discoveredIPv4Address">193.19.172.133</data>
+            <data key="discoveredState">discovered</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="sysLocation">nbu</data>
+            <data key="totalInterfaceCount">12</data>
+        </node>
+        <node id="telecom-01" />
+        <node id="vGW1">
+            <data key="deviceModel">cisco2901</data>
+            <data key="deviceType">CISCO</data>
+            <data key="discoveredIPv4Address">193.19.175.129</data>
+            <data key="discoveredState">discovered</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+            <data key="sysLocation">NBU,k2-701,rack2</data>
+            <data key="totalInterfaceCount">12</data>
+        </node>
+        <edge id="10.10.10.0/29-vGW1" source="10.10.10.0/29" target="vGW1" label="10.10.10.0/29-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="10.101.202.0/24-10.101.202.196" source="10.101.202.0/24" target="10.101.202.196" label="10.101.202.0/24-10.101.202.196" />
+        <edge id="10.101.202.0/24-10.101.202.201" source="10.101.202.0/24" target="10.101.202.201" label="10.101.202.0/24-10.101.202.201" />
+        <edge id="10.101.202.0/24-vGW1" source="10.101.202.0/24" target="vGW1" label="10.101.202.0/24-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="10.103.0.0/24-10.103.0.157" source="10.103.0.0/24" target="10.103.0.157" label="10.103.0.0/24-10.103.0.157" />
+        <edge id="10.103.0.0/24-10.103.0.165" source="10.103.0.0/24" target="10.103.0.165" label="10.103.0.0/24-10.103.0.165" />
+        <edge id="10.103.0.0/24-10.103.0.181" source="10.103.0.0/24" target="10.103.0.181" label="10.103.0.0/24-10.103.0.181" />
+        <edge id="10.103.0.0/24-10.103.0.219" source="10.103.0.0/24" target="10.103.0.219" label="10.103.0.0/24-10.103.0.219" />
+        <edge id="10.103.0.0/24-10.103.0.63" source="10.103.0.0/24" target="10.103.0.63" label="10.103.0.0/24-10.103.0.63" />
+        <edge id="10.103.0.0/24-10.103.0.83" source="10.103.0.0/24" target="10.103.0.83" label="10.103.0.0/24-10.103.0.83" />
+        <edge id="10.103.0.0/24-vGW1" source="10.103.0.0/24" target="vGW1" label="10.103.0.0/24-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="10.17.1.0/24-10.17.1.101" source="10.17.1.0/24" target="10.17.1.101" label="10.17.1.0/24-10.17.1.101" />
+        <edge id="10.17.1.0/24-10.17.1.104" source="10.17.1.0/24" target="10.17.1.104" label="10.17.1.0/24-10.17.1.104" />
+        <edge id="10.17.1.0/24-10.17.1.13" source="10.17.1.0/24" target="10.17.1.13" label="10.17.1.0/24-10.17.1.13" />
+        <edge id="10.17.1.0/24-10.17.1.19" source="10.17.1.0/24" target="10.17.1.19" label="10.17.1.0/24-10.17.1.19" />
+        <edge id="10.17.1.0/24-10.17.1.222" source="10.17.1.0/24" target="10.17.1.222" label="10.17.1.0/24-10.17.1.222" />
+        <edge id="10.17.1.0/24-10.17.1.225" source="10.17.1.0/24" target="10.17.1.225" label="10.17.1.0/24-10.17.1.225" />
+        <edge id="10.17.1.0/24-HeartOfGold" source="10.17.1.0/24" target="HeartOfGold" label="10.17.1.0/24-HeartOfGold">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="10.17.1.0/24-vGW1" source="10.17.1.0/24" target="vGW1" label="10.17.1.0/24-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="10.19.1.0/24-10.19.1.2" source="10.19.1.0/24" target="10.19.1.2" label="10.19.1.0/24-10.19.1.2" />
+        <edge id="10.19.1.0/24-10.19.1.231" source="10.19.1.0/24" target="10.19.1.231" label="10.19.1.0/24-10.19.1.231" />
+        <edge id="10.19.1.0/24-10.19.1.232" source="10.19.1.0/24" target="10.19.1.232" label="10.19.1.0/24-10.19.1.232" />
+        <edge id="10.19.1.0/24-10.19.1.249" source="10.19.1.0/24" target="10.19.1.249" label="10.19.1.0/24-10.19.1.249" />
+        <edge id="10.19.1.0/24-10.19.1.253" source="10.19.1.0/24" target="10.19.1.253" label="10.19.1.0/24-10.19.1.253" />
+        <edge id="10.19.1.0/24-10.19.1.90" source="10.19.1.0/24" target="10.19.1.90" label="10.19.1.0/24-10.19.1.90" />
+        <edge id="10.19.1.0/24-10.19.1.98" source="10.19.1.0/24" target="10.19.1.98" label="10.19.1.0/24-10.19.1.98" />
+        <edge id="10.19.1.0/24-HeartOfGold" source="10.19.1.0/24" target="HeartOfGold" label="10.19.1.0/24-HeartOfGold">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="193.19.172.128-193.19.172.129" source="193.19.172.128/29" target="193.19.172.129" label="193.19.172.128-193.19.172.129">
+            <data key="dataLink">NO</data>
+            <data key="discoveryMethod">ARP</data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="193.19.172.128/29-HeartOfGold" source="193.19.172.128/29" target="HeartOfGold" label="193.19.172.128/29-HeartOfGold">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod">ARP,</data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="193.19.172.128/29-vGW1" source="193.19.172.128/29" target="vGW1" label="193.19.172.128/29-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod">CDP,</data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="193.19.175.128/25-193.19.175.162" source="193.19.175.128/25" target="193.19.175.162" label="193.19.175.128/25-193.19.175.162" />
+        <edge id="193.19.175.128/25-vGW1" source="193.19.175.128/25" target="vGW1" label="193.19.175.128/25-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod"></data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+        <edge id="telecom-01-vGW1" source="telecom-01" target="vGW1" label="telecom-01-vGW1">
+            <data key="dataLink">YES</data>
+            <data key="discoveryMethod">CDP</data>
+            <data key="ipLink">YES</data>
+            <data key="ipv4Forwarding">YES</data>
+            <data key="ipv6Forwarding">NO</data>
+        </edge>
+    </graph>
+</graphml>
