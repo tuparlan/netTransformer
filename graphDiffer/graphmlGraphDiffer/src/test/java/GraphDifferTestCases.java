@@ -9,7 +9,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-          Version4ToVersion6.class
+        Version4ToVersion6.class,
+        Version4ToVersion6WithIgnoredProperties.class
 
 })
 

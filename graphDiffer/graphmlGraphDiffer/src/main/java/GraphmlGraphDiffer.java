@@ -88,9 +88,9 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
                 GraphmlNode graphANode = graphANodes.get(nodeId);
                 GraphmlNode graphBNode = graphBNodes.get(nodeId);
 
-                Map<String,String> graphCnodeMetadata = diffMetaData(graphANode.getGraphmlNodeData(), graphBNode.getGraphmlNodeData());
+                Map<String,String> graphCNodeMetadata = diffMetaData(graphANode.getGraphmlNodeData(), graphBNode.getGraphmlNodeData(),ignoredGraphmlNodeData);
 
-                node1.setGraphmlNodeData(graphCnodeMetadata);
+                node1.setGraphmlNodeData(graphCNodeMetadata);
 
             //Node is not present anywhere?
             } else {
@@ -127,27 +127,28 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
             GraphmlEdge graphmlEdge = new GraphmlEdge(edgeEntry.getValue().getId(),edgeEntry.getValue().getLabel(),from,to);
 
 
-            //Node is present in A but not in B
+            //Edge is present in A but not in B
             if (graphAEdges.get(edgeId)!=null && graphBedges.get(edgeId)==null){
                 graphmlEdgeData.put("diff", "removed");
                 graphmlEdge.setGraphmlEdgeData(graphmlEdgeData);
-                //Node is present in B but not in A
+                //Edge is present in B but not in A
             }else if (graphAEdges.get(edgeId)==null && graphBedges.get(edgeId)!=null ){
                 graphmlEdgeData.put("diff", "added");
                 graphmlEdge.setGraphmlEdgeData(graphmlEdgeData);
-                //Node is present in A and in B
+                //Edge is present in A and in B
             }else if (graphAEdges.get(edgeId)!=null && graphBedges.get(edgeId)!=null) {
 
                 GraphmlEdge graphAEdge = graphAEdges.get(edgeId);
                 GraphmlEdge graphBEdge = graphBedges.get(edgeId);
 
-                Map<String,String> graphCEdgeMetadata = diffMetaData(graphAEdge.getGraphmlEdgeData(), graphBEdge.getGraphmlEdgeData());
+                Map<String,String> graphCEdgeMetadata = diffMetaData(graphAEdge.getGraphmlEdgeData(), graphBEdge.getGraphmlEdgeData(),ignoredGraphmlEdgeData);
 
                 graphmlEdge.setGraphmlEdgeData(graphCEdgeMetadata);
 
-                //Node is not present anywhere?
+                //Edge is not present anywhere?
             } else {
-                System.out.println("Strange case node "+edgeId+" has not been found in A nodes and B nodes");
+                // TODO
+                // logger.log("Strange case node "+edgeId+" has not been found in A nodes and B nodes");
             }
             graphmlCNodes.add(graphmlEdge);
 
@@ -158,7 +159,7 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
 
 
 
-    protected Map<String,String> diffMetaData(Map<String, String> graphAMetaData, Map<String, String> graphBMetaData){
+    protected Map<String,String> diffMetaData(Map<String, String> graphAMetaData, Map<String, String> graphBMetaData,HashSet<String> ignoredMetaData){
 
 
         Map<String,String> graphCMetaData = new HashMap<>();
@@ -174,19 +175,22 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
         for (Map.Entry<String, String> entry : graphAMetaData.entrySet()) {
             String keyA = entry.getKey();
             String valueA = entry.getValue();
+            if (ignoredMetaData.contains(keyA)){
+                continue;
+            }
 
             String valueB = graphBMetaData.get(keyA);
 
-            //Exists in graphANode but does not in graphBNode
+            //Exists in graphAMetaData but does not in graphBNode
             if (valueB == null) {
                 graphCRemovedMetaData.put(keyA, valueA);
 
             }
-            //Exists in graphANode and in graphBNode and the value is the same!
+            //Exists in graphAMetaData and in graphBMetaData and the value is the same!
             else if (valueA.equals(valueB)) {
                 graphCUnchangedMetaData.put(keyA, valueB);
             } else {
-                //Exists in graphANode and in graphBNode, value has become valueB
+                //Exists in graphAMetaData and in graphBMetaData, value has become valueB
                 graphCChangedMetaData.put(keyA, valueB);
             }
 
@@ -196,8 +200,13 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
             String keyB = entry.getKey();
             String valueB = entry.getValue();
             String valueA = graphAMetaData.get(keyB);
-            //Exists in graphBNode but does not in graphANode
 
+            if(ignoredMetaData.contains(keyB)){
+                continue;
+            }
+
+
+            //Exists in graphBMetadata but does not in graphAMetadata
             if (valueA==null){
                 graphCAddedMetaData.put(keyB,valueB);
             }
