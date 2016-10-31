@@ -123,6 +123,7 @@ public class CliDiscoveryLauncher {
 
 
             projectManager.createProject("projectTemplates/netTransformer.pfl",new File(projectPath).getAbsolutePath());
+            return;
 
 
         }
