@@ -53,6 +53,7 @@ public class DiffMenuHandler implements ActionListener {
             File baseDir = frame.getPath();
 
             wizardDialog = new DiffWizardDialog(frame,baseDir);
+
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
             return;
