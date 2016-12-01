@@ -21,7 +21,7 @@
 
 package net.itransformers.topologyviewer.fulfilmentfactory.impl;
 
-import groovy.lang.GroovyClassLoader;
+//import groovy.lang.GroovyClassLoader;
 import net.itransformers.topologyviewer.fulfilmentfactory.Fulfilment;
 
 import java.io.File;
@@ -61,9 +61,13 @@ public class GroovyCLIFulfilmentImpl implements Fulfilment {
     }
 
     public void execute(String fileName, Map<String, String> params) throws IOException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-        Class scriptClass = new GroovyClassLoader().parseClass( new File( fileName ) ) ;
-        Object scriptInstance = scriptClass.newInstance() ;
-        scriptClass.getDeclaredMethod( "execute", new Class[] {CLIInterface.class, Map.class } ).invoke(scriptInstance, cli, params) ;
+        //TODO figure out how to integrate with groovy, currently if groovy is included this produces:
+        //Error: A JNI error has occurred, please check your installation and try again
+        //Exception in thread "main" java.lang.SecurityException: Invalid signature file digest for Manifest main attributes
+
+        //Class scriptClass = new GroovyClassLoader().parseClass( new File( fileName ) ) ;
+        //Object scriptInstance = scriptClass.newInstance() ;
+        //scriptClass.getDeclaredMethod( "execute", new Class[] {CLIInterface.class, Map.class } ).invoke(scriptInstance, cli, params) ;
     }
 
 

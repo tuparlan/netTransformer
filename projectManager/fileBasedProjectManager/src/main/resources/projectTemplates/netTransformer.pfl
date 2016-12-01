@@ -1,8 +1,8 @@
 xmlResourceManager/conf/xml/resource.xml
 csvConnectionDetails/conf/txt/connection-details.txt
-xmlTopologyViewerConfig/conf/xml/discovery/viewer-config.xml
-xmlTopologyViewerConfig/conf/xml/discovery/ignored_edge_keys.xml
-xmlTopologyViewerConfig/conf/xml/discovery/ignored_node_keys.xml
+xmlTopologyViewerConfig/conf/xml/ipNetworkDiscovery/viewer-config.xml
+xmlTopologyViewerConfig/conf/xml/ipNetworkDiscovery/ignored_edge_keys.xml
+xmlTopologyViewerConfig/conf/xml/ipNetworkDiscovery/ignored_node_keys.xml
 parameterFactory/conf/xml/param-factory.xml
 parameterFactory/conf/xml/serv-param-factory.xml
 parameterFactory/conf/xml/subscr-param-factory.xml

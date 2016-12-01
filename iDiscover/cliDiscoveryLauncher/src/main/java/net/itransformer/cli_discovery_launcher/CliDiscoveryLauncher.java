@@ -114,11 +114,12 @@ public class CliDiscoveryLauncher {
         String deleteProject1 = cmd.getOptionValue("deleteProject");
         String projectType = cmd.getOptionValue("type");
         if (projectType == null){
+            System.out.println("ProjectType is empty. Setting it to "+ProjectConstants.snmpProjectType);
             projectType = ProjectConstants.snmpProjectType;
         }
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:cliDiscoveryLauncher/cliDiscoveryLauncher.xml");
-      //  ctx.refresh();
+        ctx.refresh();
         ctx.load("classpath:fileBasedProjectManager/fileBasedProjectManager.xml");
         FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("projectManagerFactory", FileBasedProjectManagerFactory.class);
 
@@ -153,10 +154,8 @@ public class CliDiscoveryLauncher {
             }
 
             if (ProjectConstants.bgpDiscovererProjectType.equalsIgnoreCase(projectType) || ProjectConstants.snmpProjectType.equals(projectType)|| ProjectConstants.freeGraphProjectType.equals(projectType)){
-
                 projectManager.createProject(projectName,projectType);
                 System.out.println("Project \""+projectName+"\" created successfully in \""+baseDir+"\"");
-
             }else{
                 System.out.println("Unknown project type!!!");
                 return;

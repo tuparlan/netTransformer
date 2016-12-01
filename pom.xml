@@ -66,16 +66,22 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.vm</include>
-                    <include>**/*.pfl</include>
-                    <include>**/*.txt</include>
-                    <include>**/*.xslt</include>
-                    <include>**/*.png</include>
-                </includes>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                </excludes>
+                <!--<includes>-->
+
+                    <!--&lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include>**/*.vm</include>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include>**/*.pfl</include>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include>**/*.txt</include>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include>**/*.xslt</include>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<include>**/*.png</include>&ndash;&gt;-->
+                <!--</includes>-->
             </resource>
         </resources>
         <pluginManagement>
@@ -132,7 +138,7 @@
         <repository>
             <id>jfrogrepo</id>
             <name>jfrogrepo-releases</name>
-            <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
+            <url>http://repo.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
     </distributionManagement>
     <repositories>
@@ -140,19 +146,19 @@
         <repository>
             <id>jfrogrepo-libs-release-local</id>
             <name>jfrogrepo-releases</name>
-            <url>http://build.itransformers.net:8081/artifactory/libs-release-local</url>
+            <url>http://repo.itransformers.net:8081/artifactory/libs-release-local</url>
         </repository>
         <repository>
             <id>jfrogrepo-ext-release-local</id>
             <name>jfrogrepo-releases</name>
-            <url>http://build.itransformers.net:8081/artifactory/ext-release-local</url>
+            <url>http://repo.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
 
-        <repository>
-            <id>iTransformers Repo</id>
-            <name>repo</name>
-            <url>http://repo.itransformers.net/repos</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>iTransformers Repo</id>-->
+            <!--<name>repo</name>-->
+            <!--<url>http://repo.itransformers.net/repos</url>-->
+        <!--</repository>-->
 
 
     </repositories>

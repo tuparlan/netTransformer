@@ -23,13 +23,17 @@ public class DiscoveryResultTopologyViewerFactory implements TopologyViewerFacto
 
     private TopologyViewer createTopologyViewer(Map<String, String> properties) {
         String projectPath = properties.get("projectPath");
+        String projectType = properties.get("projectType");
         if (projectPath == null) {
             throw new IllegalArgumentException("Missing projectPath parameter");
         }
-        return createTopologyViewer(projectPath);
+        if (projectType == null) {
+            throw new IllegalArgumentException("Missing projectType parameter");
+        }
+        return createTopologyViewer(projectPath,projectType);
     }
 
-    private TopologyViewer createTopologyViewer(String projectPath) {
+    private TopologyViewer createTopologyViewer(String projectPath, String projectType) {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:discoveryResultTopologyViewer/discoveryResultTopologyViewer.xml");
         ctx.load("classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml");
@@ -37,7 +41,12 @@ public class DiscoveryResultTopologyViewerFactory implements TopologyViewerFacto
         AbstractBeanDefinition projectPathBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 
+        AbstractBeanDefinition projectTypeBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)
+                .addConstructorArgValue(projectType).getBeanDefinition();
+
         ctx.registerBeanDefinition("projectPath", projectPathBeanDefinition);
+        ctx.registerBeanDefinition("projectType", projectTypeBeanDefinition);
+
         ctx.refresh();
 
         TopologyViewer topologyViewer = ctx.getBean("discoveryResultTopologyViewer", TopologyViewer.class);

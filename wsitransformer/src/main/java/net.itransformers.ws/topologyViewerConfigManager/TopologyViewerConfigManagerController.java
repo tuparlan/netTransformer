@@ -1,19 +1,18 @@
 package net.itransformers.ws.topologyViewerConfigManager;
 
-import net.itransformers.resourcemanager.ResourceManager;
-import net.itransformers.resourcemanager.ResourceManagerFactory;
-import net.itransformers.resourcemanager.config.ParamType;
-import net.itransformers.resourcemanager.config.ResourcesType;
 import net.itransformers.topologyviewer.config.TopologyViewerConfigManager;
 import net.itransformers.topologyviewer.config.TopologyViewerConfigManagerFactory;
 import net.itransformers.topologyviewer.config.models.EdgeColorType;
 import net.itransformers.topologyviewer.config.models.EdgeStrokeType;
 import net.itransformers.topologyviewer.config.models.IconType;
-import net.itransformers.ws.resourceManager.ResourceManagerController;
+import net.itransformers.utils.ProjectConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.annotation.Resource;
@@ -54,7 +53,7 @@ public class TopologyViewerConfigManagerController implements ServletContextAwar
         if (topologyViewerConfigManager == null) {
             Map<String, String> props = new HashMap<>();
             props.put("projectPath", projectPath);
-            props.put("name", "discovery");
+            props.put("projectType", ProjectConstants.snmpProjectType);
             topologyViewerConfigManager = topologyViewerConfigManagerFactory.createTopologyViewerConfigManager("xml", props);
             context.setAttribute("topologyViewerConfigManager", topologyViewerConfigManager);
         }

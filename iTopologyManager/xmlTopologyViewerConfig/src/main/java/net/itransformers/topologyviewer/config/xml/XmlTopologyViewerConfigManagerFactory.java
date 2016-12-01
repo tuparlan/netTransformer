@@ -2,6 +2,7 @@ package net.itransformers.topologyviewer.config.xml;
 
 import net.itransformers.topologyviewer.config.TopologyViewerConfigManager;
 import net.itransformers.topologyviewer.config.TopologyViewerConfigManagerFactory;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
@@ -21,20 +22,25 @@ public class XmlTopologyViewerConfigManagerFactory implements TopologyViewerConf
         if (projectPath == null) {
             throw new IllegalArgumentException("Missing projectPath parameter");
         }
-        String configName = properties.get("name");
-        if (configName == null) {
-            throw new IllegalArgumentException("Missing configName parameter");
+        String projectConfigType = properties.get("projectType");
+        //TODO it always is equal to null. Has to be fixed.
+        if (projectConfigType == null) {
+            projectConfigType = ProjectConstants.snmpProjectType;
+            //throw new IllegalArgumentException("Missing projectConfigType parameter");
         }
+
         String configRelFileName;
-        if (configName.equals("bgpPeeringMap")) {
-            configRelFileName = "xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/viewer-config.xml";
-        } else if (configName.equals("freeGraph")){
-            configRelFileName = "xmlTopologyViewerConfig/conf/xml/freeGraph/viewer-config.xml";
-        } else if (configName.equals("discovery")){
-            configRelFileName = "xmlTopologyViewerConfig/conf/xml/discovery/viewer-config.xml";
-        } else {
-            throw new IllegalArgumentException("Invalid config name: "+ configName);
-        }
+//        if (projectConfigType.equals(ProjectConstants.bgpDiscovererProjectType)) {
+//            configRelFileName = "xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/viewer-config.xml";
+//        } else if (projectConfigType.equals(ProjectConstants.freeGraphProjectType)){
+//            configRelFileName = "xmlTopologyViewerConfig/conf/xml/freeGraph/viewer-config.xml";
+//        } else if (projectConfigType.equals(ProjectConstants.snmpProjectType)){
+//            configRelFileName = "xmlTopologyViewerConfig/conf/xml/ipNetworkDiscovery/viewer-config.xml";
+//        } else {
+//            throw new IllegalArgumentException("Invalid config name: "+ projectConfigType);
+//        }
+
+        configRelFileName = "xmlTopologyViewerConfig/conf/xml/"+ projectConfigType+"/viewer-config.xml";
         File file = new File(projectPath + File.separator + configRelFileName);
 
         XmlTopologyViewerConfigManager xmlTopologyViewerConfigManager = new XmlTopologyViewerConfigManager(file);

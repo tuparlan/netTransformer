@@ -52,6 +52,17 @@
             <artifactId>xmlTopologyViewerConfig</artifactId>
             <version>0.8</version>
         </dependency>
+
+            <!--<dependency>-->
+                <!--<groupId>net.itransformers</groupId>-->
+                <!--<artifactId>fulfilmentFactory</artifactId>-->
+                <!--<version>0.8</version>-->
+            <!--</dependency>-->
+            <dependency>
+                <groupId>net.itransformers</groupId>
+                <artifactId>parameterFactory</artifactId>
+                <version>0.8</version>
+            </dependency>
         <!--<dependency>-->
             <!--<groupId>net.itransformers</groupId>-->
             <!--<artifactId>rightClick</artifactId>-->

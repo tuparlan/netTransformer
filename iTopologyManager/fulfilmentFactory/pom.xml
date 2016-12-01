@@ -34,17 +34,12 @@
     <artifactId>fulfilmentFactory</artifactId>
     <version>0.8</version><!--Change for new version-->
 
+
     <dependencies>
         <dependency>
             <groupId>net.itransformers</groupId>
             <artifactId>resourceManagerAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
-        </dependency>
-        <dependency>
-            <groupId>net.itransformers.snmp2xml4j</groupId>
-            <artifactId>snmptoolkit</artifactId>
-            <version>1.0.4</version>
-            <!--Change for new version-->
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -66,11 +61,11 @@
             <artifactId>commons-net</artifactId>
             <version>3.0.1</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>oro</groupId>-->
-            <!--<artifactId>oro</artifactId>-->
-            <!--<version>2.0.8</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>oro</groupId>
+            <artifactId>oro</artifactId>
+            <version>2.0.8</version>
+        </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
@@ -80,11 +75,29 @@
 
     </dependencies>
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeScope>system</excludeScope>
+                            <excludes>META-INF/*.SF</excludes>
+                            <excludes>META-INF/*.DSA</excludes>
+                            <excludes>META-INF/*.RSA</excludes>
+                            <excludeGroupIds>gritty</excludeGroupIds>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -202,15 +202,15 @@ public class TopologyManagerFrame extends JFrame{
         if (new File (projectPath,ProjectConstants.freeGraphProjectType+".pfl").exists()) {
             this.setProjectType(ProjectConstants.freeGraphProjectType);
 
-            this.setName("Free Graph");
-            this.setViewerConfig("freeGraph");
+          //  this.setName("Free Graph");
+            this.setViewerConfig(ProjectConstants.freeGraphProjectType);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
         } else if (new File (projectPath,ProjectConstants.bgpDiscovererProjectType+".pfl").exists()) {
             this.setProjectType(ProjectConstants.bgpDiscovererProjectType);
-            this.setViewerConfig("bgpPeeringMap");
+            this.setViewerConfig(ProjectConstants.bgpDiscovererProjectType);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 
@@ -218,7 +218,7 @@ public class TopologyManagerFrame extends JFrame{
 
         } else if (new File (projectPath,ProjectConstants.snmpProjectType + ".pfl").exists()) {
             this.setProjectType(ProjectConstants.snmpProjectType);
-            this.setViewerConfig("discovery");
+            this.setViewerConfig(ProjectConstants.snmpProjectType);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 
@@ -324,7 +324,7 @@ public class TopologyManagerFrame extends JFrame{
     public void setViewerConfig(String viewerConfig) {
         Map<String, String> props = new HashMap<>();
         props.put("projectPath",path.getAbsolutePath());
-        props.put("name",viewerConfig);
+        props.put("projectType",viewerConfig);
         this.viewerConfig = topologyViewerConfigManagerFactory.createTopologyViewerConfigManager("xml",props);
     }
 }
