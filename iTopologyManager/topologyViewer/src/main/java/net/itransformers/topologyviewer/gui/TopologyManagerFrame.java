@@ -30,8 +30,10 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
-import java.security.AccessControlException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -66,33 +68,24 @@ public class TopologyManagerFrame extends JFrame{
     }
     public void init(File path) throws IOException {
         //super.setIconImage(Toolkit.getDefaultToolkit().getImage("images/logo3.png"));
-        File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);
-        try {
-            if (!prefsFile.exists()) {
-                if (!prefsFile.createNewFile()){
-                    logger.error("Can not create preferences file");
-                }
-            }
-            preferences.load(new FileInputStream(prefsFile));
 
-        } catch (AccessControlException e){
-            logger.error(e.getMessage());
-        }
         this.path = path;
+        File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);
+        preferences.load(new FileInputStream(prefsFile));
+
         createFrame();
-        String projectPath = preferences.getProperty("PATH");
+       // String projectPath = preferences.getProperty("PATH");
         String graphmlPath = preferences.getProperty("GRAPHML_REL_DIR");
 
-        if (projectPath != null) {
-            File projectPathFile = new File(projectPath);
-            this.doOpenProject(projectPathFile);
+        if (graphmlPath!=null) {
+           // File projectPathFile = new File(projectPath);
+            this.doOpenProject(path);
 
-            if (graphmlPath != null) {
-                File graphmlPathFile = new File(graphmlPath);
-                if (graphmlPathFile.exists()) {
-                    this.doOpenGraph(graphmlPathFile);
-                }
+            File graphmlPathFile = new File(graphmlPath);
+            if (graphmlPathFile.exists()) {
+                this.doOpenGraph(graphmlPathFile);
             }
+
         }
     }
 
@@ -179,6 +172,16 @@ public class TopologyManagerFrame extends JFrame{
         if (viewerPanel == null){
             return;
         }
+
+        this.getPreferences().remove(PreferencesKeys.GRAPHML_REL_DIR.name());
+
+        try {
+            this.getPreferences().store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         String absolutePath = viewerPanel.getVersionDir().getAbsolutePath();
         viewerPanelManagerMap.remove(absolutePath);
         JTabbedPane tabbedPane = this.getTabbedPane();
@@ -190,37 +193,30 @@ public class TopologyManagerFrame extends JFrame{
 
     }
 
-    public void doOpenProject(File selectedFile) {
+    public void doOpenProject(File projectPath) {
 
-        this.setPath(new File(selectedFile.getParent()));
+        String projectDir =  projectPath.getAbsolutePath();
 
-        if (selectedFile.getName().equals("bgpPeeringMap.pfl")) {
-            this.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
-            this.setName("bgpPeeringMap");
-            this.setViewerConfig("bgpPeeringMap");
-            this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
-            this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
-            this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
+        this.setPath(new File(projectDir));
 
-        }
-        if (selectedFile.getName().equals("freeGraph.pfl")) {
+        if (new File (projectPath,ProjectConstants.freeGraphProjectType+".pfl").exists()) {
             this.setProjectType(ProjectConstants.freeGraphProjectType);
 
-            this.setName("bgpPeeringMap");
+            this.setName("Free Graph");
             this.setViewerConfig("freeGraph");
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
 
-        } else if (selectedFile.getName().equals("bgpSnmpPeeringMap.pfl")) {
-            this.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
+        } else if (new File (projectPath,ProjectConstants.bgpDiscovererProjectType+".pfl").exists()) {
+            this.setProjectType(ProjectConstants.bgpDiscovererProjectType);
             this.setViewerConfig("bgpPeeringMap");
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 
             this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 
-        } else if (selectedFile.getName().equals("netTransformer.pfl")) {
+        } else if (new File (projectPath,ProjectConstants.snmpProjectType + ".pfl").exists()) {
             this.setProjectType(ProjectConstants.snmpProjectType);
             this.setViewerConfig("discovery");
             this.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
@@ -233,7 +229,7 @@ public class TopologyManagerFrame extends JFrame{
             return;
 
         }
-        this.setTitle(ProjectConstants.getProjectName(this.getProjectType()));
+        this.setTitle(ProjectConstants.getProjectName(this.getProjectType())+" "+projectDir);
         this.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
         this.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
         this.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
@@ -249,10 +245,11 @@ public class TopologyManagerFrame extends JFrame{
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(true);
         this.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(true);
 
-        this.getPreferences().setProperty(PreferencesKeys.PATH.name(), selectedFile.toString());
+        this.getPreferences().setProperty(PreferencesKeys.PATH.name(), projectDir);
 
 
         try {
+            this.getPreferences().remove(PreferencesKeys.GRAPHML_REL_DIR.name());
             this.getPreferences().store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
 
 
@@ -296,6 +293,21 @@ public class TopologyManagerFrame extends JFrame{
 
         this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(false);
         this.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(false);
+
+
+        this.getPreferences().remove(PreferencesKeys.PATH.name());
+
+
+        try {
+            this.getPreferences().remove(PreferencesKeys.GRAPHML_REL_DIR.name());
+            this.getPreferences().store(new FileOutputStream(TopologyManagerFrame.VIEWER_PREFERENCES_PROPERTIES), "");
+
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Can not Store preferences: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
 
 
     }

@@ -66,13 +66,15 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <filtering>false</filtering>
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
                     <include>**/*.vm</include>
                     <include>**/*.pfl</include>
-
+                    <include>**/*.txt</include>
+                    <include>**/*.xslt</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
         </resources>

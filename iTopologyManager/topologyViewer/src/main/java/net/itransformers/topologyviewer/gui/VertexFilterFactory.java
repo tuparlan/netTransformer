@@ -156,11 +156,11 @@ public class VertexFilterFactory {
                         }
                         //Finally if the has to include flag is set include
                         if (!hasNodeInlcude) {
-                            System.out.println("Node "+v + " has not been selected");
+                            logger.info("Node "+v + " has not been selected");
                             return false;
 
                         } else {
-                            System.out.println("Node "+v + " has been selected");
+                            logger.info("Node " + v + " has been selected");
 
                             return true;
                         }

@@ -71,6 +71,11 @@
         </dependency>
         <dependency>
             <groupId>net.itransformers</groupId>
+            <artifactId>images</artifactId>
+            <version>0.8</version><!--Change for new version-->
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
             <artifactId>resourceManagerAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
@@ -144,6 +149,11 @@
         <dependency>
             <groupId>net.itransformers</groupId>
             <artifactId>connectiondetailsapi</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>topologyViewerConfigAPI</artifactId>
             <version>0.8</version>
         </dependency>
         <dependency>

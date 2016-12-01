@@ -1,0 +1,8 @@
+xmlResourceManager/conf/xml/resource.xml
+csvConnectionDetails/conf/txt/connection-details.txt
+xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/viewer-config.xml
+xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/ignored_edge_keys.xml
+xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/ignored_node_keys.xml
+
+
+

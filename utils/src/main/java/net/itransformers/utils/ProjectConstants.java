@@ -27,13 +27,11 @@ package net.itransformers.utils;
 public class ProjectConstants {
 
     public static final String snmpProjectName = "SNMP Network Discovery ";
-    public static final String snmpBgpDiscovererName = "Snmp BGP Peering Map";
-    public static final String mrtBgpDiscovererName = "Mrt BGP Peering Map";
+    public static final String bgpDiscovererName = "BGP Peering Map";
     public static final String freeGraphDiscovererName = "Free Graph";
 
-    public static final String snmpProjectType = "parallelSnmpDiscovery";
-    public static final String snmpBgpDiscovererProjectType = "bgpMapSnmpDiscoverer";
-    public static final String mrtBgpDiscovererProjectType = "mrtMapSnmpDiscoverer";
+    public static final String snmpProjectType = "ipNetworkDiscovery";
+    public static final String bgpDiscovererProjectType = "bgpMapDiscovery";
     public static final String freeGraphProjectType = "freeGraph";
 
 
@@ -55,10 +53,8 @@ public class ProjectConstants {
         if (projectType.equals(ProjectConstants.snmpProjectType))
 
             return ProjectConstants.snmpProjectName;
-        else if (projectType.equals(ProjectConstants.snmpBgpDiscovererProjectType))
-            return ProjectConstants.snmpBgpDiscovererName;
-        else if (projectType.equals(ProjectConstants.mrtBgpDiscovererProjectType))
-            return ProjectConstants.mrtBgpDiscovererName;
+        else if (projectType.equals(ProjectConstants.bgpDiscovererProjectType))
+            return ProjectConstants.bgpDiscovererName;
         else if (projectType.equals(ProjectConstants.freeGraphProjectType))
             return ProjectConstants.freeGraphDiscovererName;
         else
@@ -70,10 +66,8 @@ public class ProjectConstants {
         if (projectName.equals(ProjectConstants.snmpProjectName))
 
             return ProjectConstants.snmpProjectType;
-        else if (projectName.equals(ProjectConstants.snmpBgpDiscovererName))
-            return ProjectConstants.snmpBgpDiscovererProjectType;
-        else if (projectName.equals(ProjectConstants.mrtBgpDiscovererName))
-            return ProjectConstants.mrtBgpDiscovererProjectType;
+        else if (projectName.equals(ProjectConstants.bgpDiscovererName))
+            return ProjectConstants.bgpDiscovererProjectType;
         else if (projectName.equals(ProjectConstants.freeGraphDiscovererName))
             return ProjectConstants.freeGraphProjectType;
         else

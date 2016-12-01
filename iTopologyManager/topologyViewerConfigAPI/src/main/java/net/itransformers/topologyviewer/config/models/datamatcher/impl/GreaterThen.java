@@ -29,8 +29,8 @@ public class GreaterThen implements DataMatcher{
     @Override
     public boolean compareData(String data1, String data2) {
         try {
-            Integer i1 = Integer.parseInt(data1);
-            Integer i2 = Integer.parseInt(data2);
+            Long i1 = Long.parseLong(data1);
+            Long i2 = Long.parseLong(data2);
             logger.debug("GT: "+i1+">"+i2);
             return i1 > i2;
         }catch (RuntimeException rte) {

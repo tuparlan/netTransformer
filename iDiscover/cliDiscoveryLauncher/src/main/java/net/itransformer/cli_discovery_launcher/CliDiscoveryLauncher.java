@@ -10,6 +10,7 @@ import net.itransformers.idiscover.api.NetworkDiscovererFactory;
 import net.itransformers.idiscover.api.VersionManager;
 import net.itransformers.idiscover.api.VersionManagerFactory;
 import net.itransformers.idiscover.api.models.network.Node;
+import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -33,13 +34,25 @@ public class CliDiscoveryLauncher {
 
 
         Options options = new Options();
-        Option projectPathOption = new Option("p", "projectPath", true, "Path to your project folder");
+        Option projectPathOption = new Option("b", "baseDir", true, "Path to your projects folder");
         projectPathOption.setRequired(true);
         options.addOption(projectPathOption);
 
-        Option newProjectOption = new Option("n", "newProject", true, "If specified a new project will be created in projectPath");
+        Option discoverNetwork = new Option("d", "discover", true, "Trigger a new network discovery run");
+        discoverNetwork.setRequired(false);
+        options.addOption(discoverNetwork);
+
+        Option projectNameOption = new Option("n", "name", true, "The name of your project");
+        projectNameOption.setRequired(true);
+        options.addOption(projectNameOption);
+
+        Option newProjectOption = new Option("c", "create", true, "If specified a new project will be created in projectPath");
         newProjectOption.setRequired(false);
         options.addOption(newProjectOption);
+
+        Option projectTypeOption = new Option("t", "type", true, "The type of project you are creating. Supported types are [\"+ ProjectConstants.snmpProjectType+\", \"+ProjectConstants.bgpDiscovererProjectType+\", \"+ProjectConstants.freeGraphProjectType+\"]");
+        projectTypeOption.setRequired(false);
+        options.addOption(projectTypeOption);
 
         Option deleteProject = new Option("d", "deleteProject", true, "If specified a the project in projectPath will be deleted");
         newProjectOption.setRequired(false);
@@ -61,14 +74,14 @@ public class CliDiscoveryLauncher {
                     "  The project folder is important sicne we will store your discovered data,connection details and\n"+
                     "  discovery resources in it. Each discovery run will create a new \"version\" of your network into your\n"+
                     "  projectPath folder.\n"+
-                    "  java -jar netTransformer.jar --newProject=y --projectPath=[Path to your desired project folder].\"\n"+
+                    "  java -jar netTransformer.jar --create=y --name=myProject --type=["+ ProjectConstants.snmpProjectType+", "+ProjectConstants.bgpDiscovererProjectType+", "+ProjectConstants.freeGraphProjectType+"] --baseDir=[Path to your projects folder].\"\n"+
                     "\n" +
                     "  Step 2: Run again as many times as you wish netTransformer. It will discover your network and will store \n" +
                     "  the discovered data, in a new version folder into your projectPath folder.\n"+
-                    "  java -jar netTransformer.jar --projectPath=[Path to your already created project folder].\n+" +
+                    "  java -jar netTransformer.jar --name=myProject --discover=y --baseDir=[Path to your already created project folder].\n+" +
                     "\n" +
                     "  Step 3: Delete your netTransformer project.\n" +
-                    "  java -jar netTransformer.jar --deleteProject=y --projectPath=[Path to your already created project folder].\n";
+                    "  java -jar netTransformer.jar --deleteProject=y --name=MyProject --baseDir=[Path to your projects folder].\n";
             ;
 
             formatter.printHelp(200,"java -jar netTransformer.jar","netTransformer is an open source network discovery tool provided by Nikolay Milovanov and Vasil Yordanov " +
@@ -80,96 +93,114 @@ public class CliDiscoveryLauncher {
 
 
 
+        String discover = cmd.getOptionValue("discover");
 
-        String newProjectFlag = cmd.getOptionValue("newProject");
+        String createProject = cmd.getOptionValue("create");
+        String projectName = cmd.getOptionValue("name");
 
-        String projectPath = cmd.getOptionValue("projectPath");
+        String baseDir = cmd.getOptionValue("baseDir");
+        if (baseDir == null) {
+            String systemBaseDir = System.getProperty("base.dir");
+            if (systemBaseDir == null){
+                baseDir = ".";
+                System.setProperty("base.dir", baseDir);
+            }else{
+                baseDir=systemBaseDir;
 
+            }
+
+        }
 
         String deleteProject1 = cmd.getOptionValue("deleteProject");
-
-
+        String projectType = cmd.getOptionValue("type");
+        if (projectType == null){
+            projectType = ProjectConstants.snmpProjectType;
+        }
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:cliDiscoveryLauncher/cliDiscoveryLauncher.xml");
-        ctx.refresh();
+      //  ctx.refresh();
         ctx.load("classpath:fileBasedProjectManager/fileBasedProjectManager.xml");
-        FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("fileBasedProjectManagerFactory", FileBasedProjectManagerFactory.class);
-        String baseDir = System.getProperty("base.dir");
-        if (baseDir == null) {
-            baseDir = ".";
-            System.setProperty("base.dir", baseDir);
-        }
+        FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("projectManagerFactory", FileBasedProjectManagerFactory.class);
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("baseDir", baseDir);
         FileBasedProjectManager projectManager = fileBasedProjectManagerFactory.createProjectManager(parameters);
 
-
-        if (newProjectFlag!=null ){
-            if (projectPath==null){
-                System.out.println("Project path is not specified!!!");
+        if (deleteProject1!=null){
+            if (projectName==null){
+                System.out.println("Project name is not specified!!!");
                 return;
 
             }
-            File project = new File(projectPath);
+            projectManager.deleteProject(projectName);
+            return;
+
+        }
+        if (createProject!=null ){
+            if (projectName == null){
+                projectName = projectManager.randomProjectNameGenerator(baseDir);
+                System.out.println("Project name is not specified generating a random one!!!");
+            }
+            File project = new File(baseDir,projectName);
 
             if (project.exists()){
-                System.out.println("Project path folder already exists. Please specify an empty folder!!!");
+                System.out.println("There is already a project with that name. Please specify another one!!!");
                 return;
 
             }else{
-                logger.info("Creating a new project in "+projectPath+"!!!");
+                logger.info("Creating the project folder for \""+projectName+"\" in "+baseDir+"!!!");
                 project.mkdir();
             }
 
+            if (ProjectConstants.bgpDiscovererProjectType.equalsIgnoreCase(projectType) || ProjectConstants.snmpProjectType.equals(projectType)|| ProjectConstants.freeGraphProjectType.equals(projectType)){
 
-            projectManager.createProject("projectTemplates/netTransformer.pfl",new File(projectPath).getAbsolutePath());
-            return;
+                projectManager.createProject(projectName,projectType);
+                System.out.println("Project \""+projectName+"\" created successfully in \""+baseDir+"\"");
 
-
-        }
-        if (deleteProject1!=null){
-            if (projectPath==null){
-                System.out.println("Project path is not specified!!!");
+            }else{
+                System.out.println("Unknown project type!!!");
                 return;
 
             }
-            projectManager.deleteProject(new File(projectPath).getAbsolutePath());
+
+        }
+
+
+        if (projectName == null) {
+            System.out.println("Project name is not specified. Will use current folder!!!");
             return;
-
         }
 
-        if (projectPath == null) {
-            File cwd = new File(".");
-            System.out.println("Project path is not specified. Will use current dir: " + cwd.getAbsolutePath());
-            projectPath = cwd.getAbsolutePath();
+        String projectPath = new File(baseDir,projectName).getAbsolutePath();
+        System.setProperty("base.dir",new File(projectName).getAbsolutePath());
+
+        if ("y".equalsIgnoreCase(discover)) {
+
+            NetworkDiscovererFactory discovererFactory = ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
+            VersionManagerFactory versionManagerFactory = ctx.getBean("versionManagerFactory", VersionManagerFactory.class);
+            Map<String, String> props = new HashMap<>();
+            props.put("projectPath", projectPath);
+            VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
+            String version = versionManager.createVersion();
+            props.put("version", version);
+            NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer("parallel", props);
+
+
+            networkDiscoverer.addNetworkDiscoveryListeners(result -> {
+                Map<String, Node> nodes = result.getNodes();
+                for (String node : nodes.keySet()) {
+                    System.out.println("Discovered node: " + node);
+                }
+            });
+            ConnectionDetailsManagerFactory factory = ctx.getBean("connectionManagerFactory",
+                    ConnectionDetailsManagerFactory.class);
+
+            ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
+            Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnections();
+            networkDiscoverer.startDiscovery(new HashSet<>(connectionDetails.values()));
         }
-        System.setProperty("base.dir",new File(projectPath).getAbsolutePath());
-
-        System.out.println("_________" + System.getProperty("base.dir") + "_________");
 
 
 
-        NetworkDiscovererFactory discovererFactory = ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
-        VersionManagerFactory versionManagerFactory = ctx.getBean("versionManagerFactory", VersionManagerFactory.class);
-        Map<String, String> props = new HashMap<>();
-        props.put("projectPath", projectPath);
-        VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
-        String version = versionManager.createVersion();
-        props.put("version", version);
-        NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer("parallel", props);
-
-
-        networkDiscoverer.addNetworkDiscoveryListeners(result -> {
-            Map<String, Node> nodes = result.getNodes();
-            for (String node : nodes.keySet()) {
-                System.out.println("Discovered node: " + node);
-            }
-        });
-        ConnectionDetailsManagerFactory factory = ctx.getBean("connectionManagerFactory",
-                ConnectionDetailsManagerFactory .class);
-
-        ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
-        Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnections();
-        networkDiscoverer.startDiscovery(new HashSet<>(connectionDetails.values()));
     }
 }

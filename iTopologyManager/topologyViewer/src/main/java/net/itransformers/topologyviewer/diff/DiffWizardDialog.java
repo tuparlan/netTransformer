@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.diff;
 
 import net.itransformers.topologyviewer.gui.PreferencesKeys;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
 
 import javax.swing.*;
@@ -63,12 +64,25 @@ public class DiffWizardDialog extends JDialog implements PropertyChangeListener 
     private ProgressMonitor progressMonitor;
     private GraphMLFileDiffTool task;
 
-    public DiffWizardDialog(final JFrame owner, File baseDir) throws MalformedURLException {
+    public DiffWizardDialog(final TopologyManagerFrame owner, File baseDir) throws MalformedURLException {
         super(owner,"Diff Dialog",true);
         this.baseDir = baseDir;
         this.networkDir = new File(baseDir, ProjectConstants.networkDirName);
-        this.ignoredNodeKeysFile =  new File(baseDir,"iTopologyManager/topologyViewer/conf/xml/ignored_node_keys.xml");
-        this.ignoredEdgeKeysFile = new File(baseDir,"iTopologyManager/topologyViewer/conf/xml/ignored_edge_keys.xml");
+
+        //TODO please fix me. It should be simply projectType for the path
+        if (owner.getProjectType().equals(ProjectConstants.snmpProjectType)) {
+            this.ignoredNodeKeysFile = new File(baseDir, "xmlTopologyViewerConfig/conf/xml/discovery/ignored_node_keys.xml");
+            this.ignoredEdgeKeysFile = new File(baseDir, "xmlTopologyViewerConfig/conf/xml/discovery/ignored_edge_keys.xml");
+        }else if (owner.getProjectType().equals(ProjectConstants.bgpDiscovererProjectType)){
+
+            this.ignoredNodeKeysFile = new File(baseDir, "xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/ignored_node_keys.xml");
+            this.ignoredEdgeKeysFile = new File(baseDir, "xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/ignored_edge_keys.xml");
+
+        } else if (owner.getProjectType().equals(ProjectConstants.freeGraphProjectType)){
+            this.ignoredNodeKeysFile = new File(baseDir, "xmlTopologyViewerConfig/conf/xml/freeGraph/ignored_node_keys.xml");
+            this.ignoredEdgeKeysFile = new File(baseDir, "xmlTopologyViewerConfig/conf/xml/freeGraph/ignored_edge_keys.xml");
+
+        }
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         Container cp = getContentPane();
         cp.setLayout(new BorderLayout());

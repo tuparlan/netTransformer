@@ -51,9 +51,9 @@ public class BetweenOrEqualInterval implements DataMatcher{
                 logger.error("Unable to parse input limits: "+data2);
                 return false;
             }
-            Integer i11 = Integer.parseInt(limits[0]);
-            Integer i12 = Integer.parseInt(limits[1]);
-            Integer i2 = Integer.parseInt(data1);
+            Long i11 = Long.parseLong(limits[0]);
+            Long i12 = Long.parseLong(limits[1]);
+            Long i2 = Long.parseLong(data1);
             logger.debug("beoq: "+i11+":"+i2+":"+i12);
 
             return (i2 >= i11 && i2 <= i12);

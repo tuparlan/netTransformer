@@ -22,7 +22,6 @@
 package net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers;
 
 import net.itransformers.filebasedprojectmanager.FileBasedProjectManager;
-import net.itransformers.projectmanagerapi.ProjectManagerException;
 import net.itransformers.topologyviewer.dialogs.NewProjectDialog;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.utils.ProjectConstants;
@@ -33,8 +32,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,29 +61,25 @@ public class NewProjectMenuHandler implements ActionListener {
         if (!dialog.isOkPressed()) {
             return;
         }
-        frame.setTitle(ProjectConstants.getProjectName(projectType));
+
+        String projectName = dialog.getProjectName();
+        frame.setTitle(projectName);
 
         FileBasedProjectManager fileBasedProjectManager = new FileBasedProjectManager(dialog.getProjectDir().getParentFile());
 
+        fileBasedProjectManager.createProject(projectName,projectType);
 
-        try{
-            fileBasedProjectManager.createProject("projectTemplates/netTransformer.pfl", dialog.getProjectDir().getAbsolutePath());
-        } catch (ProjectManagerException e1)
-        {
-            JOptionPane.showMessageDialog(frame, "Unable to create project in "+dialog.getProjectDir());
-
-        }
+//        try{
+//            fileBasedProjectManager.createProject("projectTemplates/netTransformer.pfl", dialog.getProjectDir().getAbsolutePath());
+//        } catch (ProjectManagerException e1)
+//        {
+//            JOptionPane.showMessageDialog(frame, "Unable to create project in "+dialog.getProjectDir());
+//
+//        }
         frame.setPath(dialog.getProjectDir());
 
         switch (projectType) {
-            case ProjectConstants.mrtBgpDiscovererProjectType:
-                file = new File("bgpPeeringMap.pfl");
-                frame.setProjectType(ProjectConstants.mrtBgpDiscovererProjectType);
-                frame.setViewerConfig("bgpPeeringMap");
-                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(false);
-                frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
-                frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(4).setEnabled(true);
-                break;
+
             case ProjectConstants.freeGraphProjectType:
                 file = new File("freeGraph.pfl");
                 frame.setProjectType(ProjectConstants.freeGraphProjectType);
@@ -104,10 +97,10 @@ public class NewProjectMenuHandler implements ActionListener {
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
                 break;
 
-            case ProjectConstants.snmpBgpDiscovererProjectType:
+            case ProjectConstants.bgpDiscovererProjectType:
                 file = new File("bgpSnmpPeeringMap.pfl");
-                frame.setProjectType(ProjectConstants.snmpBgpDiscovererProjectType);
-                frame.setViewerConfig("xmlTopologyViewerConfig/conf/xml/bgpPeeringMap/viewer-config.xml");
+                frame.setProjectType(ProjectConstants.bgpDiscovererProjectType);
+                frame.setViewerConfig("bgpPeeringMap");
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(0).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
                 frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
@@ -119,6 +112,7 @@ public class NewProjectMenuHandler implements ActionListener {
 
 
         }
+
 
 //        else if (projectType.equals(ProjectConstants.mrtBgpDiscovererProjectType)) {
 //
@@ -133,7 +127,7 @@ public class NewProjectMenuHandler implements ActionListener {
 //            frame.getRootPane().getJMenuBar().getMenu(1).getMenuComponent(1).setEnabled(true);
 //            frame.getRootPane().getJMenuBar().getMenu(7).getMenuComponent(3).setEnabled(true);
 //
-//        } else if (projectType.equals(ProjectConstants.snmpBgpDiscovererProjectType)) {
+//        } else if (projectType.equals(ProjectConstants.bgpDiscovererProjectType)) {
 //            file = new File("netTransformer.pfl");
 //            frame.setProjectType(ProjectConstants.snmpProjectType);
 //            frame.setViewerConfig(new File(dialog.getProjectDir() + File.separator + "iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/viewer-config.xml"));
@@ -148,21 +142,22 @@ public class NewProjectMenuHandler implements ActionListener {
 
 
 
-    frame.setPath(dialog.getProjectDir());
-    frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(6).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(7).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(7).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(true);
-    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(true);
+//    frame.setPath(dialog.getProjectDir());
+//    frame.getRootPane().getJMenuBar().getMenu(1).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(2).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(3).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(4).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(5).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(6).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(7).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(4).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(5).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(6).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(7).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(8).setEnabled(true);
+//    frame.getRootPane().getJMenuBar().getMenu(0).getMenuComponent(9).setEnabled(true);
 
+     frame.doOpenProject(dialog.getProjectDir());
 
 
     }

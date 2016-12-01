@@ -1,6 +1,5 @@
 package net.itransformers.ws.projectManager;
 
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.projectmanagerapi.ProjectManagerAPI;
 import net.itransformers.projectmanagerapi.ProjectManagerFactory;
 import org.slf4j.Logger;
@@ -60,6 +59,7 @@ public class ProjectManagerController implements ServletContextAware {
         // TODO hardcoded project template
         String projectTemplate = "";
         getProjectManager().createProject(projectName, projectTemplate);
+
     }
 
     @RequestMapping(value = "/{projectName}", method=RequestMethod.DELETE)
