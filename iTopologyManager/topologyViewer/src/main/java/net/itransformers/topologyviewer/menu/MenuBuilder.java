@@ -21,10 +21,7 @@
 
 package net.itransformers.topologyviewer.menu;
 
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
-import net.itransformers.resourcemanager.ResourceManager;
-import net.itransformers.resourcemanager.ResourceManagerFactory;
+import edu.uci.ics.jung.algorithms.layout.DAGLayout;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import net.itransformers.topologyviewer.menu.handlers.*;
 import net.itransformers.topologyviewer.menu.handlers.graphFileMenuHandlers.*;
@@ -35,6 +32,7 @@ import net.itransformers.topologyviewer.menu.handlers.graphTools.RankingAlgorith
 import net.itransformers.topologyviewer.menu.handlers.graphTools.searchMenuHandlers.*;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.DijkstraShortestPathMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.graphTools.shortherstPathMenuHandlers.ShortestPathMenuHandler;
+import net.itransformers.topologyviewer.menu.handlers.layoutMenuHandlers.*;
 import net.itransformers.topologyviewer.menu.handlers.networkActivation.TemplateEditorMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.CloseProjectMenuHandler;
 import net.itransformers.topologyviewer.menu.handlers.projectMenuHandlers.NewProjectMenuHandler;
@@ -156,28 +154,25 @@ public class MenuBuilder {
         final JMenuItem FRLayout = new JMenuItem("FR Layout");
 
 
-
-        FRLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "FRLayout"));
-
-
-//        FRLayout.add(FRLayout);
+        FRLayout.addActionListener(new FRLayoutMenuHandler(frame, "FRLayout"));
 
 
         layouts.add(FRLayout);
         final JMenuItem KKLayout = new JMenuItem("KK Layout");
-        KKLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "KKLayout"));
+        KKLayout.addActionListener(new ChangeKKLayoutMenuHandler(frame));
         layouts.add(KKLayout);
         final JMenuItem CircleLayout = new JMenuItem("Circle Layout");
-        CircleLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "CircleLayout"));
+        CircleLayout.addActionListener(new CircleLayoutMenuHandler(frame));
         layouts.add(CircleLayout);
         final JMenuItem SpringLayout = new JMenuItem("Spring Layout");
-        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "SpringLayout"));
+        SpringLayout.addActionListener(new SpringLayoutMenuHandler(frame));
         layouts.add(SpringLayout);
         final JMenuItem ISOMLayout = new JMenuItem("ISOM Layout");
-        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "ISOMLayout"));
+        SpringLayout.addActionListener(new ISOMLayoutMenuHandler(frame));
         layouts.add(ISOMLayout);
         final JMenuItem DAGLayout = new JMenuItem("DAG Layout");
-        SpringLayout.addActionListener(new ChangeLayoutMenuHandler(frame, "DAGLayout"));
+
+        SpringLayout.addActionListener(new DAGLayoutMenuHandler(frame));
         layouts.add(DAGLayout);
     }
 

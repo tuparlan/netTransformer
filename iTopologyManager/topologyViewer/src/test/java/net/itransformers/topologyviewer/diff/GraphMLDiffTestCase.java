@@ -23,7 +23,6 @@ package net.itransformers.topologyviewer.diff;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -37,14 +36,14 @@ import java.io.FileNotFoundException;
 public class GraphMLDiffTestCase {
     @Test
     public void testDiff() throws FileNotFoundException {
-        File file1 = new File("test1234/network/bg.version.20021231/undirected/network-expected.graphml");
-        File file2 = new File("/test1234/network/bg.version.20031231/undirected/network-expected.graphml");
-        File outFile = new File("/test1234/network/vasko2");
-        File xsltFile = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
-        File nodeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_node_keys.xml");
-        File edgeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_edge_keys.xml");
-        GraphMLDiff graphmDiffer = new GraphMLDiff(file1.toURI(),file2.toURI(),outFile, "xmlTopologyViewerConfig/conf/xslt/graphml_diff.xslt",nodeIgnores,edgeIgnores);
-        graphmDiffer.createDiffGraphml();
+//        File file1 = new File("test1234/network/bg.version.20021231/undirected/network-expected.graphml");
+//        File file2 = new File("/test1234/network/bg.version.20031231/undirected/network-expected.graphml");
+//        File outFile = new File("/test1234/network/vasko2");
+//        File xsltFile = new File("iTopologyManager/topologyViewer/conf/xslt/graphml_diff.xslt");
+//        File nodeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_node_keys.xml");
+//        File edgeIgnores = new File("iTopologyManager/topologyViewer/conf/xml/bgpPeeringMap/ignored_edge_keys.xml");
+//        GraphMLDiff graphmDiffer = new GraphMLDiff(file1.toURI(),file2.toURI(),outFile, "xmlTopologyViewerConfig/conf/xslt/graphml_diff.xslt",nodeIgnores,edgeIgnores);
+//        graphmDiffer.createDiffGraphml();
 
     }
 }

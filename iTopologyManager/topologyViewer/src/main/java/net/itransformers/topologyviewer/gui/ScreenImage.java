@@ -21,6 +21,8 @@
 
 package net.itransformers.topologyviewer.gui;
 
+import net.itransformers.utils.bigBufferedImage.BigBufferedImage;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -115,7 +117,14 @@ public class ScreenImage
 			layoutComponent( component );
 		}
 
-		BufferedImage image = new BufferedImage(region.width, region.height, BufferedImage.TYPE_INT_RGB);
+
+
+		BigBufferedImage image = null;
+		try {
+			image = BigBufferedImage.create(new File("."), region.width, region.height, BufferedImage.TYPE_INT_RGB);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Graphics2D g2d = image.createGraphics();
 
 		//  Paint a background for non-opaque components,

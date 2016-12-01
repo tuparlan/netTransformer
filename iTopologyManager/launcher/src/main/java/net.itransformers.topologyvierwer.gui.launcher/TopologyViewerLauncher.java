@@ -25,50 +25,48 @@ import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileInputStream;
+import java.security.AccessControlException;
+import java.util.Properties;
 
 public class TopologyViewerLauncher {
+    public static final String VIEWER_PREFERENCES_PROPERTIES = "viewer-preferences.properties";
+    private static Properties preferences = new Properties();
+
     public static void main(String[] args) throws Exception {
 
-        Map<String, String> params = new HashMap<String, String>();
-        String key = null;
-        for (String arg : args) {
-            if (key == null && arg.startsWith("-")) {
-                key = arg;
-            } else {
-                params.put(key, arg);
-                key = null;
-            }
-        }
-        if (!params.containsKey("-t")) {
-            params.put("-t", "directed");
-        }
 
-        String dirStr = params.get("-d");
-        String urlStr = params.get("-u");
-        if (dirStr != null && urlStr != null) {
-            printUsage("Can not specify -d or -u options simultaneously");
-            return;
-        }
-        if (dirStr != null) {
-            File dir = new File(dirStr);
-            if (!dir.exists()) {
-                System.out.println(String.format("The specified directory '%s' does not exists", dirStr));
-                return;
+        File prefsFile = new File(VIEWER_PREFERENCES_PROPERTIES);
+
+        try {
+            if (!prefsFile.exists()) {
+                if (!prefsFile.createNewFile()){
+                    System.out.println("Can not create preferences file");
+                }
             }
+            preferences.load(new FileInputStream(prefsFile));
+
+        } catch (AccessControlException e){
+            e.printStackTrace();
         }
+        String baseDir = preferences.getProperty("PATH");
+        if (baseDir==null || !new File(baseDir).exists()){
+             baseDir = ".";
+        }
+//
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        System.setProperty("base.dir",new File(".").getAbsolutePath());
+        System.setProperty("base.dir", new File(baseDir).getAbsolutePath());
         ctx.load("classpath:rightClick/rightClick.xml");
         ctx.load("classpath:rightClickAPI/rightClickAPI.xml");
         ctx.load("classpath:xmlResourceManager/xmlResourceManagerFactory.xml");
         ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
         ctx.load("classpath:topologyViewer/topologyViewer.xml");
         ctx.load("classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml");
-        ctx.refresh();
         TopologyManagerFrame frame = (TopologyManagerFrame) ctx.getBean("topologyManagerFrame");
-        frame.init();
+        //frame.setPath();
+            frame.init(new File(baseDir));
+//        ctx.refresh();
+
     }
 
     private static void printUsage(String msg) {

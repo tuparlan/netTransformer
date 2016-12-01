@@ -83,12 +83,14 @@ public class NewProjectDialog extends JDialog {
 
         {
             baseFilePathTextField = new JTextField();
-            if (frame.getPath() == null) {
+            if ( frame==null || frame.getPath() == null) {
                 File dir = new File(new File(System.getProperty("user.dir")).getParent()+File.separator+"Projects");
                 if(!dir.exists()){
                     dir.mkdir();
                 }
                 baseFilePathTextField.setText(dir.getAbsolutePath());
+            } else {
+
             }
             baseFilePathTextField.setColumns(10);
             baseFilePathTextField.setBounds(108, 82, 277, 20);
@@ -100,20 +102,19 @@ public class NewProjectDialog extends JDialog {
             contentPanel.add(label);
         }
         {
-      //      projectType = ProjectConstants.snmpProjectType;
-            String[] projectNames = {ProjectConstants.snmpProjectName, ProjectConstants.mrtBgpDiscovererName, ProjectConstants.snmpBgpDiscovererName, ProjectConstants.freeGraphDiscovererName};
-            final JComboBox comboBox = new JComboBox(projectNames);
+            String[] projectTypeNames = {ProjectConstants.snmpProjectName, ProjectConstants.bgpDiscovererName, ProjectConstants.freeGraphDiscovererName};
+            final JComboBox comboBox = new JComboBox(projectTypeNames);
             comboBox.setBounds(108, 47, 277, 22);
             //Set default project type
-            comboBox.setSelectedItem(projectNames[0]);
+            comboBox.setSelectedItem(projectTypeNames[0]);
             contentPanel.add(comboBox);
             comboBox.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent arg0) {
                     JComboBox cb = (JComboBox) arg0.getSource();
-                    String projectName = (String) cb.getSelectedItem();
+                    String projectTypeName = (String) cb.getSelectedItem();
 
-                    projectType = ProjectConstants.getProjectType(projectName);
+                    projectType = ProjectConstants.getProjectType(projectTypeName);
                 }
 
             });
@@ -202,6 +203,10 @@ public class NewProjectDialog extends JDialog {
     public File getProjectDir() {
         return projectDir;
     }
+    public String getProjectName() {
+        return projetNameTextField.getText();
+    }
+
     public String getProjectType() {
         return projectType;
     }

@@ -1,8 +1,6 @@
 package net.itransformers.idiscover.api.models.graphml;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +9,9 @@ import java.util.Map;
 public class GraphmlNode {
 
     private String id;
+
+
+
     private String label;
 
     private Map<String, String> graphmlNodeData = new HashMap<>();
@@ -57,4 +58,20 @@ public class GraphmlNode {
     public void setGraphmlNodePorts(Map<String, String> graphmlNodePorts) {
         this.graphmlNodePorts = graphmlNodePorts;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GraphmlNode node = (GraphmlNode) o;
+
+        return id.equals(node.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
 }

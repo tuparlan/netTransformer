@@ -1,12 +1,14 @@
 package net.itransformers.filebasedprojectmanager;
 
 
+import de.svenjacobs.loremipsum.LoremIpsum;
 import net.itransformers.projectmanagerapi.ProjectManagerAPI;
 import net.itransformers.projectmanagerapi.ProjectManagerException;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -22,12 +24,23 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
     }
 
     @Override
-    public void createProject(String projectName, String projectTemplate) {
+    public void createProject(String projectName, String projectType) throws ProjectManagerException {
+        String projectTemplate = ProjectTypeToTemplateResolver.getProjectTemplate(projectType);
+
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
+
         File projectDir = getProjectDir(projectName);
-        copyInputStreamToFile(is, new File(projectDir, "netTransformer.pfl"));
+        if (!projectDir.exists()){
+            projectDir.mkdir();
+        }
+        try {
+            copyInputStreamToFile(is, new File(projectDir, projectType+".pfl"));
+        } catch (IOException e) {
+            throw new ProjectManagerException(e.getMessage(),e);
+        }
         createDirs(projectTemplate,projectName);
         createFiles(projectTemplate, projectName);
+
     }
 
     private File getProjectDir(String projectName){
@@ -39,7 +52,7 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
         return baseDir.list();
     }
 
-    private void  createFiles(String projectTemplate,String projectName){
+    private void   createFiles(String projectTemplate,String projectName) throws ProjectManagerException {
         InputStream is =this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
         Scanner s =  new Scanner(is);
 
@@ -51,17 +64,21 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
                 System.out.println("File "+text + " is empty!!!!");
                 continue;
             }
-            if (copyInputStreamToFile(iss, new File(getProjectDir(projectName), text))){
-                logger.trace("File "+text + " successfully created!!!");
+            try {
+                if (copyInputStreamToFile(iss, new File(getProjectDir(projectName), text))){
+                    logger.trace("File "+text + " successfully created!!!");
 
-            }   else{
-                logger.trace("File "+text + " creation failed!!!");
-                throw new ProjectManagerException("File "+text + " creation failed!!!");
+                }   else{
+                    logger.trace("File "+text + " creation failed!!!");
+                   // throw new ProjectManagerException("File "+text + " creation failed!!!");
+                }
+            } catch (IOException e) {
+                throw  new ProjectManagerException(e.getMessage(),e);
             }
         }
     }
 
-    private void  createDirs(String projectTemplate,String projectName){
+    private boolean  createDirs(String projectTemplate,String projectName) throws ProjectManagerException{
         InputStream is =this.getClass().getClassLoader().getResourceAsStream(projectTemplate);
         Scanner s =  new Scanner(is);
 
@@ -73,9 +90,11 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
             if(destDir.mkdirs()){
                 logger.trace("Dir "+text + " successfully created!!!");
             } else{
-                logger.trace("Dir "+text + " creation failed!!!");
+              //  throw new ProjectManagerException("Dir "+text + " creation failed!!!");
+
             }
         }
+        return true;
     }
 
     @Override
@@ -83,13 +102,14 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
 
         File projectDir = getProjectDir(projectName);
         try {
+            logger.info("Deleting project \""+projectName+"\" in folder \""+baseDir+"\"!!!");
             FileUtils.deleteDirectory(projectDir);
         } catch (IOException e) {
             throw new ProjectManagerException(e.getMessage(),e);
         }
     }
 
-    private boolean copyInputStreamToFile( InputStream in, File file ) {
+    private boolean copyInputStreamToFile( InputStream in, File file ) throws IOException{
         try {
             OutputStream out = new FileOutputStream(file);
             byte[] buf = new byte[1024];
@@ -100,9 +120,25 @@ public class FileBasedProjectManager implements ProjectManagerAPI {
             out.close();
             in.close();
             return true;
-        } catch (Exception e) {
-            logger.error(e.getMessage(),e);
-            return false;
+        } catch (IOException e) {
+            throw new ProjectManagerException(e.getMessage(),e);
+        }
+    }
+
+    public String randomProjectNameGenerator(String projectsBaseDir) {
+        LoremIpsum loremIpsum = new LoremIpsum();
+        Random randomGenerator = new Random();
+
+        while (true) {
+            int random = randomGenerator.nextInt(50);
+            String projectName = loremIpsum.getWords(1, random);
+            File projectDir = new File(projectsBaseDir, projectName);
+            if (projectDir.exists()) {
+               continue;
+            }else {
+                return projectName;
+            }
+
         }
     }
 }

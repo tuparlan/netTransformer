@@ -628,8 +628,11 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
 
     public double calculateNodeDensity(){
         int currentGraphVertexCount =  this.getCurrentGraph().getVertexCount();
+        if (currentGraphVertexCount > 100000){
+            return 0.000001;
 
-        if (currentGraphVertexCount > 10000){
+        }
+        else if (currentGraphVertexCount > 10000 && currentGraphVertexCount < 100000){
             return 0.00001;
 
         } else if(currentGraphVertexCount < 10000 && currentGraphVertexCount > 1000 ) {
@@ -692,6 +695,11 @@ public class GraphViewerPanel<G extends Graph<String, String>> extends JPanel {
         } else {
             y = y * (parent1.height - 150) / 1000;
         }
+        if (parent1.height*parent1.width > Integer.MAX_VALUE){
+            x=7680;
+            y=4320;
+        }
+//        i
 
         System.out.println("X: " + x + "Y: " + y + "width: " + parent1.width + "heigth: " + parent1.height);
         test.setSize(new Dimension(new Dimension(x, y)));

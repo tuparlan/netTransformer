@@ -129,17 +129,17 @@ public class OpenProjectMenuHandler implements ActionListener {
         int result = chooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = chooser.getSelectedFile();
-            if (selectedFile.isDirectory()){
-                File[] files = selectedFile.listFiles();
-                if (files != null) {
-                    for (File file : files) {
-                        if (file.getName().endsWith(".pfl")) {
-                            selectedFile = file;
-                            break;
-                        }
-                    }
-                }
-            }
+//            if (selectedFile.isDirectory()){
+//                File[] files = selectedFile.listFiles();
+//                if (files != null) {
+//                    for (File file : files) {
+//                        if (file.getName().endsWith(".pfl")) {
+//                            selectedFile = file;
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
             logger.info("Selected project file is:"+selectedFile.getAbsolutePath());
 
 

@@ -28,6 +28,27 @@
             <artifactId>xmlTopologyViewerConfig</artifactId>
             <version>0.8</version>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>csvConnectionDetails</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>xmlResourceManager</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>de.sven-jacobs</groupId>
+            <artifactId>loremipsum</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.0.2.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
