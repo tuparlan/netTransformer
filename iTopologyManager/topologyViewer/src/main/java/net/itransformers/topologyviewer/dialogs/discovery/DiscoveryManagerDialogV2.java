@@ -317,7 +317,7 @@ public class DiscoveryManagerDialogV2 extends JDialog {
         };
 
         nodeDiscovererImpl.addNetworkDiscoveryListeners(networkListener);
-        nodeDiscovererImpl.startDiscovery(new HashSet<>(connectionList.values()));
+        nodeDiscovererImpl.startDiscovery();
         return true;
     }
 
