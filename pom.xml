@@ -138,7 +138,7 @@
         <repository>
             <id>jfrogrepo</id>
             <name>jfrogrepo-releases</name>
-            <url>http://repo.itransformers.net:8081/artifactory/ext-release-local</url>
+            <url>http://repos.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
     </distributionManagement>
     <repositories>
@@ -146,12 +146,12 @@
         <repository>
             <id>jfrogrepo-libs-release-local</id>
             <name>jfrogrepo-releases</name>
-            <url>http://repo.itransformers.net:8081/artifactory/libs-release-local</url>
+            <url>http://repos.itransformers.net:8081/artifactory/libs-release-local</url>
         </repository>
         <repository>
             <id>jfrogrepo-ext-release-local</id>
             <name>jfrogrepo-releases</name>
-            <url>http://repo.itransformers.net:8081/artifactory/ext-release-local</url>
+            <url>http://repos.itransformers.net:8081/artifactory/ext-release-local</url>
         </repository>
 
         <!--<repository>-->
