@@ -21,7 +21,7 @@ import java.util.Set;
 public class SubnetDiscoverer implements NodeDiscoverer {
     static Logger logger = Logger.getLogger(SubnetDiscoverer.class);
 
-    int subnetMaxMaskSize;
+    int subnetMaxMaskSize = 24;
     boolean generateIPconnectionsForSubnetMembers;
 
     public SubnetDiscoverer(boolean generateIPconnectionsForSubnetMembers) {

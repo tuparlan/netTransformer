@@ -41,14 +41,14 @@
     <!--http://mvnrepository.com/artifact/net.sf.jung-->
     <modules>
         <module>utils</module>
-        <module>bgpPeeringMap</module>
+        <!--<module>bgpPeeringMap</module>-->
         <module>iDiscover</module>
         <module>iTopologyManager</module>
-        <module>distribution</module>
-        <module>iAssertions</module>
+        <!--<module>distribution</module>-->
+        <!--<module>iAssertions</module>-->
         <module>wsitransformer</module>
         <module>postDiscoverer</module>
-        <module>ideas</module>
+        <!--<module>ideas</module>-->
         <module>projectManager</module>
         <module>netTransformerBundle</module>
         <module>dockerBuild</module>
@@ -100,8 +100,34 @@
                         <target>1.8</target>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
 
 
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>2.19.1</version>
+
+                    <configuration>
+
+                        <aggregate>true</aggregate>
+                        <detail>true</detail>
+                        <outputDirectory>${basedir}/target/newsite</outputDirectory>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <outputDirectory>${basedir}/target/newsite</outputDirectory>
+                    </configuration>
+                </plugin>
 
                 <!--<plugin>-->
                 <!--<groupId>org.jfrog.buildinfo</groupId>-->
@@ -134,6 +160,7 @@
             </plugins>
         </pluginManagement>
     </build>
+
     <distributionManagement>
         <repository>
             <id>jfrogrepo</id>
