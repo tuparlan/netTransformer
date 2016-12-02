@@ -36,9 +36,6 @@ public class NetDiscovererController implements ServletContextAware {
     @Resource(name="versionManagerFactory")
     private VersionManagerFactory versionManagerFactory;
 
-    @Resource(name="connectionManagerFactory")
-    private ConnectionDetailsManagerFactory connectionManagerFactory;
-
     @Resource(name="projectPath")
     private String projectPath;
 
@@ -85,9 +82,7 @@ public class NetDiscovererController implements ServletContextAware {
         props.put("projectPath",projectPath);
         props.put("version",version);
         NetworkDiscoverer networkDiscoverer = networkDiscovererFactory.createNetworkDiscoverer("async_parallel", props);
-        ConnectionDetailsManager connectionManager = connectionManagerFactory.createConnectionDetailsManager("xml", props);
-        Map<String, ConnectionDetails> connDetails = connectionManager.getConnections();
-        networkDiscoverer.startDiscovery(new HashSet<>(connDetails.values()));
+        networkDiscoverer.startDiscovery();
         context.setAttribute(version, networkDiscoverer);
     }
 

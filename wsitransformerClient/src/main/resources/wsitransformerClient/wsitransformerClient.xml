@@ -29,6 +29,15 @@
         <property name="url" value="${wsitransformer.service.url}"/>
     </bean>
 
+    <bean id="networkDiscovererStub" class="net.itransformer.wsclient.iDiscover.NetworkDiscovererStub">
+        <property name="url" value="${wsitransformer.service.url}"/>
+        <property name="version" ref="version"/>
+    </bean>
+
+    <bean id="versionManagerStub" class="net.itransformer.wsclient.iDiscover.VersionManagerStub">
+        <property name="url" value="${wsitransformer.service.url}"/>
+    </bean>
+
     <context:property-placeholder location="classpath:application.properties,file:${WORKDIR}/application.properties"
                                   ignore-unresolvable="false" ignore-resource-not-found="true" />
 </beans>

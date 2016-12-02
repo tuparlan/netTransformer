@@ -20,6 +20,7 @@
 package net.itransformers.idiscover.v2.core.parallel;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.idiscover.api.*;
 import net.itransformers.idiscover.v2.core.*;
 import net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory;
@@ -55,6 +56,7 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     protected Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap = new HashMap<>();
     protected Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap = new HashMap<>();
 
+    protected ConnectionDetailsManager connectionManager;
 
     public ParallelNetworkNodeDiscovererImpl() {
 
@@ -66,7 +68,12 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     }
 
     @Override
-    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
+    public void startDiscovery() {
+        Map<String, ConnectionDetails> connDetails = connectionManager.getConnections();
+        this.startDiscovery(new HashSet<>(connDetails.values()));
+    }
+
+    protected void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
         this.setDiscoveryStatus(Status.STARTED);
         try {
             long startTime = System.currentTimeMillis();
@@ -339,6 +346,13 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         this.discoveryWorkerFactory = discoveryWorkerFactory;
     }
 
+    public ConnectionDetailsManager getConnectionManager() {
+        return connectionManager;
+    }
+
+    public void setConnectionManager(ConnectionDetailsManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     @Override
     public synchronized void stopDiscovery() {
