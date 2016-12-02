@@ -184,7 +184,7 @@
                 <version>2.1.1</version>
                 <configuration>
                     <warName>${project.name}</warName>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
                     <overlays>
                         <overlay>
                             <groupId>net.itransformers</groupId>

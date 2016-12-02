@@ -21,7 +21,7 @@
 
 <!--Change the value to refer to your project path -->
 
-<Context override="false" name="api">
+<Context override="false">
   <!--Set the environment according your own netTransformer project path-->
   <!--You can create a new proejct with netTransformerCLI utils-->
     <Environment name="wsitransformer/projectPath" type="java.lang.String"
@@ -30,5 +30,3 @@
                value="ipNetworkDiscovery"/>
 
 </Context>
-
-<!--<Context/>-->
