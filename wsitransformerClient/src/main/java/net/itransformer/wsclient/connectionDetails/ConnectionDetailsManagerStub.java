@@ -20,7 +20,7 @@ public class ConnectionDetailsManagerStub implements ConnectionDetailsManager {
     public Map<String, ConnectionDetails> getConnections() {
         RestTemplate restTemplate = new RestTemplate();
         @SuppressWarnings("unchecked")
-        Map<String, ConnectionDetails> result = restTemplate.getForObject(url+"/connections",  Map.class);
+        Map<String, ConnectionDetails> result = restTemplate.getForObject(url+"/connections/",  Map.class);
         return result;
     }
 

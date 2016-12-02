@@ -49,7 +49,7 @@ public class Main {
         ctx.load("classpath:wsitransformerClient/wsitransformerClient.xml");
         ctx.refresh();
 
-        ConnectionDetailsManager connectionDetailsManagerStub = ctx.getBean("networkDiscoveryFactory", ConnectionDetailsManager.class);
+        ConnectionDetailsManager connectionDetailsManagerStub = ctx.getBean("connectionDetailsManagerStub", ConnectionDetailsManager.class);
         Map<String, ConnectionDetails> connDetails = connectionDetailsManagerStub.getConnections();
         for (String key : connDetails.keySet()) {
             System.out.println(key);
