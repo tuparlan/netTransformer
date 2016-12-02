@@ -11,7 +11,7 @@ checkUndirectedGraphml(){
     checkGraphml
 }
 
-checkUndirectedGraph(){
+checkDirectedGraphml(){
      cd $baseDir/$projectName/$version/graphml-directed/
      checkGraphml
 }
@@ -31,5 +31,5 @@ checkGraphml(){
 
 }
 
-checkUndirectedGraph
+checkUndirectedGraphml
 
