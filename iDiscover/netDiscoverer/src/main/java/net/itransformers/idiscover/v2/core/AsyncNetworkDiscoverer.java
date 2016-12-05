@@ -18,8 +18,8 @@ public class AsyncNetworkDiscoverer implements NetworkDiscoverer {
     }
 
     @Override
-    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
-        new Thread(() -> networkDiscoverer.startDiscovery(connectionDetailsList)).start();
+    public void startDiscovery() {
+        new Thread(() -> networkDiscoverer.startDiscovery()).start();
     }
 
     @Override

@@ -48,10 +48,14 @@ public class SpringBasedNetworkDiscovererFactory implements NetworkDiscovererFac
                 rootBeanDefinition(String.class)
                 .addConstructorArgValue(version).getBeanDefinition();
 
+        BeanDefinition versionBeanDefinition = BeanDefinitionBuilder.
+                rootBeanDefinition(String.class)
+                .addConstructorArgValue(version).getBeanDefinition();
+
         ctx.registerBeanDefinition("projectPath", projectPathBeanDefinition);
         ctx.registerBeanDefinition("labelDirName", labelDirNameBeanDefinition);
+        ctx.registerBeanDefinition("version", versionBeanDefinition);
         ctx.refresh();
-
         NetworkDiscoverer discoverer = ctx.getBean("parallelSnmpDiscovery", NetworkDiscoverer.class);
 
         return  discoverer;

@@ -37,7 +37,7 @@ public interface NetworkDiscoverer  {
         STOPPING,
         STOPPED
     }
-    void startDiscovery(Set<ConnectionDetails> connectionDetailsList);
+    void startDiscovery();
     void stopDiscovery();
     void pauseDiscovery();
     void resumeDiscovery();

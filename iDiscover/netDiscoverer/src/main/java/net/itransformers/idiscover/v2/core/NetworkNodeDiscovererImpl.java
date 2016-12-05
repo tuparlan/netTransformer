@@ -20,6 +20,7 @@
 package net.itransformers.idiscover.v2.core;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.idiscover.api.NetworkDiscoveryListener;
 import net.itransformers.idiscover.api.NetworkDiscoveryResult;
 import net.itransformers.idiscover.api.NodeDiscoverer;
@@ -27,6 +28,7 @@ import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.idiscover.api.models.network.Node;
 import org.apache.log4j.Logger;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +37,7 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     private boolean isRunning;
     private boolean isPaused;
     private boolean isStopped;
+    protected ConnectionDetailsManager connectionManager;
 
     private NetworkDiscoveryResult discoverNetwork(Set<ConnectionDetails> connectionDetailsList, int depth) {
         isRunning = true;
@@ -143,7 +146,12 @@ public class NetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
     }
 
     @Override
-    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
+    public void startDiscovery() {
+        Map<String, ConnectionDetails> connDetails = connectionManager.getConnections();
+        this.startDiscovery(new HashSet<>(connDetails.values()));
+    }
+
+    protected void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
         discoverNetwork(connectionDetailsList, -1);
     }
 

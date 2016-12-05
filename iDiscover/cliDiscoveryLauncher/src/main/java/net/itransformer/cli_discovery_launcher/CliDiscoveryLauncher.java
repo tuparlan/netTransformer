@@ -194,9 +194,9 @@ public class CliDiscoveryLauncher {
             ConnectionDetailsManagerFactory factory = ctx.getBean("connectionManagerFactory",
                     ConnectionDetailsManagerFactory.class);
 
-            ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
-            Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnections();
-            networkDiscoverer.startDiscovery(new HashSet<>(connectionDetails.values()));
+//            ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
+//            Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnections();
+            networkDiscoverer.startDiscovery();
         }
 
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml `="1.0" encoding="UTF-8"?>
 
 <!--
   ~ snmpNetworkDiscovery.xml
@@ -44,12 +44,23 @@
     </bean>
 
     <bean id="discoveryWorkerFactory" class="net.itransformers.idiscover.v2.core.factory.DiscoveryWorkerFactory"/>
+    <bean id="connectionManager" class="net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager"
+        factory-bean="connectionManagerFactory" factory-method="createConnectionDetailsManager">
+        <constructor-arg name="type" value="xml"/>
+        <constructor-arg name="properties">
+            <map>
+                <entry key="projectPath" value-ref="projectPath"/>
+                <entry key="version" value-ref="version"/>
+            </map>
+        </constructor-arg>
+    </bean>
     <bean id="parallelSnmpDiscovery" class="net.itransformers.idiscover.v2.core.parallel.ParallelNetworkNodeDiscovererImpl">
         <property name="eventExecutorService" ref="eventExecutor"/>
         <property name="eventExecutorCompletionService" ref="eventExecutorCompletionService"/>
         <property name="executorService" ref="executorService"/>
         <property name="executorCompletionService" ref="executorCompletionService"/>
         <property name="discoveryWorkerFactory" ref="discoveryWorkerFactory"/>
+        <property name="co" ref="connectionManager"/>
         <property name="nodeDiscoverers">
             <map>
                 <entry key="any" value-ref="plumberNodeDiscoverer"/>

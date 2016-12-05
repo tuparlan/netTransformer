@@ -53,6 +53,8 @@
         <module>netTransformerBundle</module>
         <module>dockerBuild</module>
         <module>graphDiffer</module>
+        <module>wsitransformerClient</module>
+        <module>wsitransformerClientCli</module>
     </modules>
 
     <build>
