@@ -119,8 +119,9 @@ public class CliDiscoveryLauncher {
         }
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:cliDiscoveryLauncher/cliDiscoveryLauncher.xml");
-        ctx.refresh();
         ctx.load("classpath:fileBasedProjectManager/fileBasedProjectManager.xml");
+        ctx.refresh();
+
         FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("projectManagerFactory", FileBasedProjectManagerFactory.class);
 
         Map<String, String> parameters = new HashMap<>();
