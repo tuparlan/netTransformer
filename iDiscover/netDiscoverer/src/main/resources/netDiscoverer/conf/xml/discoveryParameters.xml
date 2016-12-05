@@ -40,7 +40,6 @@
         <discovery-method name="BGP">
             bgpLocalAs,bgpPeerEntry
         </discovery-method>
-
         <discovery-method name="ISIS">
             isisISAdjIPAddrEntry
         </discovery-method>

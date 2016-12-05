@@ -3,7 +3,6 @@ package net.itransformers.ws.connectionDetails;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
-import net.itransformers.connectiondetails.connectiondetailsapi.IPNetConnectionDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

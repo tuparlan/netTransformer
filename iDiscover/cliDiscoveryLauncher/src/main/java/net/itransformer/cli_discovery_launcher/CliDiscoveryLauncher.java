@@ -119,8 +119,11 @@ public class CliDiscoveryLauncher {
         }
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:cliDiscoveryLauncher/cliDiscoveryLauncher.xml");
-        ctx.refresh();
         ctx.load("classpath:fileBasedProjectManager/fileBasedProjectManager.xml");
+        ctx.load("classpath:xmlResourceManager/xmlResourceManagerFactory.xml");
+        ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
+        ctx.refresh();
+
         FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("projectManagerFactory", FileBasedProjectManagerFactory.class);
 
         Map<String, String> parameters = new HashMap<>();
@@ -174,9 +177,9 @@ public class CliDiscoveryLauncher {
         System.setProperty("base.dir",new File(projectName).getAbsolutePath());
 
         if ("y".equalsIgnoreCase(discover)) {
-
             NetworkDiscovererFactory discovererFactory = ctx.getBean("networkDiscoveryFactory", NetworkDiscovererFactory.class);
             VersionManagerFactory versionManagerFactory = ctx.getBean("versionManagerFactory", VersionManagerFactory.class);
+
             Map<String, String> props = new HashMap<>();
             props.put("projectPath", projectPath);
             VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
