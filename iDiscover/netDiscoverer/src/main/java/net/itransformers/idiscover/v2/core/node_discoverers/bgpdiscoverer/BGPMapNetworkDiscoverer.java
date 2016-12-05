@@ -22,6 +22,7 @@
 package net.itransformers.idiscover.v2.core.node_discoverers.bgpdiscoverer;
 
 import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
+import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
 import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.v2.core.ANetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscoveryResult;
@@ -34,6 +35,7 @@ import org.javamrt.dumper.Route2GraphmlDumper;
 import org.javamrt.dumper.structures.ASContainer;
 
 import java.io.*;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,15 +47,20 @@ public class BGPMapNetworkDiscoverer extends ANetworkDiscoverer {
     static Logger logger = Logger.getLogger(BGPMapNetworkDiscoverer.class);
     String fileLocation =null;
 
+    protected ConnectionDetailsManager connectionManager;
 
     public BGPMapNetworkDiscoverer(Map<String, String> attributes)  {
 
         fileLocation=attributes.get("file");
        // walker = (JsonDiscoverer) new DefaultDiscovererFactory().createDiscoverer(resource);
     }
-
     @Override
-    public void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
+    public void startDiscovery() {
+        Map<String, ConnectionDetails> connDetails = connectionManager.getConnections();
+        this.startDiscovery(new HashSet<>(connDetails.values()));
+    }
+
+    protected void startDiscovery(Set<ConnectionDetails> connectionDetailsList) {
 
         NetworkDiscoveryResult result = new NetworkDiscoveryResult(null);
 

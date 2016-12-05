@@ -50,8 +50,8 @@ public class ConnectionDetailsController implements ServletContextAware {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public LinkedHashMap getConnectionDetails() {
-        return (LinkedHashMap) getConnectionDetailsManager().getConnections();
+    public Map<String, ConnectionDetails> getConnectionDetails() {
+        return getConnectionDetailsManager().getConnections();
     }
 
     @RequestMapping(value = "/", method=RequestMethod.POST)
