@@ -21,17 +21,20 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CreateTerminalHandler implements RightClickHandler {
-    protected ResourceResolver resourceResolver;
+    protected ResourceManagerFactory resourceManagerFactory;
 
-    public CreateTerminalHandler(ResourceResolver resourceResolver) {
-        this.resourceResolver = resourceResolver;
+    public CreateTerminalHandler(ResourceManagerFactory resourceManagerFactory) {
+        this.resourceManagerFactory = resourceManagerFactory;
     }
 
     public <G> void handleRightClick(JFrame parent, String v,
@@ -39,6 +42,11 @@ public class CreateTerminalHandler implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      File projectPath,
                                      File s){
+        Map<String, String> props = new HashMap<>();
+        props.put("projectPath",projectPath.getAbsolutePath());
+        ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml",props);
+        ResourceResolver resourceResolver = new ResourceResolver(resourceManager);
+
         Map<String,String> connParams;
         try {
             connParams = resourceResolver.getResource(graphMLParams, "ssh");

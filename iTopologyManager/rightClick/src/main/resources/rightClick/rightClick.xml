@@ -28,12 +28,12 @@
     <bean id="tabbedViewerOpener" class="net.itransformers.topologyviewer.rightclick.impl.TabbedViewerOpener">
     </bean>
     <bean id="createTerminalHandler" class="net.itransformers.topologyviewer.rightclick.impl.CreateTerminalHandler">
-        <constructor-arg name="resourceResolver" ref="resourceResolver"/>
+        <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
     </bean>
     <bean id="urlRightClickOpener" class="net.itransformers.topologyviewer.rightclick.impl.URLRightClickOpener">
     </bean>
     <bean id="puttyRightClickHandler" class="net.itransformers.topologyviewer.rightclick.impl.PuttyRightClickHandler">
-        <constructor-arg name="resourceResolver" ref="resourceResolver"/>
+        <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
     </bean>
     <bean id="xmlTreeViewHandler" class="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
     </bean>
@@ -49,22 +49,9 @@
     <bean id="changeIPSecKeyHandler" class="net.itransformers.topologyviewer.rightclick.impl.ipsec.ChangeIPSecKeyHandler"/>
     <!--</bean>-->
     <bean id="cmdRightClickHandler" class="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
-        <constructor-arg name="resourceManager" ref="resourceManager"/>
-        <constructor-arg name="resourceResolver" ref="resourceResolver"/>
+        <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
     </bean>
     <bean id="shortestPathProvisioning" class="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
-        <constructor-arg name="resourceManager" ref="resourceManager"/>
-        <constructor-arg name="resourceResolver" ref="resourceResolver"/>
-    </bean>
-    <bean id="resourceResolver" class="net.itransformers.topologyviewer.rightclick.impl.ResourceResolver">
-        <constructor-arg name="resourceManager" ref="resourceManager"/>
-    </bean>
-    <bean id="resourceManager" factory-bean="resourceManagerFactory" factory-method="createResourceManager">
-        <constructor-arg name="type" value="xml"/>
-        <constructor-arg name="properties">
-            <map>
-                <entry key="projectPath" value-ref="projectPath"/>
-            </map>
-        </constructor-arg>
+        <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
     </bean>
 </beans>

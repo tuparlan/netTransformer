@@ -22,6 +22,7 @@
 package net.itransformers.topologyviewer.rightclick.impl;
 
 import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
@@ -45,12 +46,10 @@ import java.util.logging.Logger;
 
 public class CmdRightClickHandler implements RightClickHandler {
 
-    protected ResourceManager resourceManager;
-    protected ResourceResolver resourceResolver;
+    protected ResourceManagerFactory resourceManagerFactory;
 
-    public CmdRightClickHandler(ResourceManager resourceManager, ResourceResolver resourceResolver) {
-        this.resourceManager = resourceManager;
-        this.resourceResolver = resourceResolver;
+    public CmdRightClickHandler(ResourceManagerFactory resourceManagerFactory) {
+        this.resourceManagerFactory = resourceManagerFactory;
     }
 
     public <G> void handleRightClick(JFrame parent, String v,
@@ -58,6 +57,11 @@ public class CmdRightClickHandler implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      File projectPath,
                                      File versionDir) throws Exception {
+        Map<String, String> props = new HashMap<>();
+        props.put("projectPath",projectPath.getAbsolutePath());
+        ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml",props);
+        ResourceResolver resourceResolver = new ResourceResolver(resourceManager);
+
         ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("graphml", graphMLParams);

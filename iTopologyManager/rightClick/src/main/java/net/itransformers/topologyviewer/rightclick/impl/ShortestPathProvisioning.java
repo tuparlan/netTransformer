@@ -21,6 +21,7 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
@@ -49,11 +50,9 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class ShortestPathProvisioning implements RightClickHandler {
-    protected ResourceManager resourceManager;
-    protected ResourceResolver resourceResolver;
-    public ShortestPathProvisioning(ResourceManager resourceManager, ResourceResolver resourceResolver) {
-        this.resourceManager = resourceManager;
-        this.resourceResolver = resourceResolver;
+    protected ResourceManagerFactory resourceManagerFactory;
+    public ShortestPathProvisioning(ResourceManagerFactory resourceManagerFactory) {
+        this.resourceManagerFactory = resourceManagerFactory;
     }
 
     public <G> void  handleRightClick(JFrame parent, String v,
@@ -61,6 +60,10 @@ public class ShortestPathProvisioning implements RightClickHandler {
                                       Map<String, String> rightClickParams,
                                       File projectPath,
                                       java.io.File deviceDataXmlFileName) throws Exception {
+        Map<String, String> props = new HashMap<>();
+        props.put("projectPath",projectPath.getAbsolutePath());
+        ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml",props);
+        ResourceResolver resourceResolver = new ResourceResolver(resourceManager);
 
         TopologyManagerFrame viewer = (TopologyManagerFrame) parent;
         final GraphViewerPanel viewerPanel = (GraphViewerPanel) viewer.getTabbedPane().getSelectedComponent();

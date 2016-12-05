@@ -21,18 +21,21 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.topologyviewer.rightclick.impl.putty.Putty;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PuttyRightClickHandler implements RightClickHandler {
-    protected ResourceResolver resourceResolver;
+    protected ResourceManagerFactory resourceManagerFactory;
 
-    public PuttyRightClickHandler(ResourceResolver resourceResolver) {
-        this.resourceResolver = resourceResolver;
+    public PuttyRightClickHandler(ResourceManagerFactory resourceManagerFactory) {
+        this.resourceManagerFactory = resourceManagerFactory;
     }
 
     public <G> void handleRightClick(JFrame parent, String v,
@@ -40,6 +43,11 @@ public class PuttyRightClickHandler implements RightClickHandler {
                                      Map<String, String> rightClickParams,
                                      File projectPath,
                                      java.io.File s){
+        Map<String, String> props = new HashMap<>();
+        props.put("projectPath",projectPath.getAbsolutePath());
+        ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml",props);
+        ResourceResolver resourceResolver = new ResourceResolver(resourceManager);
+
         Map<String,String> connParams;
         try {
             connParams = resourceResolver.getResource(graphMLParams, "ssh");
