@@ -11,9 +11,9 @@ netTransformer is a software prototype able to:
 
 If that sounds interesting and you want to find out more please review the [UserGuide](http://www.itransformers.net/UserGuide-Pirin.pdf) or visit our [youtube channel] (https://www.youtube.com/channel/UCVrXTSM9Hj6d3OFbIdF4Z2w). 
 
-Build status 
+[![Build Status](http://build.itransformers.net:8080/buildStatus/icon?job=netTransformer-jobs/netTransformerPlumberPipe)](http://build.itransformers.net:8080/job/netTransformer-jobs/job/netTransformerPlumberPipe/) 
 ==============
-[ ![Build Status for iTransformers/netTransformer](https://codeship.com/projects/c47eaf80-d1cd-0133-f191-46ddfea9cbb7/status?branch=master)](https://codeship.com/projects/141650)
+
 
 Q&A and Issue tracker
 ==============
