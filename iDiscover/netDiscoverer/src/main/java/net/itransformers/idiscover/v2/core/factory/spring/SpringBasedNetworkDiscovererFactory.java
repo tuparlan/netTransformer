@@ -41,6 +41,8 @@ public class SpringBasedNetworkDiscovererFactory implements NetworkDiscovererFac
 
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:netDiscoverer/netDiscoverer.xml");
+        ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
+
         AbstractBeanDefinition projectPathBeanDefinition = BeanDefinitionBuilder.rootBeanDefinition(String.class)
                 .addConstructorArgValue(projectPath).getBeanDefinition();
 

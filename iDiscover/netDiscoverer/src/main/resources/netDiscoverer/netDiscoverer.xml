@@ -57,7 +57,7 @@
         <property name="executorService" ref="executorService"/>
         <property name="executorCompletionService" ref="executorCompletionService"/>
         <property name="discoveryWorkerFactory" ref="discoveryWorkerFactory"/>
-        <property name="co" ref="connectionManager"/>
+        <property name="connectionManager" ref="connectionManager"/>
         <property name="nodeDiscoverers">
             <map>
                 <entry key="any" value-ref="plumberNodeDiscoverer"/>

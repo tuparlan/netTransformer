@@ -1,8 +1,5 @@
 package net.itransformer.cli_discovery_launcher;
 
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetails;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManager;
-import net.itransformers.connectiondetails.connectiondetailsapi.ConnectionDetailsManagerFactory;
 import net.itransformers.filebasedprojectmanager.FileBasedProjectManager;
 import net.itransformers.filebasedprojectmanager.FileBasedProjectManagerFactory;
 import net.itransformers.idiscover.api.NetworkDiscoverer;
@@ -18,7 +15,6 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -120,8 +116,8 @@ public class CliDiscoveryLauncher {
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
         ctx.load("classpath:cliDiscoveryLauncher/cliDiscoveryLauncher.xml");
         ctx.load("classpath:fileBasedProjectManager/fileBasedProjectManager.xml");
-        ctx.load("classpath:xmlResourceManager/xmlResourceManagerFactory.xml");
-        ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
+//        ctx.load("classpath:xmlResourceManager/xmlResourceManagerFactory.xml");
+//        ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
         ctx.refresh();
 
         FileBasedProjectManagerFactory fileBasedProjectManagerFactory = ctx.getBean("projectManagerFactory", FileBasedProjectManagerFactory.class);
@@ -185,6 +181,7 @@ public class CliDiscoveryLauncher {
             VersionManager versionManager = versionManagerFactory.createVersionManager("dir", props);
             String version = versionManager.createVersion();
             props.put("version", version);
+
             NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer("parallel", props);
 
 
@@ -194,11 +191,7 @@ public class CliDiscoveryLauncher {
                     System.out.println("Discovered node: " + node);
                 }
             });
-            ConnectionDetailsManagerFactory factory = ctx.getBean("connectionManagerFactory",
-                    ConnectionDetailsManagerFactory.class);
 
-//            ConnectionDetailsManager connectionDetailsManager = factory.createConnectionDetailsManager("csv", props);
-//            Map<String, ConnectionDetails> connectionDetails = connectionDetailsManager.getConnections();
             networkDiscoverer.startDiscovery();
         }
 

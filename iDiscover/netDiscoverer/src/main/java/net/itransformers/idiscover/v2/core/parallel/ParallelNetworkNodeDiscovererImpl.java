@@ -375,4 +375,39 @@ public class ParallelNetworkNodeDiscovererImpl extends NetworkNodeDiscoverer {
         this.setDiscoveryStatus(Status.STARTED);
     }
 
+    public NodeFactory getNodeFactory() {
+        return nodeFactory;
+    }
+
+    public void setNodeFactory(NodeFactory nodeFactory) {
+        this.nodeFactory = nodeFactory;
+    }
+
+    public void setFutureCounter(int futureCounter) {
+        this.futureCounter = futureCounter;
+    }
+
+    public void setEventFutureCount(int eventFutureCount) {
+        this.eventFutureCount = eventFutureCount;
+    }
+
+    public void setDiscoveredConnectionDetails(Set<ConnectionDetails> discoveredConnectionDetails) {
+        this.discoveredConnectionDetails = discoveredConnectionDetails;
+    }
+
+    public Map<String, List<Future<NodeDiscoveryResult>>> getNodeNeighbourFuturesMap() {
+        return nodeNeighbourFuturesMap;
+    }
+
+    public void setNodeNeighbourFuturesMap(Map<String, List<Future<NodeDiscoveryResult>>> nodeNeighbourFuturesMap) {
+        this.nodeNeighbourFuturesMap = nodeNeighbourFuturesMap;
+    }
+
+    public Map<String, NodeDiscoveryResult> getNodeDiscoveryResultMap() {
+        return nodeDiscoveryResultMap;
+    }
+
+    public void setNodeDiscoveryResultMap(Map<String, NodeDiscoveryResult> nodeDiscoveryResultMap) {
+        this.nodeDiscoveryResultMap = nodeDiscoveryResultMap;
+    }
 }
