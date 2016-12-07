@@ -82,12 +82,6 @@
             <artifactId>spring-context</artifactId>
             <version>4.0.2.RELEASE</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>net.sf.json-lib</groupId>-->
-        <!--<artifactId>json-lib</artifactId>-->
-        <!--<version>2.4</version>-->
-        <!--<classifier>jdk15</classifier>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.pacesys</groupId>
             <artifactId>openstack4j</artifactId>
@@ -98,66 +92,24 @@
             <artifactId>dnsjava</artifactId>
             <version>2.1.6</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.neo4j.app</groupId>-->
-        <!--<artifactId>neo4j-server</artifactId>-->
-        <!--<version>1.8.M07</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.neo4j.app</groupId>-->
-        <!--<artifactId>neo4j-server</artifactId>-->
-        <!--<classifier>static-web</classifier>-->
-        <!--<version>1.8.M07</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.neo4j</groupId>-->
-        <!--<artifactId>neo4j-lucene-index</artifactId>-->
-        <!--&lt;!&ndash;<classifier>static-web</classifier>&ndash;&gt;-->
-        <!--<version>1.8-SNAPSHOT</version>-->
-        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-rest-graphdb</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <!--<dependency>-->
-        <!--<groupId>xom</groupId>-->
-        <!--<artifactId>xom</artifactId>-->
-        <!--<version>1.2.5</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>netTransformer</groupId>
             <artifactId>java-mrt</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-cypher</artifactId>
-            <version>2.1.5</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/edu.uci.ics/crawler4j -->
         <dependency>
             <groupId>edu.uci.ics</groupId>
             <artifactId>crawler4j</artifactId>
-            <version>3.5</version>
-            <type>jar</type>
-            <scope>compile</scope>
+            <version>4.2</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.4.0</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.googlecode.sli4j</groupId>-->
-        <!--<artifactId>sli4j-slf4j</artifactId>-->
-        <!--<version>2.0</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.jclouds.driver</groupId>-->
-        <!--<artifactId>jclouds-slf4j</artifactId>-->
-        <!--<version>1.8.1</version>-->
-        <!--</dependency>-->
+
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -209,48 +161,6 @@
                     <workingDirectory>${project.parent.parent.basedir}</workingDirectory>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-            <!--<artifactId>maven-antrun-plugin</artifactId>-->
-            <!--<version>1.7</version>-->
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<id>compile</id>-->
-            <!--<phase>generate-sources</phase>-->
-            <!--<configuration>-->
-            <!--<target>-->
-            <!--<taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">-->
-            <!--<classpath refid="maven.compile.classpath" />-->
-            <!--</taskdef>-->
-            <!--<mkdir dir="${project.build.outputDirectory}" />-->
-            <!--<groovyc srcdir="${basedir}/src/main/groovy" destdir="${project.build.outputDirectory}" encoding="${project.build.sourceEncoding}">-->
-            <!--<classpath refid="maven.compile.classpath" />-->
-            <!--</groovyc>-->
-            <!--</target>-->
-            <!--</configuration>-->
-            <!--<goals>-->
-            <!--<goal>run</goal>-->
-            <!--</goals>-->
-            <!--</execution>-->
-            <!--<execution>-->
-            <!--<id>test-compile</id>-->
-            <!--<phase>generate-test-sources</phase>-->
-            <!--<configuration>-->
-            <!--<target>-->
-            <!--<taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">-->
-            <!--<classpath refid="maven.test.classpath" />-->
-            <!--</taskdef>-->
-            <!--<mkdir dir="${project.build.testOutputDirectory}" />-->
-            <!--<groovyc srcdir="${basedir}/src/test/groovy" destdir="${project.build.testOutputDirectory}" encoding="${project.build.sourceEncoding}">-->
-            <!--<classpath refid="maven.test.classpath" />-->
-            <!--</groovyc>-->
-            <!--</target>-->
-            <!--</configuration>-->
-            <!--<goals>-->
-            <!--<goal>run</goal>-->
-            <!--</goals>-->
-            <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <!-- 2.8.0-01 and later require maven-compiler-plugin 3.1 or higher -->
@@ -273,33 +183,10 @@
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-eclipse-batch</artifactId>
                         <version>2.1.8-01</version>
-                        <!-- or choose a different compiler version -->
-                        <!-- <version>1.8.6-01</version> -->
-                        <!-- <version>1.7.10-06</version> -->
                     </dependency>
 
                 </dependencies>
             </plugin>
-            <!--<plugin>-->
-            <!--<groupId>org.codehaus.mojo</groupId>-->
-            <!--<artifactId>build-helper-maven-plugin</artifactId>-->
-            <!--<version>1.5</version>-->
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<id>add-source</id>-->
-            <!--<phase>generate-sources</phase>-->
-            <!--<goals>-->
-            <!--<goal>add-source</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-            <!--<sources>-->
-            <!--<source>iDiscover/conf/groovy</source>-->
-            <!--</sources>-->
-            <!--</configuration>-->
-            <!--</execution>-->
-
-            <!--</executions>-->
-            <!--</plugin>-->
 
         </plugins>
 

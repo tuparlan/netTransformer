@@ -74,16 +74,6 @@
                     <exclude>META-INF/*.DSA</exclude>
                     <exclude>META-INF/*.RSA</exclude>
                 </excludes>
-                <!--<includes>-->
-
-                    <!--&lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.vm</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.pfl</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.txt</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.xslt</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.png</include>&ndash;&gt;-->
-                <!--</includes>-->
             </resource>
         </resources>
         <pluginManagement>
@@ -98,13 +88,6 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.17</version>
                     <configuration>
-                        <reportSets>
-                            <reportSet>
-                                <reports>
-                                    <report>checkstyle</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
                     </configuration>
 
                 </plugin>

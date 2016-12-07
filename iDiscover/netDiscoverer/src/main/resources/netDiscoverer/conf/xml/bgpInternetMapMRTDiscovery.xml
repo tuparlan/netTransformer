@@ -38,28 +38,8 @@
             <list>
                 <!--<ref bean="rawDataFileLogDiscoveryListener"/>-->
                 <ref bean="NetworkGraphmlFileLogDiscoveryListener"/>
-
-                <ref bean="Neo4JGraphmlBGPDiscoveryListener"/>
             </list>
         </property>
-    </bean>
-
-
-
-
-    <bean id="Neo4JGraphmlBGPDiscoveryListener" class="net.itransformers.idiscover.v2.core.listeners.network.Neo4JGraphmlBGPDiscoveryListener">
-        <property name="labelDirName" value="version1"/>
-        <property name="graphmlDirName" value="undirected"/>
-        <property name="xsltFileName" value="../iDiscover/conf/xslt/inet-map2.xslt"/>
-        <property name="graphDbUrl" value="http://54.69.21.203:7474/db/data"/>
-        <property name="dataType" value="rawData"/>
-        <property name="params">
-            <map>
-                <entry key="as-numbers" value="../../../bgpPeeringMap/conf/xml/autnums.xml"/>
-            </map>
-        </property>
-
-
     </bean>
 
 </beans>

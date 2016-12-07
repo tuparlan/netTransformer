@@ -56,14 +56,14 @@
             <!--<version>2.0.3</version>-->
         <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-kernel</artifactId>
-            <version>2.1.2</version>
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-kernel</artifactId>-->
+            <!--<version>2.1.2</version>-->
             <!--<version>1.9.6</version>-->
             <!--<type>test-jar</type>-->
-            <scope>compile</scope>
-        </dependency>
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
 
         <!--<dependency>-->
             <!--<groupId>org.neo4j</groupId>-->
@@ -97,11 +97,11 @@
         <!--</dependency>-->
 
 
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-rest-graphdb</artifactId>
-            <version>2.0.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-rest-graphdb</artifactId>-->
+            <!--<version>2.0.1</version>-->
+        <!--</dependency>-->
     <!--</dependencies>-->
     <!--<dependencies>-->
         <!--<dependency>-->
@@ -115,21 +115,21 @@
             <!--<version>2.2.4</version>-->
         <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.sun.jersey.contribs</groupId>
-            <artifactId>jersey-apache-client</artifactId>
-            <version>1.14</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>1.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json.simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.sun.jersey.contribs</groupId>-->
+            <!--<artifactId>jersey-apache-client</artifactId>-->
+            <!--<version>1.14</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.sun.jersey</groupId>-->
+            <!--<artifactId>jersey-client</artifactId>-->
+            <!--<version>1.14</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.json.simple</groupId>-->
+            <!--<artifactId>json-simple</artifactId>-->
+            <!--<version>1.1.1</version>-->
+        <!--</dependency>-->
 
         <!--<dependency>-->
             <!--<groupId>net.i2cat.netconf</groupId>-->
@@ -230,10 +230,10 @@
             <!--<id>itransformers-repo</id>-->
             <!--<url>http://repo.itransformers.net/repos/</url>-->
         <!--</repository>-->
-        <repository>
-            <id>neo4j_repo</id>
-            <url>http://m2.neo4j.org/content/repositories/releases/</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>neo4j_repo</id>-->
+            <!--<url>http://m2.neo4j.org/content/repositories/releases/</url>-->
+        <!--</repository>-->
         <!--<repository>-->
             <!--<id>neo4j-release-repository</id>-->
             <!--<name>Neo4j Maven 2 release repository</name>-->

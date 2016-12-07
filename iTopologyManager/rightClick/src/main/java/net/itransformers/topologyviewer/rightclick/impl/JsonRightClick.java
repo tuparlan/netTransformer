@@ -21,15 +21,17 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.topologyviewer.rightclick.impl.putty.Putty;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -46,72 +48,124 @@ public class JsonRightClick implements RightClickHandler {
                                      Map<String, String> graphMLParams,
                                      Map<String, String> rightClickParams,
                                      File projectPath,
-                                     java.io.File s){
-        Map<String,String> connParams;
+                                     java.io.File s) {
+        try {
+            Map<String, String> connParams;
 
-        final String url = rightClickParams.get("protocol") +"://" + graphMLParams.get("ipAddress")  + ":" + rightClickParams.get("port");
-
-        WebResource resource = Client.create()
-                .resource(url);
-        String operation = rightClickParams.get("operation");
-
-        if (operation.equals("get")){
-            ClientResponse response = resource.accept("application/json")
-                .get(ClientResponse.class);
+            final String url = rightClickParams.get("protocol") + "://" + graphMLParams.get("ipAddress") + ":" + rightClickParams.get("port");
 
 
-            if (response.getStatus() != 200) {
-                logger.error("Failed : HTTP error code : " + response.getStatus());
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
+            String operation = rightClickParams.get("operation");
 
-            }
-            String output = response.getEntity(String.class);
-            response.close();
+            if (operation.equals("get")) {
+                URL obj = null;
+                obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        }else if (operation.equals("post")){
-            String input = "{\"singer\":\"Metallica\",\"title\":\"Fade To Black\"}";
+                con.setRequestMethod("POST");
+                con.setRequestProperty("User-Agent", "java");
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setDoOutput(false);
 
-            ClientResponse response = resource.type("application/json")
-                    .post(ClientResponse.class, input);
+                int responseCode = con.getResponseCode();
+//        System.out.println("\nSending 'POST' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
 
-            if (response.getStatus() != 201) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
-            }
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
 
-        }   else if(operation.equals("put")){
-            String input = "{\"singer\":\"Metallica\",\"title\":\"Fade To Black\"}";
-
-            ClientResponse response = resource.type("application/json")
-                    .put(ClientResponse.class, input);
-
-            if (response.getStatus() != 201) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
-            }
-        }
-            else {
-            ClientResponse  response = resource.accept("application/json")
-                        .delete(ClientResponse.class);
-
-
-                if (response.getStatus() != 200) {
-                    logger.error("Failed : HTTP error code : " + response.getStatus());
-                    throw new RuntimeException("Failed : HTTP error code : "
-                            + response.getStatus());
-
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
                 }
-                String output = response.getEntity(String.class);
-                response.close();
+                in.close();
+
+                if (responseCode != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + responseCode);
+                }
+
+            } else if (operation.equals("post")) {
+                String request = "{\"singer\":\"Metallica\",\"title\":\"Fade To Black\"}";
+                URL obj = null;
+                obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+                con.setRequestMethod("POST");
+                con.setRequestProperty("User-Agent", "java");
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setDoOutput(true);
+                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                wr.writeBytes(request);
+                wr.flush();
+                wr.close();
+
+                int responseCode = con.getResponseCode();
+//        System.out.println("\nSending 'POST' request to URL : " + url);
+                System.out.println("Request: " + request);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                if (responseCode != 201) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + responseCode);
+                }
+
+            } else if (operation.equals("put")) {
+                String request = "{\"singer\":\"Metallica\",\"title\":\"Fade To Black\"}";
+                URL obj = null;
+                obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+                con.setRequestMethod("PUT");
+                con.setRequestProperty("User-Agent", "java");
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setDoOutput(true);
+                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                wr.writeBytes(request);
+                wr.flush();
+                wr.close();
+
+                int responseCode = con.getResponseCode();
+//        System.out.println("\nSending 'POST' request to URL : " + url);
+                System.out.println("Request: " + request);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                if (responseCode != 201) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + responseCode);
+                }
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
 
 
     protected void handleConnParams(JFrame parent, Map<String, String> connParams, Map<String, String> rightClickParams) {
-            Putty putty = new Putty(rightClickParams);
-            putty.openSession(connParams);
-        }
-
-
+        Putty putty = new Putty(rightClickParams);
+        putty.openSession(connParams);
     }
+
+
+}

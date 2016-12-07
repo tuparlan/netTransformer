@@ -26,8 +26,8 @@ import net.itransformers.idiscover.util.JaxbMarshalar;
 import net.itransformers.idiscover.api.NodeDiscoveryResult;
 import net.itransformers.idiscover.v2.core.listeners.node.GraphmlFileLogGroovyDiscoveryListener;
 import net.itransformers.utils.ProjectConstants;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.parboiled.common.FileUtils;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
@@ -75,7 +75,7 @@ public class GraphmlFileLogGroovyDiscoveryListenerTestCase {
         InputStream groovyIs = new FileInputStream("iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy");
         File groovyPath = new File(projectPath, "iDiscover/conf/groovy");
         groovyPath.mkdirs();
-        FileUtils.copyAll(groovyIs, new FileOutputStream(new File(groovyPath, "RawData2GraphmlTransformer.groovy")));
+        FileUtils.copyInputStreamToFile(groovyIs, new File(groovyPath, "RawData2GraphmlTransformer.groovy"));
         listener.setRawData2GraphmlGroovyTransformer("iDiscover/conf/groovy/RawData2GraphmlTransformer.groovy");
         NodeDiscoveryResult discoveryResult = new NodeDiscoveryResult("123",null);
         InputStream is = this.getClass().getResourceAsStream("/bfogal54-peer.xml");
