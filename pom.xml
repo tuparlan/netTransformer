@@ -59,32 +59,32 @@
 
     <build>
         <resources>
-            <resource>
-                <directory>${project.basedir}</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/Dockerfile</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                </excludes>
+            <!--<resource>-->
+                <!--<directory>${project.basedir}</directory>-->
+                <!--<filtering>true</filtering>-->
                 <!--<includes>-->
-
-                    <!--&lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.vm</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.pfl</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.txt</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.xslt</include>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<include>**/*.png</include>&ndash;&gt;-->
+                    <!--<include>**/Dockerfile</include>-->
                 <!--</includes>-->
-            </resource>
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<excludes>-->
+                    <!--<exclude>META-INF/*.SF</exclude>-->
+                    <!--<exclude>META-INF/*.DSA</exclude>-->
+                    <!--<exclude>META-INF/*.RSA</exclude>-->
+                <!--</excludes>-->
+                <!--&lt;!&ndash;<includes>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.vm</include>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.pfl</include>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.txt</include>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.xslt</include>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<include>**/*.png</include>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</includes>&ndash;&gt;-->
+            <!--</resource>-->
         </resources>
         <pluginManagement>
             <plugins>
