@@ -79,6 +79,8 @@
                     <exclude>META-INF/*.SF</exclude>
                     <exclude>META-INF/*.DSA</exclude>
                     <exclude>META-INF/*.RSA</exclude>
+                    <exclude>junit:junit</exclude>
+                    <exclude>org.apache.maven:lib:tests</exclude>
                 </excludes>
                 <!--<includes>-->
 
