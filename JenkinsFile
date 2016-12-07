@@ -1,0 +1,53 @@
+def extWorkspace = exwsAllocate 'diskpool1'
+
+node{
+    exws (extWorkspace) {
+        stage ('WS allocation'){
+            step([$class: 'WsCleanup'])
+        }
+        withMaven(maven: 'M3', mavenSettingsConfig: '55234634-bcc4-4034-9a07-a1df766290f5') {
+            try {
+                    sh "env| grep -i M"
+                    // Mark the code checkout 'stage'....
+                    stage ('Checkout'){
+                        // Get some code from a GitHub repository
+                        git url: 'https://github.com/iTransformers/netTransformer'
+                    }
+                    stage ('Validate'){
+                        sh "mvn validate"
+                    }
+                    // Run the maven build
+                    stage ('Package '){
+                        sh "mvn clean package -DskipTests"
+                    }
+                    stage ('Test'){
+                       build 'unitTests'
+                       build job: 'cliFunctionalTests', propagate: true, wait: true
+                    }
+                    stage ('Docker images'){
+                         build job: 'Docker', propagate: true, wait: true
+
+                    }
+                    stage ('Deploy'){
+                         echo 'Deploy'
+
+                    }
+                    stage ('Archieve the artefacts'){
+                        step([$class: 'ArtifactArchiver', artifacts: 'netTransformerBundle/target/netTransformer.jar', fingerprint: true])
+                        step([$class: 'ArtifactArchiver', artifacts: 'wsitransformer/target/*.war', fingerprint: true])
+
+                    }
+            }catch(all){
+                // if any exception occurs, mark the build as failed
+                currentBuild.result = 'FAILURE'
+                throw all
+            } finally {
+                stage ('Tear Down'){
+                   step([$class: 'WsCleanup', cleanWhenFailure: false])
+                }
+            }
+
+        }
+
+    }
+}
