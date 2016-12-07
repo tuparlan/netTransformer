@@ -71,6 +71,27 @@
 
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                </excludes>
+                <!--<includes>-->
+
+                <!--&lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include>**/*.vm</include>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include>**/*.pfl</include>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include>**/*.txt</include>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include>**/*.xslt</include>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include>**/*.png</include>&ndash;&gt;-->
+                <!--</includes>-->
+            </resource>
+        </resources>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>

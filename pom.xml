@@ -66,15 +66,7 @@
                     <include>**/Dockerfile</include>
                 </includes>
             </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                </excludes>
-            </resource>
+
         </resources>
         <pluginManagement>
             <plugins>
