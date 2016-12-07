@@ -58,11 +58,11 @@
                 <!--<artifactId>fulfilmentFactory</artifactId>-->
                 <!--<version>0.8</version>-->
             <!--</dependency>-->
-            <dependency>
-                <groupId>net.itransformers</groupId>
-                <artifactId>parameterFactory</artifactId>
-                <version>0.8</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>net.itransformers</groupId>-->
+                <!--<artifactId>parameterFactory</artifactId>-->
+                <!--<version>0.8</version>-->
+            <!--</dependency>-->
         <!--<dependency>-->
             <!--<groupId>net.itransformers</groupId>-->
             <!--<artifactId>rightClick</artifactId>-->
@@ -71,29 +71,8 @@
 
     </dependencies>
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                    <exclude>junit:junit</exclude>
-                    <exclude>org.apache.maven:lib:tests</exclude>
-                </excludes>
-                <!--<includes>-->
 
-                <!--&lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;-->
-                <!--&lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;-->
-                <!--&lt;!&ndash;<include>**/*.vm</include>&ndash;&gt;-->
-                <!--&lt;!&ndash;<include>**/*.pfl</include>&ndash;&gt;-->
-                <!--&lt;!&ndash;<include>**/*.txt</include>&ndash;&gt;-->
-                <!--&lt;!&ndash;<include>**/*.xslt</include>&ndash;&gt;-->
-                <!--&lt;!&ndash;<include>**/*.png</include>&ndash;&gt;-->
-                <!--</includes>-->
-            </resource>
-        </resources>
+
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -116,6 +95,17 @@
 
                         </transformers>
                         <finalName>netTransformer</finalName>
+                        <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                     </configuration>
                 </execution>
             </executions>
