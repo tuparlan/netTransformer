@@ -14,6 +14,12 @@ If that sounds interesting and you want to find out more please review the [User
 [![Build Status](http://build.itransformers.net:8080/buildStatus/icon?job=netTransformer-jobs/netTransformerPlumberPipe)](http://build.itransformers.net:8080/job/netTransformer-jobs/job/netTransformerPlumberPipe/) 
 ==============
 
+[Getting started and User Documentation](https://github.com/iTransformers/netTransformer/wiki)
+
+```
+https://github.com/iTransformers/netTransformer/wiki
+
+```
 
 Q&A and Issue tracker
 ==============
