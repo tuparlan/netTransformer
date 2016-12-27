@@ -1,3 +1,5 @@
+package net.itransformers.graphmlGraphDiffer;
+
 import net.itransformers.idiscover.api.DiscoveryResult;
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlGraph;
@@ -11,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-public class Version4ToVersion6  {
+public class Version4ToVersion6WithIgnoredProperties {
     DiscoveryResult discoveryResult;
     GraphmlGraph graphA;
     GraphmlGraph graphB;
@@ -25,7 +27,9 @@ public class Version4ToVersion6  {
         graphA = discoveryResult.getNetwork("version4");
         graphB = discoveryResult.getNetwork("version6");
         ignoredEdgeMetaData= new HashSet<>();
+        ignoredEdgeMetaData.add("ipv6Forwarding");
         ignoredNodeMetaData= new HashSet<>();
+        ignoredNodeMetaData.add("discoveredIPv4Address");
 
         GraphmlGraphDiffer differ = new GraphmlGraphDiffer(ignoredNodeMetaData,ignoredEdgeMetaData);
         graphC = differ.doDiff(graphA, graphB);
@@ -51,34 +55,28 @@ public class Version4ToVersion6  {
             String diff = graphmlNodeMetaData.get("diff");
             if ("added".equals(diff)) {
                 addedNodes++;
-                System.out.println("Node added: " + node.getId());
+                //System.out.println("Node added: " + node.getId());
             }
             if ("removed".equals(diff)) {
                 removedNodes++;
-                System.out.println("Node removed: " + node.getId());
+                //System.out.println("Node removed: " + node.getId());
 
             }
             if ("changed".equals(diff)) {
-                System.out.println("Node changed: "+node.getId());
-                System.out.println(graphmlNodeMetaData.get("diffs"));
+            //    System.out.println("Node changed: "+node.getId());
+            //    System.out.println(graphmlNodeMetaData.get("diffs"));
 
                 changedNodes++;
             }
         }
-        Assert.assertEquals(10,changedNodes);
+        Assert.assertEquals(9,changedNodes);
 
-        Assert.assertEquals(26,addedNodes);
-
-        Assert.assertEquals(22, removedNodes);
-
-        //AssertUnchanged!
-        Assert.assertEquals(1, nodes.size() - (changedNodes + addedNodes + removedNodes));
     }
 
 
 
 
-   @Test
+    @Test
     public void edgeChangesVersion4Version6() {
 
         int addedEdges = 0;
@@ -92,28 +90,21 @@ public class Version4ToVersion6  {
             String diff = graphmlNodeMetaData.get("diff");
             if ("added".equals(diff)) {
                 addedEdges++;
-            //    System.out.println("Edge added: " + edge.getId());
+           //     System.out.println("Edge added: " + edge.getId());
             }
             if ("removed".equals(diff)) {
                 removedEdges++;
-             //   System.out.println("Edge removed: " + edge.getId());
+            //    System.out.println("Edge removed: " + edge.getId());
 
             }
             if ("changed".equals(diff)) {
-            //    System.out.println("Edge changed: "+edge.getId());
-            //    System.out.println(graphmlNodeMetaData.get("diffs"));
+             //   System.out.println("Edge changed: "+edge.getId());
+             //   System.out.println(graphmlNodeMetaData.get("diffs"));
 
                 changedEdges++;
             }
         }
-        Assert.assertEquals(11,changedEdges);
-
-        Assert.assertEquals(31,addedEdges);
-
-        Assert.assertEquals(22,removedEdges);
-
-        //AssertUnchanged!
-        Assert.assertEquals(0, edges.size() - (changedEdges + addedEdges + removedEdges));
+        Assert.assertEquals(1,changedEdges);
 
     }
 

@@ -1,6 +1,6 @@
 package net.itransformers.idiscover.v2.core.graphmlRenderer;
 
-import net.itransformers.idiscover.v2.core.listeners.graphmlRenderer.GraphmlRenderer;
+import net.itransformers.utils.graphmlRenderer.GraphmlRenderer;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

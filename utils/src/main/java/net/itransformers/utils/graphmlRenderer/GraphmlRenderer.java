@@ -1,4 +1,4 @@
-package net.itransformers.idiscover.v2.core.listeners.graphmlRenderer;
+package net.itransformers.utils.graphmlRenderer;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

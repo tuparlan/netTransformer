@@ -58,17 +58,17 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
     private String tableTransfomator;
 
 
-    //    public PostNetworkDiscoveryListener(){
-//
-//    }
-//    public PostNetworkDiscoveryListener(String graphmlDataDirName, String labelDirName, String scriptPath, File projectPath, String resourceManagerPath, String reportGeneratorPath) {
-//        this.graphmlDataDirName = graphmlDataDirName;
-//        this.labelDirName = labelDirName;
-//        this.scriptPath = scriptPath;
-//        this.projectPath = projectPath;
-//        this.resourceManagerPath = resourceManagerPath;
-//        this.reportGeneratorPath = reportGeneratorPath;
-//    }
+        public PostNetworkDiscoveryListener(){
+
+    }
+    public PostNetworkDiscoveryListener(String graphmlDataDirName, String labelDirName, String scriptPath, File projectPath, String resourceManagerPath, String reportGeneratorPath) {
+        this.postDiscoveryDataDirName = graphmlDataDirName;
+        this.labelDirName = labelDirName;
+        this.scriptPath = scriptPath;
+        this.projectPath = projectPath;
+        this.resourceManagerPath = resourceManagerPath;
+        this.reportGeneratorPath = reportGeneratorPath;
+    }
 
 
 
@@ -95,8 +95,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
-        //TODO remove xsltReport hardCode
-        final ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectPath,new File(projectPath,tableTransfomator));
+        final ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectPath,tableTransfomator);
 
 
         for (String nodeName : result.getSourceConnectionDetails().keySet()) {
@@ -193,9 +192,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
         this.projectPath = projectPath;
     }
 
-    public String getResourceManagerPath() {
-        return resourceManagerPath;
-    }
+
 
     public void setResourceManagerPath(String resourceManagerPath) {
         this.resourceManagerPath = resourceManagerPath;

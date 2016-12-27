@@ -25,17 +25,22 @@ import groovy.util.ResourceException;
 import groovy.util.ScriptException;
 import net.itransformers.expect4groovy.Expect4GroovyScriptLauncher;
 import net.itransformers.postDiscoverer.reportGenerator.*;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
+import net.itransformers.resourcemanager.config.ConnectionParamsType;
+import net.itransformers.resourcemanager.config.ParamType;
+import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.resourcemanager.xmlResourceManager.XmlResourceManagerFactory;
+import net.itransformers.utils.JaxbMarshalar;
 import net.itransformers.utils.XmlFormatter;
 import net.itransformers.utils.XsltTransformer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +52,10 @@ public class ReportManager {
     private ReportGeneratorType reportGenerator;
     private String scriptPath;
     private File projectPath;
-    private File xsltTransformator;
+    private String xsltTransformator;
 
 
-    public ReportManager(ReportGeneratorType reportGenerator, String scriptPath,File projectPath, File xsltTransformator) {
+    public ReportManager(ReportGeneratorType reportGenerator, String scriptPath,File projectPath, String xsltTransformator) {
         this.reportGenerator = reportGenerator;
         this.scriptPath = scriptPath;
         this.projectPath = projectPath;
@@ -66,6 +71,15 @@ public class ReportManager {
         File postDiscoveryNodeFolder = new File(postDiscoveryPath, (String) params.get("deviceName"));
         if(!postDiscoveryNodeFolder.exists()){
             postDiscoveryNodeFolder.mkdir();
+        }
+
+
+        if (params.get("port") instanceof String){
+            params.put("port",Integer.parseInt((String) params.get("port")));
+        }
+        if (params.get("retries") instanceof String){
+            params.put("retries",Integer.parseInt((String) params.get("retries")));
+
         }
 
         for (ReportEntryType reportEntry : reportEnties) {
@@ -92,7 +106,7 @@ public class ReportManager {
                         try {
                             Expect4GroovyScriptLauncher launcher = new Expect4GroovyScriptLauncher();
                             logger.debug("Launch connection to :" +deviceName+" with params "+params.toString());
-                            logger.debug("Script path = " + scriptPath + "login script "+loginScript.getValue());
+                            logger.debug("Script path = " + scriptPath + " |login script "+loginScript.getValue());
 
                             Map<String, Object> loginResult = launcher.open(new String[]{scriptPath + File.separator}, loginScript.getValue(), params);
 
@@ -200,86 +214,84 @@ public class ReportManager {
         return sb;
     }
 
-//    public static void main(String[] args) throws IOException {
-//
-//        File projectDir = new File("/Users/niau/Projects/netTransformer.back");
-//        File scriptPath = new File("/postDiscoverer/conf/groovy/");
-//        ResourceManager resourceManager;
-//
-//        String xml = FileUtils.readFileToString();
-//
-//        InputStream is1 = new ByteArrayInputStream(xml.getBytes());
-//        ResourcesType deviceGroupsType = null;
-//
-//        try {
-//            deviceGroupsType = net.itransformers.resourcemanager.xmlResourceManager.util.JaxbMarshalar.unmarshal(ResourcesType.class, is1);
-//        } catch (JAXBException e) {
-//            e.printStackTrace();
-//        }
-//        resourceManager = new ResourceManager(new File(projectDir, "/iDiscover/resourceManager/conf/xml/resource.xml"));
-//
-//
-//        Map<String, String> params = new HashMap<String, String>();
-//        params.put("protocol", "telnet");
-//        params.put("deviceName", "R1");
-//        params.put("deviceType", "CISCO");
-//        params.put("address", "172.16.13.1");
-//        params.put("port", "23");
-//
-//        ResourceType resource = resourceManager.findFirstResourceBy(params);
-//        List connectParameters = resource.getConnectionParams();
-//
-//        for (int i = 0; i < connectParameters.size(); i++) {
-//            ConnectionParamsType connParamsType = (ConnectionParamsType) connectParameters.get(i);
-//
-//            String connectionType = connParamsType.getConnectionType();
-//            if (connectionType.equalsIgnoreCase(params.get("protocol"))) {
-//
-//                for (ParamType param : connParamsType.getParam()) {
-//                    params.put(param.getName(), param.getValue());
-//                }
-//
-//            }
-//        }
-//
-//        File postDiscoveryConfing = new File(projectDir + "/postDiscoverer/conf/xml/reportGenerator.xml");
-//
-//
-//        ReportGeneratorType reportGenerator = null;
-//
-//        FileInputStream is = new FileInputStream(postDiscoveryConfing);
-//        try {
-//            reportGenerator = JaxbMarshalar.unmarshal(ReportGeneratorType.class, is);
-//        } catch (JAXBException e) {
-//           logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
-//        } finally {
-//            is.close();
-//        }
-//
-//        ReportManager reportManager = new ReportManager(reportGenerator, "postDiscoverer/conf/groovy/",projectDir,new File(projectDir,"iTopologyManager/rightClick/conf/xslt/table_creator.xslt"));
-//        StringBuffer report = null;
-//
-//        HashMap<String,Object> groovyExecutorParams = new HashMap<String,Object>();
-//
-//        for (String s : params.keySet()) {
-//           groovyExecutorParams.put(s,params.get(s));
-//        }
-//
-//        try {
-//            report = reportManager.reportExecutor(new File("/Users/niau/trunk/version1/post-discovery"),groovyExecutorParams);
-//        } catch (ParserConfigurationException e) {
-//            e.printStackTrace();
-//        } catch (SAXException e) {
-//            e.printStackTrace();
-//        }
-//        if(report!=null){
-//                   System.out.println(report.toString());
-//
-//        }  else{
-//            System.out.println("Report generation failed!");
-//
-//        }
-//    }
+    public static void main(String[] args) throws IOException {
+
+        File projectDir = new File(".");
+        File scriptPath = new File("postDiscoverer/src/main/resources/postDiscoverer/conf/groovy/");
+
+        ResourceManagerFactory resourceManagerFactory =  new XmlResourceManagerFactory("iDiscover/resourceManager/xmlResourceManager/src/main/resources/xmlResourceManager/conf/xml/resource.xml");
+        Map<String, String> resourceManagerParams = new HashMap<>();
+        resourceManagerParams.put("projectPath", projectDir.getAbsolutePath());
+        ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml", resourceManagerParams);
+
+
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("protocol", "telnet");
+        params.put("deviceName", "R1");
+        params.put("deviceType", "CISCO");
+        params.put("address", "10.17.1.5");
+        params.put("port", "23");
+
+        ResourceType resource = resourceManager.findFirstResourceBy(params);
+        List connectParameters = resource.getConnectionParams();
+
+        for (int i = 0; i < connectParameters.size(); i++) {
+            ConnectionParamsType connParamsType = (ConnectionParamsType) connectParameters.get(i);
+
+            String connectionType = connParamsType.getConnectionType();
+            if (connectionType.equalsIgnoreCase(params.get("protocol"))) {
+
+                for (ParamType param : connParamsType.getParam()) {
+                    params.put(param.getName(), param.getValue());
+                }
+
+            }
+        }
+
+        File postDiscoveryConfing = new File(projectDir + "/postDiscoverer/src/main/resources/postDiscoverer/conf/xml/reportGenerator.xml");
+        if (!postDiscoveryConfing.exists()) {
+            System.out.println("File missing: "+ postDiscoveryConfing.getAbsolutePath());
+            return;
+        }
+
+
+        ReportGeneratorType reportGenerator = null;
+
+        FileInputStream is = new FileInputStream(postDiscoveryConfing);
+        try {
+            reportGenerator = JaxbMarshalar.unmarshal(ReportGeneratorType.class, is);
+        } catch (JAXBException e) {
+           logger.info(e);  //To change body of catch statement use File | Settings | File Templates.
+        } finally {
+            is.close();
+        }
+
+        ReportManager reportManager = new ReportManager(reportGenerator, scriptPath.getPath(),projectDir,"postDiscoverer/conf/xslt/table_creator.xslt");
+        StringBuffer report = null;
+
+        HashMap<String,Object> groovyExecutorParams = new HashMap<String,Object>();
+
+        for (String s : params.keySet()) {
+           groovyExecutorParams.put(s,params.get(s));
+        }
+
+        try {
+            report = reportManager.reportExecutor(new File("/Users/niau/Projects/Projects/netTransformer10/version1/post-discovery"),groovyExecutorParams);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        if(report!=null){
+                   System.out.println(report.toString());
+
+        }  else{
+            System.out.println("Report generation failed!");
+
+        }
+    }
 
     private ByteArrayOutputStream generateTableReport(ByteArrayInputStream inputStream){
         XsltTransformer transformer = new XsltTransformer();
@@ -288,7 +300,7 @@ public class ReportManager {
 
 
         try {
-            transformer.transformXML(inputStream, xsltTransformator.getCanonicalPath(), reportOutputStream, null);
+            transformer.transformXML(inputStream, xsltTransformator, reportOutputStream, null);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
