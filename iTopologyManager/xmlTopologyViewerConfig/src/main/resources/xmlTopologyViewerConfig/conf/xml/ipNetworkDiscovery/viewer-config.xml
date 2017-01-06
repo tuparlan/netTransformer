@@ -933,7 +933,7 @@
         </submenu>
         <submenu name="Network Activation">
             <rightClickItem name="Node Activation" handlerClass="cmdRightClickHandler">
-                <param name="parameterFactoryXml">parameterFactory/xml/param-factory.xml</param>
+                <param name="parameterFactoryXml">parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">xmlResourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfillmentFactory/xml/fulfilment-factory.xml</param>
                 <param name="deviceXMlpath">device-hierarchical</param>
@@ -941,7 +941,7 @@
             </rightClickItem>
 
             <rightClickItem name="Shorthest Path Activation" handlerClass="shortestPathProvisioning">
-                <param name="parameterFactoryXml">parameterFactory/xml/param-factory.xml</param>
+                <param name="parameterFactoryXml">parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">xmlResourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfilmentFactory/xml/fulfilment-factory.xml</param>
                 <param name="deviceXMlpath">device-hierarchical</param>
@@ -954,17 +954,17 @@
                 <param name="fulfilment-factory">fulfillmentFactory/xml/fulfilment-IPv4to6.xml</param>
             </rightClickItem>
             <rightClickItem name="IPv4toIPv6PathActivation" handlerClass="shortestPathProvisioning">
-                <param name="parameterFactoryXml">parameterFactory/xml/param-factory.xml</param>
+                <param name="parameterFactoryXml">parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">xmlResourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfillmentFactory/xml/fulfilment-IPv4to6.xml</param>
             </rightClickItem>
             <rightClickItem name="undoIPv4toIPv6 Actication" handlerClass="cmdRightClickHandler">
-                <param name="parameterFactoryXml">parameterFactory/xml/param-factory.xml</param>
+                <param name="parameterFactoryXml">parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">xmlResourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfillmentFactory/xml/fulfilment-IPv4to6_undo.xml</param>
             </rightClickItem>
             <rightClickItem name="undoIPv4toIPv6PathActivation" handlerClass="shortestPathProvisioning">
-                <param name="parameterFactoryXml">parameterFactory/xml/param-factory.xml</param>
+                <param name="parameterFactoryXml">parameterFactory/conf/xml/param-factory.xml</param>
                 <param name="resource">xmlResourceManager/conf/xml/resource.xml</param>
                 <param name="fulfilment-factory">fulfillmentFactory/xml/fulfilment-IPv4to6_undo.xml</param>
             </rightClickItem>

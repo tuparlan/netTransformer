@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ fulfilment-factory.xml
+  ~ fulfilmentFactory.xml
   ~
   ~ This work is free software; you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published
@@ -25,22 +25,22 @@
     <fulfilment-factory-types>
         <type name="ConfigureInterface" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">ConfigureInterface</param>
-            <param name="commands">fulfilment-factory/conf/txt/test.txt</param>
+            <param name="commands">fulfillmentFactory/conf/txt/test.txt</param>
         </type>
         <type name="CreateVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">fulfilment-factory/conf/txt/create_vrf</param>
+            <param name="commands">fulfillmentFactory/conf/txt/create_vrf.templ</param>
         </type>
          <type name="ApplyVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">fulfilment-factory/conf/txt/apply_vrf.txt</param>
+            <param name="commands">fulfillmentFactory/conf/txt/apply_vrf.templ</param>
         </type>
         <type name="AddDefaultToVRF" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.TestFulfilmentImpl">
             <param name="cmd">VPN_activator</param>
-            <param name="commands">fulfilment-factory/conf/txt/add_default_to_vrf.txt</param>
+            <param name="commands">fulfillmentFactory/conf/txt/add_default_to_vrf.templ</param>
         </type>
         <type name="xsl" class="net.itransformers.topologyviewer.fulfilmentfactory.impl.XslFulfilmentImpl">
-            <param name="xslFileName">fulfilment-factory/conf/xslt/setDeviceLocation.xslt</param>
+            <param name="xslFileName">fulfillmentFactory/conf/xslt/setDeviceLocation.templ</param>
         </type>
         <type name="xsl2" class="com.cdsd.Xsl">
             <param name="xslFileName">some2.xsl</param>
