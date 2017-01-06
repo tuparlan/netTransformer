@@ -1,8 +1,6 @@
 package net.itransformers.idiscover.api.models.graphml;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +17,11 @@ public class GraphmlEdge {
 
     public GraphmlEdge(String id) {
         this.id = id;
+    }
+
+    public GraphmlEdge(String id,String label) {
+        this.id = id;
+        this.label = label;
     }
 
     public GraphmlEdge(String id, String label, String fromNode, String toNode) {

@@ -24,7 +24,6 @@ package net.itransformers.idiscover.v2.core.version_manager;
 import net.itransformers.idiscover.api.VersionManager;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
 /**
  * Created by niau on 2/29/16.
@@ -69,6 +68,23 @@ public class DirectoryVersionManager implements VersionManager{
     }
 
     @Override
+    public void createVersion(String versionLabel) {
+        if (projectPath == null){
+            throw new IllegalArgumentException("Parameter ProjectPath is not specified");
+        }
+        File file = new File(projectPath);
+        if (!file.exists() || !file.isDirectory()){
+            throw new IllegalArgumentException("The network folder is not a valid directory: "+file);
+        }
+
+        File newVersionDir = new File(file, versionLabel);
+        if (!newVersionDir.mkdir()){
+            throw new RuntimeException("Can not create directory: "+newVersionDir.getAbsolutePath());
+        }
+
+    }
+
+    @Override
     public void deleteVersion(String version) {
         if (version.contains(".")){
             throw new IllegalArgumentException("version can not contain '.'");
@@ -83,7 +99,7 @@ public class DirectoryVersionManager implements VersionManager{
     public String[] getVersions(){
         final String versionLabel = "version";
         File file = new File(projectPath);
-        String[] versions = file.list((dir, name) -> name.matches(versionLabel + "\\d+"));
+        String[] versions = file.list((dir, name) -> name.matches(versionLabel + "\\d+" )||name.matches(versionLabel+"\\d+"+"-"+versionLabel+"\\d+"));
         return versions;
 
     }

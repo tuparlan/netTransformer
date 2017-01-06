@@ -1,10 +1,12 @@
 package net.itransformers.graphmlGraphDiffer;
 
 import net.itransformers.idiscover.api.DiscoveryResult;
+import net.itransformers.idiscover.api.VersionManagerFactory;
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlGraph;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
-import net.itransformers.utils.graphmlRenderer.GraphmlRenderer;
+import net.itransformers.idiscover.v2.core.version_manager.DirectoryVersionManagerFactory;
+import net.itransformers.utils.ProjectConstants;
 import net.itransformers.xmlNodeDataProvider.XmlNodeDataProvider;
 import org.junit.Assert;
 import org.junit.Before;
@@ -123,11 +125,20 @@ public class Version4ToVersion6  {
 
     @Test
     public void versionDiffCreator(){
-        GraphmlRenderer graphmlRenderer = new GraphmlRenderer();
-        String velocityTemplate = "";
         HashMap<String,Object> params = new HashMap<>();
-        VersionDiffCreator versionDiffCreator = new VersionDiffCreator(graphmlRenderer,velocityTemplate,params);
-        versionDiffCreator.createNewVersion(graphC);
+        params.put("version","v4-v6");
+        params.put("nodes",graphC.getGraphmlNodes());
+        params.put("edges",graphC.getGraphmlEdges());
+        params.put("graphDirection","undirected");
+        params.put("projectPath","graphDiffer/graphmlGraphDiffer/src/test/resources/netTransformer123");
+        params.put("velocityTemplate", "graphmlGraphDiffer/conf/velocity/snmpGraphmlTemplate.vm");
+        params.put("networkGraphmlPath", ProjectConstants.undirectedGraphmlDirName);
+        VersionManagerFactory versionManagerFactory = new DirectoryVersionManagerFactory();
+
+
+        VersionCreator versionCreator = new VersionCreator(versionManagerFactory,params);
+        versionCreator.createNewDiffVersion();
+        versionCreator.deleteDiffedVersion();
 
     }
 

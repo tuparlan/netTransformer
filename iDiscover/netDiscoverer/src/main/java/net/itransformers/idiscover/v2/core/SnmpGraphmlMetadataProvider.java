@@ -62,7 +62,7 @@ public class SnmpGraphmlMetadataProvider {
 
     public void setVertexMetadataTypes() {
         vertexMetadataTypes = new HashMap<String, String>();
-        vertexMetadataTypes.put("hostname", "string");
+        vertexMetadataTypes.put("hostName", "string");
         vertexMetadataTypes.put("deviceModel", "string");
         vertexMetadataTypes.put("deviceType", "string");
         vertexMetadataTypes.put("subnet", "YES");

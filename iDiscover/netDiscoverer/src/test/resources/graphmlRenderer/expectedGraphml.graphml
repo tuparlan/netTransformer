@@ -3,7 +3,7 @@
 
     <key id="networkName" for="graph" attr.name="Network Name" attr.type="string"/>
 
-    <key id="hostname" for="node" attr.name="hostname" attr.type="string"/>
+    <key id="hostName" for="node" attr.name="hostName" attr.type="string"/>
     <key id="deviceModel" for="node" attr.name="deviceModel" attr.type="string"/>
     <key id="deviceType" for="node" attr.name="deviceType" attr.type="string"/>
     <key id="nodeInfo" for="node" attr.name="nodeInfo" attr.type="string"/>

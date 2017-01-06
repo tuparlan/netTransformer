@@ -16,6 +16,11 @@ public class VersionManagerStub implements VersionManager {
     }
 
     @Override
+    public void createVersion(String versionLabel) {
+
+    }
+
+    @Override
     public void deleteVersion(String version) {
 
     }
