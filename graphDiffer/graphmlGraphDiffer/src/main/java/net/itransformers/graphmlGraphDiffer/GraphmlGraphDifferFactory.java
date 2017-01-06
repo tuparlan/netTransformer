@@ -1,3 +1,7 @@
+package net.itransformers.graphmlGraphDiffer;
+
+import net.itransformers.graphmlDiffAPI.GraphmlDifferFactory;
+
 import java.util.HashSet;
 import java.util.Map;
 

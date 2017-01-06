@@ -267,7 +267,7 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     private GraphmlNode vertexToNode(Vertex vertex){
 
-        GraphmlNode node = new GraphmlNode(vertex.getId().toString());
+        GraphmlNode node = new GraphmlNode(vertex.getId().toString(),vertex.getId().toString());
         Map<String, String> graphmlNodeData = new HashMap<>();
         Set<String> keys = vertex.getPropertyKeys();
         for (String key : keys) {
@@ -280,7 +280,7 @@ public class XmlNodeDataProvider implements DiscoveryResult {
 
     private GraphmlEdge edgeToGraphmlEdge(Edge edge){
 
-        GraphmlEdge graphmlEdge = new GraphmlEdge(edge.getId().toString());
+        GraphmlEdge graphmlEdge = new GraphmlEdge(edge.getId().toString(),edge.getId().toString());
 
         Map<String, String> graphmlEdgeData = new HashMap<>();
 

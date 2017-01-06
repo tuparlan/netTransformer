@@ -53,21 +53,7 @@
             <version>0.8</version>
         </dependency>
 
-            <!--<dependency>-->
-                <!--<groupId>net.itransformers</groupId>-->
-                <!--<artifactId>fulfilmentFactory</artifactId>-->
-                <!--<version>0.8</version>-->
-            <!--</dependency>-->
-            <dependency>
-                <groupId>net.itransformers</groupId>
-                <artifactId>parameterFactory</artifactId>
-                <version>0.8</version>
-            </dependency>
-        <!--<dependency>-->
-            <!--<groupId>net.itransformers</groupId>-->
-            <!--<artifactId>rightClick</artifactId>-->
-            <!--<version>0.8</version>-->
-        <!--</dependency>-->
+
 
     </dependencies>
     <build>
@@ -94,16 +80,18 @@
 
                         </transformers>
                         <finalName>netTransformer</finalName>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>META-INF/*.SF</exclude>
+                                    <exclude>META-INF/*.DSA</exclude>
+                                    <exclude>META-INF/*.RSA</exclude>
+                                    <exclude>junit:junit</exclude>
+                                    <exclude>org.apache.maven:lib:tests</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
                     </configuration>
                 </execution>
             </executions>

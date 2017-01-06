@@ -77,7 +77,6 @@ public class CmdRightClickHandler implements RightClickHandler {
                     builder,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
             createGUI(v,context, factoryNames, factory);
-
         }  else {
             JOptionPane.showMessageDialog(parent,"There are no resources suitable for this operations");
 

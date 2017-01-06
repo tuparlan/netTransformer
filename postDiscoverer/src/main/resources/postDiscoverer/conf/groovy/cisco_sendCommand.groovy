@@ -37,6 +37,7 @@ logedInConfigMode = "false"
 hostname = ""
 status = ["success": 1, "failure": 2]
 
+
 def result = sendCommand()
 
 return result
@@ -44,7 +45,11 @@ return result
 def sendCommand() {
     def returnFlag = 2
     def result = null
-    String commandResult = command;
+    String command = params.get("command");
+    String evalScript = params.get("eval-script");
+
+
+//    String command = params.get("command");
     send(command + defaultTerminator)
     expect (command+defaultTerminator)
  //   iterator().getBuffer();

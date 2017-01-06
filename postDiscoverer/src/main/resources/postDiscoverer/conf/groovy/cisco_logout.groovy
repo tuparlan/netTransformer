@@ -42,6 +42,7 @@ exit()
 
 def exit(){
     send ("exit" + defaultTerminator)
-    expect eof()
+
+    //expect eof()
     return ["status": 1, "data": "Logout Success!"]
 }

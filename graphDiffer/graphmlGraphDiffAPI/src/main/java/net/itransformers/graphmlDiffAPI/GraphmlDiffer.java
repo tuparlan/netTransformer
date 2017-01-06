@@ -1,3 +1,5 @@
+package net.itransformers.graphmlDiffAPI;
+
 import net.itransformers.idiscover.api.models.graphml.GraphmlGraph;
 
 /**

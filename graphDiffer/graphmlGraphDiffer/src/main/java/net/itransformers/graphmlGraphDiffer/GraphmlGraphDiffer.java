@@ -1,8 +1,12 @@
+package net.itransformers.graphmlGraphDiffer;
+
+import net.itransformers.graphmlDiffAPI.GraphmlDiffer;
 import net.itransformers.idiscover.api.models.graphml.GraphmlEdge;
 import net.itransformers.idiscover.api.models.graphml.GraphmlGraph;
 import net.itransformers.idiscover.api.models.graphml.GraphmlNode;
 
 import java.util.*;
+
 
 /**
  * Created by niau on 10/19/16.
@@ -17,11 +21,13 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
         this.ignoredGraphmlEdgeData = ignoredGraphmlEdgeData;
     }
 
+
+
+
     @Override
     public GraphmlGraph doDiff(GraphmlGraph graphA, GraphmlGraph graphB) {
 
         Map<String,GraphmlNode> graphANodes = createGraphmlNodeMap(graphA);
-
         Map<String,GraphmlNode> graphBNodes = createGraphmlNodeMap(graphB);
 
         Map<String,GraphmlEdge> graphAedges = createGraphmlEdgeMap(graphA);
@@ -52,6 +58,9 @@ public class GraphmlGraphDiffer implements GraphmlDiffer {
         }
         return edgeMap;
     }
+
+
+
 
 
     protected ArrayList<GraphmlNode> diffNodes(Map<String,GraphmlNode> graphANodes,Map<String,GraphmlNode> graphBNodes){

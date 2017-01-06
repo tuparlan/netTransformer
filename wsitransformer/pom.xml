@@ -164,6 +164,16 @@
             <type>war</type>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>graphmlGraphDiffer</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.itransformers</groupId>
+            <artifactId>graphmlGraphDiffAPI</artifactId>
+            <version>0.8</version>
+        </dependency>
     </dependencies>
     <pluginRepositories>
         <pluginRepository>

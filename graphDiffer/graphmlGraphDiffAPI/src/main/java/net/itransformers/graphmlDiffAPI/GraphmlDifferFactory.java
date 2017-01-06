@@ -1,3 +1,5 @@
+package net.itransformers.graphmlDiffAPI;
+
 import java.util.Map;
 
 /**

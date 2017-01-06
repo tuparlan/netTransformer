@@ -41,7 +41,6 @@
 
     <bean id="PostNetworkDiscoveryListener"
           class="net.itransformers.idiscover.v2.core.listeners.network.PostNetworkDiscoveryListener">
-        <property name="labelDirName" ref="labelDirName"/>
         <property name="postDiscoveryDataDirName" value="post-discovery"/>
         <property name="scriptPath" value="postDiscoverer/conf/groovy/"/>
         <property name="projectPath" value="."/>

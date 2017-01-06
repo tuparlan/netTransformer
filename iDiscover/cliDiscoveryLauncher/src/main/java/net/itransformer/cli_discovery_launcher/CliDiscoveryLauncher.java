@@ -6,7 +6,6 @@ import net.itransformers.idiscover.api.NetworkDiscoverer;
 import net.itransformers.idiscover.api.NetworkDiscovererFactory;
 import net.itransformers.idiscover.api.VersionManager;
 import net.itransformers.idiscover.api.VersionManagerFactory;
-import net.itransformers.idiscover.api.models.network.Node;
 import net.itransformers.utils.ProjectConstants;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
@@ -185,12 +184,14 @@ public class CliDiscoveryLauncher {
             NetworkDiscoverer networkDiscoverer = discovererFactory.createNetworkDiscoverer("parallel", props);
 
 
-            networkDiscoverer.addNetworkDiscoveryListeners(result -> {
-                Map<String, Node> nodes = result.getNodes();
-                for (String node : nodes.keySet()) {
-                    System.out.println("Discovered node: " + node);
-                }
-            });
+//            networkDiscoverer.addNetworkDiscoveryListeners(result -> {
+//                Map<String, Node> nodes = result.getNodes();
+//                if (nodes!=null) {
+//                    for (String node : nodes.keySet()) {
+//                        System.out.println("Discovered node: " + node);
+//                    }
+//                }
+//            });
 
             networkDiscoverer.startDiscovery();
         }
