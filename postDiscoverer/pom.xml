@@ -163,14 +163,15 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.10</version>
-                    <configuration>
-                        <workingDirectory>${project.basedir}</workingDirectory>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <!--<configuration>-->
+                <!--<workingDirectory>${project.parent.parent.basedir}</workingDirectory>-->
+                <!--</configuration>-->
+            </plugin>
+
         </plugins>
     </build>
 </project>

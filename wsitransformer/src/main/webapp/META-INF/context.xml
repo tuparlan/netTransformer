@@ -25,7 +25,7 @@
   <!--Set the environment according your own netTransformer project path-->
   <!--You can create a new proejct with netTransformerCLI utils-->
     <Environment name="wsitransformer/projectPath" type="java.lang.String"
-              value="C:\netprojects\myProject"/>
+              value="/Users/niau/Projects/Projects/prj13"/>
   <Environment name="wsitransformer/projectType" type="java.lang.String"
                value="ipNetworkDiscovery"/>
 

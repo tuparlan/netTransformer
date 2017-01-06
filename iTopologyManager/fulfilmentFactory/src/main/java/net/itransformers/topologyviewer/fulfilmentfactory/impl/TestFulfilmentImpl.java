@@ -49,7 +49,7 @@ public class TestFulfilmentImpl implements Fulfilment {
     public void fulfil(File projectPath, Map<String, String> parameters,
                        Map<String, String> fulfilmentFactoryParams, Logger logger) throws IOException {
         this.projectPath = projectPath;
-        cli = new TelnetCLIInterface(parameters.get("discoveredIPv4Address"),parameters.get("username"),parameters.get("password"),parameters.get("hostname")+"#",1000, logger);
+        cli = new TelnetCLIInterface(parameters.get("discoveredIPv4Address"),parameters.get("username"),parameters.get("password"),parameters.get("hostName")+"#",1000, logger);
         cli.open();
         execute(fulfilmentFactoryParams.get("commands"), parameters);
         cli.close();
