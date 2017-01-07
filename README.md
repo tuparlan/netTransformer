@@ -48,4 +48,4 @@ https://github.com/iTransformers/netTransformer/issues
 ```
 
 
-[![Analytics](https://ga-beacon.appspot.com/UA-89947165-1/WIKI)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-89947165-1/netTransformer-readme)](https://github.com/igrigorik/ga-beacon)
