@@ -21,12 +21,13 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.parameterfactoryapi.ParameterFactoryManagerFactory;
+import net.itransformers.parameterfactoryapi.ParameterFactoryManger;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.ResourceManagerFactory;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
-import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.utils.ProjectConstants;
 
@@ -47,9 +48,11 @@ import java.util.logging.Logger;
 public class CmdRightClickHandler implements RightClickHandler {
 
     protected ResourceManagerFactory resourceManagerFactory;
+    protected ParameterFactoryManagerFactory parameterFactoryMangerFactory;
 
-    public CmdRightClickHandler(ResourceManagerFactory resourceManagerFactory) {
+    public CmdRightClickHandler(ResourceManagerFactory resourceManagerFactory, ParameterFactoryManagerFactory parameterFactoryManagerFactory) {
         this.resourceManagerFactory = resourceManagerFactory;
+        this.parameterFactoryMangerFactory = parameterFactoryManagerFactory;
     }
 
     public <G> void handleRightClick(JFrame parent, String v,
@@ -62,7 +65,8 @@ public class CmdRightClickHandler implements RightClickHandler {
         ResourceManager resourceManager = resourceManagerFactory.createResourceManager("xml",props);
         ResourceResolver resourceResolver = new ResourceResolver(resourceManager);
 
-        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
+        ParameterFactoryManger parameterFactoryManager = parameterFactoryMangerFactory.createParameterFactorysManager(props);
+
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("graphml", graphMLParams);
         context.put("rightClickParams", rightClickParams);
@@ -74,7 +78,7 @@ public class CmdRightClickHandler implements RightClickHandler {
         if (resource!=null){
             context.put("connection-params", resourceResolver.getConnectionParams(resource, graphMLParams, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),
-                    builder,resource);
+                    parameterFactoryManager,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
             createGUI(v,context, factoryNames, factory);
         }  else {

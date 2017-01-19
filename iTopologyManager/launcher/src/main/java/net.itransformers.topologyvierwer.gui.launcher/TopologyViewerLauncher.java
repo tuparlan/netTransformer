@@ -62,6 +62,8 @@ public class TopologyViewerLauncher {
         ctx.load("classpath:csvConnectionDetails/csvConnectionDetailsFactory.xml");
         ctx.load("classpath:topologyViewer/topologyViewer.xml");
         ctx.load("classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml");
+        ctx.load("classpath:xmlTopologyViewerConfig/xmlTopologyViewerConfig.xml");
+        ctx.load("classpath:xmlParameterFactory/conf/xml/xmlParameterFactory.xml");
         ctx.refresh();
 
         TopologyManagerFrame frame = (TopologyManagerFrame) ctx.getBean("topologyManagerFrame");

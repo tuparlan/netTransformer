@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ param-factory.xml
+  ~
+  ~ This work is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published
+  ~ by the Free Software Foundation; either version 2 of the License,
+  ~ or (at your option) any later version.
+  ~
+  ~ This work is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+  ~ USA
+  ~
+  ~ Copyright (c) 2010-2016 iTransformers Labs. All rights reserved.
+  -->
+
+<param-factories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../../../parameterFactoryAPI/src/main/resources/conf/xsd/param-factory.xsd" >
+
+
+
+    <param-factory name="configureHostname">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="Hostname"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+     <param-factory name="setDeviceLocation">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="Location"/>
+        </param-factory-element>
+         <param-factory-element type="resource">
+             <param name="username"/>
+             <param name="password"/>
+             <param name="enable-password"/>
+         </param-factory-element>
+    </param-factory>
+    <param-factory name="setDeviceAdminData">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="chassis-id"/>
+            <param name="contact"/>
+            <param name="location"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+    <param-factory name="enableIPv6Routing">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+    <param-factory name="IPv6Tunnel">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="interface"/>
+            <param name="prefix"/>
+            <param name="source"/>
+            <param name="source"/>
+            <param name="destination"/>
+
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="IPv6Default">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="interface"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+
+    <param-factory name="CreateVRF">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="vrfName"/>
+            <param name="rd"/>
+            <param name="rt"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="ApplyVRF">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="vrfName"/>
+            <param name="interfaceName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="addDefaultToVRF">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="vrfName"/>
+            <param name="next-hop"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+    <param-factory name="addStaticToVrf">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="manual">
+            <param name="vrf"/>
+            <param name="destination"/>
+            <param name="subnet-mask"/>
+            <param name="next-hop"/>
+
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+     <param-factory name="ipv6Forwarding">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+       <param-factory name="ipv6Interface">
+       <param-factory-element type="manual">
+            <param name="prefix"/>
+            <param name="Interface"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+    <param-factory name="IPv6OSPF">
+       <param-factory-element type="manual">
+            <param name="process"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="IPv6OSPF_ospf">
+        <param-factory-element type="manual">
+            <param name="process"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="IPv6OSPF_interface">
+       <param-factory-element type="manual">
+            <param name="process"/>
+            <param name="interface"/>
+            <param name="area"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+     <param-factory name="IPv6Verify">
+        <param-factory-element type="manual">
+            <param name="destination"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="HUAWEI">
+        <param-factory-element type="manual">
+            <param name="c"/>
+            <param name="d"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="site"/>
+        </param-factory-element>
+        <param-factory-element type="deviceData">
+            <param name="firstFreeInterface">//DiscoveredDevice/object[objectType='Discovery Interface'][1]/parameters/parameter[name='CableCut' and value ='NO']/../../name</param>
+            <param name="InterfaceIPaddress">//DiscoveredDevice/object[objectType='Discovery Interface' and name='$d']/object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value</param>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="system-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="ConfigureInterface">
+           <param-factory-element type="graphml">
+               <param name="discoveredIPv4Address"/>
+               <param name="hostName"/>
+           </param-factory-element>
+           <param-factory-element type="manual">
+               <param name="ipAddress"/>
+               <param name="subnetMask"/>
+           </param-factory-element>
+           <param-factory-element type="deviceData">
+               <param name="firstFreeInterface">//DiscoveredDevice/object[objectType='Discovery Interface'][1]/parameters/parameter[name='CableCut' and value ='NO']/../../name</param>
+           </param-factory-element>
+           <param-factory-element type="resource">
+               <param name="username"/>
+               <param name="password"/>
+               <param name="enable-password"/>
+           </param-factory-element>
+       </param-factory>
+
+    <param-factory name="basic">
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+            <param name="hostName"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+<param-factory name="SSH">
+       <param-factory-element type="manual">
+            <param name="domain-name"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="BGP_local">
+        <param-factory-element type="manual">
+            <param name="Local_AS"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+        </param-factory-element>
+        <param-factory-element type="deviceData">
+            <param name="Router_ID">//DiscoveredDevice/object[objectType='Discovery Interface' and name = 'Loopback0']/../object[objectType='IPv4 Address']/parameters/parameter[name='IPv4Address']/value</param>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+    <param-factory name="BGP_Neighbour">
+        <param-factory-element type="manual">
+            <param name="Local_AS"/>
+            <param name="Remote_AS"/>
+            <param name="neigh_id"/>
+        </param-factory-element>
+        <param-factory-element type="graphml">
+            <param name="discoveredIPv4Address"/>
+        </param-factory-element>
+        <param-factory-element type="resource">
+            <param name="username"/>
+            <param name="password"/>
+            <param name="enable-password"/>
+        </param-factory-element>
+    </param-factory>
+
+</param-factories>

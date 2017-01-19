@@ -15,6 +15,7 @@
     <import resource="classpath:discoveryResultTopologyViewer/discoveryResultTopologyViewerFactory.xml" />
     <import resource="classpath:fileBasedProjectManager/fileBasedProjectManager.xml" />
     <import resource="classpath:graphmlGraphDiffer/graphmlGraphDiffer.xml" />
+    <import resource="classpath:xmlParameterFactory/conf/xml/xmlParameterFactory.xml"/>
 
 
     <bean id="projectPath" class="org.springframework.jndi.JndiObjectFactoryBean">

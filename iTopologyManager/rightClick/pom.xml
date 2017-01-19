@@ -84,6 +84,11 @@
              <artifactId>spring-context</artifactId>
              <version>4.0.2.RELEASE</version>
          </dependency>
+         <dependency>
+             <groupId>net.itransformers</groupId>
+             <artifactId>parameterFactoryAPI</artifactId>
+             <version>0.8</version>
+         </dependency>
      </dependencies>
     <build>
         <plugins>

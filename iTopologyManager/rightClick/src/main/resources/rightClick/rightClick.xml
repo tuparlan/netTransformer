@@ -34,6 +34,7 @@
     </bean>
     <bean id="puttyRightClickHandler" class="net.itransformers.topologyviewer.rightclick.impl.PuttyRightClickHandler">
         <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
+
     </bean>
     <bean id="xmlTreeViewHandler" class="net.itransformers.topologyviewer.rightclick.impl.XMLTreeViewHandler">
     </bean>
@@ -50,8 +51,12 @@
     <!--</bean>-->
     <bean id="cmdRightClickHandler" class="net.itransformers.topologyviewer.rightclick.impl.CmdRightClickHandler">
         <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
+        <constructor-arg name="parameterFactoryManagerFactory" ref="xmlParameterFactory"/>
+
     </bean>
     <bean id="shortestPathProvisioning" class="net.itransformers.topologyviewer.rightclick.impl.ShortestPathProvisioning">
         <constructor-arg name="resourceManagerFactory" ref="resourceManagerFactory"/>
+        <constructor-arg name="parameterFactoryManagerFactory" ref="xmlParameterFactory"/>
+
     </bean>
 </beans>

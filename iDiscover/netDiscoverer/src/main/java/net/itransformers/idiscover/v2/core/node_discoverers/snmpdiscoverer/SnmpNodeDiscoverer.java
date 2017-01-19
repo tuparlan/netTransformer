@@ -75,7 +75,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
 
 
 
-    protected SnmpManager getSnmpManager(Map<String,String> resourceSelectionParams,String ipAddressStr){
+    protected SnmpManager getSnmpManager(Map<String,String> resourceSelectionParams,String ipAddressStr) throws IOException {
 
 
         String sysDescr;
@@ -84,15 +84,17 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
         ResourceType snmpResource = resourceProvider(resourceSelectionParams);
         logger.info("Discovering "+ipAddressStr+" with "+snmpResource.getName());
         Map<String,String> initialSnmpConnParams = this.discoveryResource.getParamMap(snmpResource, "snmp");
+        if (initialSnmpConnParams==null) {
+            initialSnmpConnParams = new HashMap<>();
+        }
         initialSnmpConnParams.put("ipAddress", ipAddressStr);
         List<ResourceType> snmpResources = this.discoveryResource.returnResourcesByConnectionType("snmp");
-
 
 
         SnmpManagerCreator snmpManagerCreator = new SnmpManagerCreator(mibLoaderHolder);
         snmpManager = snmpManagerCreator.create(initialSnmpConnParams);
 
-        try {
+
             snmpManager.init();
             sysDescr = snmpManager.snmpGet("1.3.6.1.2.1.1.1.0");
 
@@ -134,10 +136,7 @@ public abstract class SnmpNodeDiscoverer extends AbstractNodeDiscoverer {
 
 
 
-        } catch (IOException e) {
-            logger.error("Something went wrong in SNMP communication with "+ipAddressStr+":Check the stacktrace \n"+e.getStackTrace());
-            return null;
-        }
+
 
         return null;
     }

@@ -21,20 +21,21 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
-import net.itransformers.resourcemanager.ResourceManagerFactory;
-import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
-import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
-import net.itransformers.topologyviewer.gui.GraphViewerPanel;
-import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder;
-import net.itransformers.resourcemanager.ResourceManager;
-import net.itransformers.resourcemanager.config.ResourceType;
-import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
-import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import edu.uci.ics.jung.io.GraphMLMetadata;
+import net.itransformers.parameterfactoryapi.ParameterFactoryManagerFactory;
+import net.itransformers.parameterfactoryapi.ParameterFactoryManger;
+import net.itransformers.resourcemanager.ResourceManager;
+import net.itransformers.resourcemanager.ResourceManagerFactory;
+import net.itransformers.resourcemanager.config.ResourceType;
+import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
+import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFactory;
+import net.itransformers.topologyviewer.gui.GraphViewerPanel;
+import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
+import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
+import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,8 +52,11 @@ import java.util.logging.Logger;
 
 public class ShortestPathProvisioning implements RightClickHandler {
     protected ResourceManagerFactory resourceManagerFactory;
-    public ShortestPathProvisioning(ResourceManagerFactory resourceManagerFactory) {
+    protected ParameterFactoryManagerFactory parameterFactoryMangerFactory;
+
+    public ShortestPathProvisioning(ResourceManagerFactory resourceManagerFactory,ParameterFactoryManagerFactory parameterFactoryManagerFactory) {
         this.resourceManagerFactory = resourceManagerFactory;
+        this.parameterFactoryMangerFactory = parameterFactoryManagerFactory;
     }
 
     public <G> void  handleRightClick(JFrame parent, String v,
@@ -78,7 +82,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
             JOptionPane.showMessageDialog(parent,String.format("Shortest path between %s,%s is not found",v,mTo),"Message",JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
+        ParameterFactoryManger parameterFactoryManager = parameterFactoryMangerFactory.createParameterFactorysManager(props);
 
         Map<String, Map<String, GraphMLMetadata<String>>> vertexMetadatas = viewer.getCurrentGraphViewerManager().getVertexMetadatas();
 //
@@ -112,7 +116,7 @@ public class ShortestPathProvisioning implements RightClickHandler {
             ResourceType resource = resourceManager.findFirstResourceBy(graphMLParams1);
             context.put("connection-params", resourceResolver.getConnectionParams(resource, graphMLParams1, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File (projectPath, rightClickParams.get("fulfilment-factory")),
-                    builder,resource);
+                    parameterFactoryManager,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
             createGUI(element.toString(),context, factoryNames, factory);
 

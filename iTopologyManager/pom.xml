@@ -32,7 +32,6 @@
         <module>rightClick</module>
         <module>topologyViewerConfigAPI</module>
         <module>fulfilmentFactory</module>
-        <module>parameterFactory</module>
         <module>topologyViewer</module>
         <module>launcher</module>
         <module>xmlTopologyViewerConfig</module>

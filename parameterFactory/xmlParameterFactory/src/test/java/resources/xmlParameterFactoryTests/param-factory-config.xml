@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<param-factories-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="../../../xsd/param-factory-config.xsd">
+    <param-factory-element-types>
+        <type name="manual" class="net.itransformers.parameterfactoryapi.impl.GUIParamFactoryElement"/>
+        <type name="graphml" class="net.itransformers.parameterfactoryapi.impl.MapDerivedParamFactoryElement">
+            <param name="contextKey">graphml</param>
+        </type>
+        <type name="resource" class="net.itransformers.parameterfactoryapi.impl.MapDerivedParamFactoryElement">
+            <param name="contextKey">connection-params</param>
+        </type>
+        <type name="deviceData" class="net.itransformers.parameterfactoryapi.impl.XmlParamFactoryElement">
+            <param name="contextXmlFileNameKey">xmlFileName</param>
+        </type>
+    </param-factory-element-types>
+</param-factories-config>
