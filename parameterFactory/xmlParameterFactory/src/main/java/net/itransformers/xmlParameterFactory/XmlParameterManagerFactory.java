@@ -1,6 +1,7 @@
 package net.itransformers.xmlParameterFactory;
 
 
+import net.itransformers.parameterfactoryapi.ParameterFactoryException;
 import net.itransformers.parameterfactoryapi.ParameterFactoryManagerFactory;
 import net.itransformers.parameterfactoryapi.ParameterFactoryManger;
 
@@ -24,10 +25,14 @@ public class XmlParameterManagerFactory implements ParameterFactoryManagerFactor
     }
 
     @Override
-    public ParameterFactoryManger createParameterFactorysManager() {
-           String  xmlParameterFactoryFile = properties.get("xmlParameterFactoryFile");
-           String  xmlParameterFactoryTypesFile = properties.get("xmlParameterFactoryTypesFile");
+    public ParameterFactoryManger createParameterFactorysManager(Map<String, String> props) {
+        String  projectPath = props.get("projectPath");
+        if (projectPath==null){
+            throw new ParameterFactoryException("Project path not specified!");
+        }
+        String  xmlParameterFactoryFile = properties.get("xmlParameterFactoryFile");
+        String  xmlParameterFactoryTypesFile = properties.get("xmlParameterFactoryTypesFile");
 
-        return new XmlParameterFactoryManager(new File(xmlParameterFactoryFile),new File(xmlParameterFactoryTypesFile));
+        return new XmlParameterFactoryManager(new File(projectPath,xmlParameterFactoryFile),new File(projectPath,xmlParameterFactoryTypesFile));
     }
 }

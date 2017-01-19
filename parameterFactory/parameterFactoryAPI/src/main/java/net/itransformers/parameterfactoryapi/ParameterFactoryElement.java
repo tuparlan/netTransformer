@@ -46,5 +46,6 @@ public interface ParameterFactoryElement {
      */
     Map<String, String> createParams(Map<String, Object> context, Map<String, String> currentParams) throws Exception;
 
+    Map<String, String> getParameters();
 
 }

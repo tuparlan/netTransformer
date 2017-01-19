@@ -63,7 +63,12 @@ public class SnmpParallelNodeDiscoverer extends SnmpNodeDiscoverer implements No
         HashMap<String,String> resultParams = new HashMap<>();
         NodeDiscoveryResult result = new NodeDiscoveryResult();
 
-        SnmpManager snmpManager = getSnmpManager(resourceSelectionParams, ipAddressStr);
+        SnmpManager snmpManager = null;
+        try {
+            snmpManager = getSnmpManager(resourceSelectionParams, ipAddressStr);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
 
         if (snmpManager!=null) {
             String hostNameBySnmp = null;

@@ -50,7 +50,7 @@ public class VersionDiffController {
 
     @RequestMapping(value = "/", method= RequestMethod.POST)
     @ResponseBody
-    public void doDiff(@RequestParam(value="versionA", required=true) String versionA,
+    public String doDiff(@RequestParam(value="versionA", required=true) String versionA,
         @RequestParam(value="versionB", required = true) String versionB) {
 
         HashMap<String,Object> props = new HashMap<>();
@@ -69,8 +69,9 @@ public class VersionDiffController {
 
         GraphmlGraph graphC = graphmlDiffer.doDiff(graphA, graphB);
 
+        String versionCName = versionA+"-"+versionB;
         HashMap<String,Object> params = new HashMap<>();
-        params.put("version",versionA+"-"+versionB);
+        params.put("version",versionCName);
         params.put("nodes",graphC.getGraphmlNodes());
         params.put("edges",graphC.getGraphmlEdges());
         params.put("graphDirection","undirected");
@@ -80,11 +81,11 @@ public class VersionDiffController {
 
         createNewDiffVersion(params);
 
-
+        return  versionCName;
 
     }
 
-    private void  createNewDiffVersion(HashMap<String,Object> params){
+    private void   createNewDiffVersion(HashMap<String,Object> params){
 
         Map<String, String> props = new HashMap<>();
         props.put("projectPath", projectPath);
@@ -107,6 +108,7 @@ public class VersionDiffController {
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
+
     }
 
     private String renderGraphmlGraph(HashMap<String,Object> params) throws Exception {

@@ -21,14 +21,14 @@
 
 package net.itransformers.topologyviewer.fulfilmentfactory;
 
+import net.itransformers.parameterfactoryapi.ParameterFactory;
+import net.itransformers.parameterfactoryapi.ParameterFactoryManger;
+import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.fulfilmentfactory.config.FulfilmentFactoriesType;
 import net.itransformers.topologyviewer.fulfilmentfactory.config.FulfilmentFactoryType;
 import net.itransformers.topologyviewer.fulfilmentfactory.config.ParamType;
 import net.itransformers.topologyviewer.fulfilmentfactory.config.TypeType;
 import net.itransformers.topologyviewer.fulfilmentfactory.util.JaxbMarshalar;
-import net.itransformers.topologyviewer.parameterfactory.ParameterFactory;
-import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder;
-import net.itransformers.resourcemanager.config.ResourceType;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -40,19 +40,20 @@ import java.util.logging.Logger;
 public class FulfilmentAdapterFactory {
     private File projectPath;
     private File configFile;
-    private ParameterFactoryBuilder parameterFactoryBuilder;
+    private ParameterFactoryManger parameterFactoryManager;
     private Map<String,TypeType> fulfilmentFactoryTypesMap = new LinkedHashMap<String, TypeType>();
     private Map<String,FulfilmentFactoryType> fulfilmentFactoryMap = new LinkedHashMap<String, FulfilmentFactoryType>();
 
     public FulfilmentAdapterFactory(File projectPath,
                                     File configFile,
-                                    ParameterFactoryBuilder parameterFactoryBuilder,
+                                    ParameterFactoryManger parameterFactoryManager,
                                     ResourceType resource
     ) throws IOException, JAXBException {
         this.projectPath = projectPath;
         this.configFile = configFile;
-        this.parameterFactoryBuilder = parameterFactoryBuilder;
+        this.parameterFactoryManager = parameterFactoryManager;
         FileInputStream is = null;
+
         try {
             is = new FileInputStream(configFile);
             FulfilmentFactoriesType factoriesType = JaxbMarshalar.unmarshal(FulfilmentFactoriesType.class, is);
@@ -74,7 +75,7 @@ public class FulfilmentAdapterFactory {
             throw new RuntimeException(String.format("Can not find fulfilment factory '%s' in file : %s",factoryName,configFile));
         }
         String paramFactoryName = fulfilmentFactory.getParameterFactoryName();
-        ParameterFactory parameterFactory = parameterFactoryBuilder.buildParameterFactory(paramFactoryName);
+        ParameterFactory parameterFactory = parameterFactoryManager.getParameterFactory(paramFactoryName);
         Map<String,String> parameters = parameterFactory.createParameters(parameterFactoryContext);
         String type = fulfilmentFactory.getType();
         TypeType typeType = fulfilmentFactoryTypesMap.get(type);

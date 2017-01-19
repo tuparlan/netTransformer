@@ -81,7 +81,7 @@ public class ParameterFactoryBuilder {
             factoryElement.init(paramsMap,elementParams);
             factoryElementList.add(factoryElement);
         }
-        return new ParameterFactory(factoryName,factoryElementList);
+        return new ParameterFactory(factoryElementList);
     }
 
     public Map<String,ParameterFactory> buildParameterFactories() {

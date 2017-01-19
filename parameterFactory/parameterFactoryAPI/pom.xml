@@ -11,8 +11,11 @@
 
     <groupId>net.itransformers</groupId>
     <artifactId>parameterFactoryAPI</artifactId>
+    <profiles>
+    <profile>
+        <id>schema-genration</id>
 
-     <build>
+    <build>
          <plugins>
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
@@ -49,4 +52,6 @@
              </plugin>
          </plugins>
      </build>
+   </profile>
+    </profiles>
 </project>

@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,11 +22,13 @@ public class XmlParameterFactoryManagerTest {
     @Before
     public void setUp() throws Exception {
 
-       String xmlParameterFactoryFile = baseDir+ File.separator+"parameterFactory/xmlParameterFactory/src/test/java/resources/xmlParameterFactoryTests/param-factory.xml";
-        String xmlParameterFactoryTypesFile = baseDir+ File.separator+"parameterFactory/xmlParameterFactory/src/test/java/resources/xmlParameterFactoryTests/param-factory-config.xml";
+       String xmlParameterFactoryFile = "parameterFactory/xmlParameterFactory/src/test/java/resources/xmlParameterFactoryTests/param-factory.xml";
+        String xmlParameterFactoryTypesFile = "parameterFactory/xmlParameterFactory/src/test/java/resources/xmlParameterFactoryTests/param-factory-config.xml";
         ParameterFactoryManagerFactory parameterFactoryManagerFactory = new XmlParameterManagerFactory(xmlParameterFactoryFile,xmlParameterFactoryTypesFile);
 
-        xmlParameterFactoryManager = parameterFactoryManagerFactory.createParameterFactorysManager();
+       Map<String, String> params  =   new HashMap<String, String>();
+        params.put("projectPath",baseDir);
+        xmlParameterFactoryManager = parameterFactoryManagerFactory.createParameterFactorysManager(params);
     }
 
     @Test

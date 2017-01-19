@@ -11,9 +11,8 @@ postDiscoverer/conf/groovy/cisco_logout.groovy
 postDiscoverer/conf/groovy/cisco_sendCommand.groovy
 postDiscoverer/conf/xml/reportGenerator.xml
 postDiscoverer/conf/xslt/table_creator.xslt
-parameterFactory/conf/xml/param-factory.xml
-parameterFactory/conf/xml/serv-param-factory.xml
-parameterFactory/conf/xml/subscr-param-factory.xml
+xmlParameterFactory/conf/xml/param-factory.xml
+xmlParameterFactory/conf/xml/param-factory-config.xml
 fulfillmentFactory/4to6trans/cisco/ipv6Forwarding.templ
 fulfillmentFactory/4to6trans/cisco/ipv6Interface.templ
 fulfillmentFactory/4to6trans/cisco/IPv6OSPF.templ

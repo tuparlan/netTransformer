@@ -21,6 +21,8 @@
 
 package net.itransformers.topologyviewer.rightclick.impl;
 
+import net.itransformers.parameterfactoryapi.ParameterFactoryManagerFactory;
+import net.itransformers.parameterfactoryapi.ParameterFactoryManger;
 import net.itransformers.resourcemanager.ResourceManager;
 import net.itransformers.resourcemanager.config.ResourceType;
 import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapter;
@@ -28,7 +30,6 @@ import net.itransformers.topologyviewer.fulfilmentfactory.FulfilmentAdapterFacto
 import net.itransformers.topologyviewer.gui.GraphViewerPanel;
 import net.itransformers.topologyviewer.gui.MyVisualizationViewer;
 import net.itransformers.topologyviewer.gui.TopologyManagerFrame;
-import net.itransformers.topologyviewer.parameterfactory.ParameterFactoryBuilder;
 import net.itransformers.topologyviewer.rightclick.RightClickHandler;
 import net.itransformers.utils.ProjectConstants;
 
@@ -50,9 +51,13 @@ import java.util.logging.Logger;
 public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHandler {
     protected ResourceManager resourceManager;
     protected ResourceResolver resourceResolver;
-    public ReconfigureNeighboursCmdRightClickHandler(ResourceManager resourceManager, ResourceResolver resourceResolver) {
+    protected ParameterFactoryManagerFactory parameterFactoryManagerFactory;
+
+    public ReconfigureNeighboursCmdRightClickHandler(ResourceManager resourceManager, ResourceResolver resourceResolver,ParameterFactoryManagerFactory parameterFactoryManagerFactory) {
         this.resourceManager = resourceManager;
         this.resourceResolver = resourceResolver;
+        this.parameterFactoryManagerFactory = parameterFactoryManagerFactory;
+
     }
 
     public <G> void handleRightClick(JFrame parent, String v,
@@ -89,9 +94,10 @@ public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHand
             }
         }
 
+        Map<String,String> paramFactoryProps = new HashMap<>();
+        paramFactoryProps.put("projectPath",projectPath.getAbsolutePath());
+        ParameterFactoryManger parameterFactoryManager = parameterFactoryManagerFactory.createParameterFactorysManager(paramFactoryProps);
 
-
-        ParameterFactoryBuilder builder = new ParameterFactoryBuilder(new File(projectPath,rightClickParams.get("parameterFactoryXml")));
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("graphml", graphMLParams);
         context.put("rightClickParams", rightClickParams);
@@ -103,7 +109,7 @@ public class ReconfigureNeighboursCmdRightClickHandler implements RightClickHand
         if (resource!=null){
             context.put("connection-params", resourceResolver.getConnectionParams(resource, graphMLParams, "telnet"));
             FulfilmentAdapterFactory factory = new FulfilmentAdapterFactory(projectPath, new File(projectPath, rightClickParams.get("fulfilment-factory")),
-                    builder,resource);
+                    parameterFactoryManager,resource);
             String[] factoryNames = factory.getFulfilmentFactoryNamesForResource(resource.getName());
             createGUI(v,context, factoryNames, factory);
 

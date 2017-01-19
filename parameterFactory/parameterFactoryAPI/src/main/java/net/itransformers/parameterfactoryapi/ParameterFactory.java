@@ -21,14 +21,15 @@
 
 package net.itransformers.parameterfactoryapi;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ParameterFactory {
+public class ParameterFactory implements Serializable {
     List<ParameterFactoryElement> elements;
 
-    public ParameterFactory(String name, List<ParameterFactoryElement> elements) {
+    public ParameterFactory(List<ParameterFactoryElement> elements) {
         this.elements = elements;
     }
 

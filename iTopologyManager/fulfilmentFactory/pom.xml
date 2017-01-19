@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>net.itransformers</groupId>
-            <artifactId>parameterFactory</artifactId>
+            <artifactId>parameterFactoryAPI</artifactId>
             <version>0.8</version><!--Change for new version-->
         </dependency>
         <dependency>

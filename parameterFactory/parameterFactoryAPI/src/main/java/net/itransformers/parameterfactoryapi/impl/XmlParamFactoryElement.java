@@ -32,11 +32,12 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class XmlParamFactoryElement implements ParameterFactoryElement {
+public class XmlParamFactoryElement implements ParameterFactoryElement,Serializable {
     static Logger logger = Logger.getLogger(XmlParamFactoryElement.class);
     private String contextXmlFileNameKey;
     private Map<String, String> params;
@@ -86,4 +87,19 @@ public class XmlParamFactoryElement implements ParameterFactoryElement {
         return result;
     }
 
+    public String getContextXmlFileNameKey() {
+        return contextXmlFileNameKey;
+    }
+
+    public void setContextXmlFileNameKey(String contextXmlFileNameKey) {
+        this.contextXmlFileNameKey = contextXmlFileNameKey;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        return params;
+    }
+    public void setParams(Map<String, String> params) {
+        this.params = params;
+    }
 }

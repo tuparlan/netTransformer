@@ -25,10 +25,11 @@ import net.itransformers.parameterfactoryapi.ParameterFactoryElement;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapDerivedParamFactoryElement implements ParameterFactoryElement {
+public class MapDerivedParamFactoryElement implements ParameterFactoryElement,Serializable {
     static Logger logger = Logger.getLogger(MapDerivedParamFactoryElement.class);
     private Map<String, String> params;
     private String contextKey;
@@ -59,5 +60,17 @@ public class MapDerivedParamFactoryElement implements ParameterFactoryElement {
             }
         }
         return result;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        return params;
+    }
+    public String getContextKey() {
+        return contextKey;
+    }
+
+    public void setParams(Map<String, String> params) {
+        this.params = params;
     }
 }

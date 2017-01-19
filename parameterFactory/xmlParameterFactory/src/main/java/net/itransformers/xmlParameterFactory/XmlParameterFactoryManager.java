@@ -3,6 +3,7 @@ package net.itransformers.xmlParameterFactory;
 
 import net.itransformers.parameterfactoryapi.ParameterFactory;
 import net.itransformers.parameterfactoryapi.ParameterFactoryBuilder;
+import net.itransformers.parameterfactoryapi.ParameterFactoryException;
 import net.itransformers.parameterfactoryapi.ParameterFactoryManger;
 import net.itransformers.parameterfactoryapi.model.*;
 import net.itransformers.parameterfactoryapi.util.JaxbMarshalar;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,8 +24,8 @@ public class XmlParameterFactoryManager implements ParameterFactoryManger {
     private File paramFactoriesElementsFile;
 
     private Map<String, ParameterFactory> parameterFactories;
-    ParameterFactoryBuilder parameterFactoryBuilder;
-    private ParamFactoriesType paramFactoriesType;
+    ParamFactoriesType paramFactoriesType;
+
 
     public XmlParameterFactoryManager(File paramFactoriesFile, File paramFactoriesElements) {
         this.paramFactoriesFile = paramFactoriesFile;
@@ -41,9 +43,11 @@ public class XmlParameterFactoryManager implements ParameterFactoryManger {
 
         Map<String, ParamFactoryType> parameterFactoryTypeMap = new HashMap<String, ParamFactoryType>();
         Map<String, TypeType> parameterFactoryElementTypesMap = new HashMap<String, TypeType>();
+        ParameterFactoryBuilder parameterFactoryBuilder;
 
         FileInputStream is = null;
         try {
+
             is = new FileInputStream(this.paramFactoriesFile);
             paramFactoriesType = JaxbMarshalar.unmarshal(ParamFactoriesType.class, is);
             for (ParamFactoryType paramFactoryType : paramFactoriesType.getParamFactory()) {
@@ -82,9 +86,41 @@ public class XmlParameterFactoryManager implements ParameterFactoryManger {
         return parameterFactories;
     }
 
+    @Override
+    public ParamFactoriesType getParamFactoryTypes() {
+        return paramFactoriesType;
+    }
+
+    @Override
+    public ParamFactoryType getParamFactoryType(String name) {
+
+        for(ParamFactoryType paramFactoryType : paramFactoriesType.getParamFactory())
+            if (paramFactoryType.getName().equals(name))
+                return paramFactoryType;
+
+        throw new ParameterFactoryException("Parameter factory "+name+" not found!!!");
+    }
+
+    @Override
+    public ParamFactoryElementType getParamFactoryElementType(String name, String type) {
+
+        for(ParamFactoryType paramFactoryType : paramFactoriesType.getParamFactory())
+            if (paramFactoryType.getName().equals(name)) {
+
+                List<ParamFactoryElementType> paramFactoryElements = paramFactoryType.getParamFactoryElement();
+                for (ParamFactoryElementType paramFactoryElement : paramFactoryElements) {
+                    if (paramFactoryElement.getType().equals(type)) {
+                        return paramFactoryElement;
+                    }
+
+                }
+
+            }
 
 
+        throw new ParameterFactoryException("Parameter factoryElement with type=" +type+ " in parameter factory "+name+" has not been found!!!");
 
+    }
 
 
 }

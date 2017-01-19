@@ -30,10 +30,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GUIParamFactoryElement implements ParameterFactoryElement {
+public class GUIParamFactoryElement implements ParameterFactoryElement, Serializable{
 
     private Map<String, String> params;
 
@@ -92,6 +93,8 @@ public class GUIParamFactoryElement implements ParameterFactoryElement {
 
     }
 
+
+
     class MapTableModel extends AbstractTableModel {
         protected Map map;
         protected String[] columnNames;
@@ -148,6 +151,11 @@ public class GUIParamFactoryElement implements ParameterFactoryElement {
             fireTableCellUpdated(row, column);
         }
     } // end MapTableModel
+
+    @Override
+    public Map<String, String> getParameters() {
+        return params;
+    }
 
     public static void main(String[] args) {
         GUIParamFactoryElement factoryElement = new GUIParamFactoryElement();

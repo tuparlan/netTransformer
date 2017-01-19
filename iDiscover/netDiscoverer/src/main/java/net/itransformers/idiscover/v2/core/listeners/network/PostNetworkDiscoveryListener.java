@@ -74,7 +74,7 @@ public class PostNetworkDiscoveryListener implements NetworkDiscoveryListener {
 
     @Override
     public void networkDiscovered(NetworkDiscoveryResult result) {
-        logger.info("Starting PostNetwork Discovery Listener");
+     //   System.out.println("Starting PostNetwork Discovery Listener");
         File postDiscoveryConfing = new File(projectPath + reportGeneratorPath);
 
         FileInputStream is = null;
